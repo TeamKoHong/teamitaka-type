@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import ProgressBar from '@/components/ProgressBar';
 import QuestionCard from '@/components/QuestionCard';
@@ -55,14 +55,14 @@ export default function QuizPage() {
     }
   };
 
-  const handleBack = () => {
+  const handleBack = useCallback(() => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
       setAnswers(answers.slice(0, -1));
     } else {
       router.push('/');
     }
-  };
+  }, [currentQuestion, answers, router]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

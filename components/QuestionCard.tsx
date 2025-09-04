@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface QuestionCardProps {
   question: string;
@@ -21,6 +21,30 @@ export default function QuestionCard({
 }: QuestionCardProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<boolean | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
+
+  const handleAnswerSubmit = useCallback((answer: boolean = selectedAnswer!) => {
+    if (answer === null || isLoading) return;
+    
+    onAnswer(answer);
+    
+    // 다음 질문을 위한 상태 리셋
+    setTimeout(() => {
+      setSelectedAnswer(null);
+      setIsAnimating(false);
+    }, 100);
+  }, [selectedAnswer, isLoading, onAnswer]);
+
+  const handleAnswerSelect = useCallback((answer: boolean) => {
+    if (isLoading) return;
+    
+    setSelectedAnswer(answer);
+    setIsAnimating(true);
+    
+    // 애니메이션 후 자동 진행
+    setTimeout(() => {
+      handleAnswerSubmit(answer);
+    }, 300);
+  }, [isLoading, handleAnswerSubmit]);
 
   // 키보드 네비게이션
   useEffect(() => {
@@ -50,30 +74,6 @@ export default function QuestionCard({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedAnswer, isLoading, handleAnswerSelect, handleAnswerSubmit]);
-
-  const handleAnswerSelect = (answer: boolean) => {
-    if (isLoading) return;
-    
-    setSelectedAnswer(answer);
-    setIsAnimating(true);
-    
-    // 애니메이션 후 자동 진행
-    setTimeout(() => {
-      handleAnswerSubmit(answer);
-    }, 300);
-  };
-
-  const handleAnswerSubmit = (answer: boolean = selectedAnswer!) => {
-    if (answer === null || isLoading) return;
-    
-    onAnswer(answer);
-    
-    // 다음 질문을 위한 상태 리셋
-    setTimeout(() => {
-      setSelectedAnswer(null);
-      setIsAnimating(false);
-    }, 100);
-  };
 
   return (
     <div className={`card max-w-2xl mx-auto ${className} ${isAnimating ? 'animate-scale-in' : ''}`}>
