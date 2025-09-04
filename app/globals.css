@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Pretendard 폰트 로딩 */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+@layer base {
+  html {
+    font-display: swap;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Pretendard', 'Noto Sans KR', system-ui, sans-serif;
+    background-color: theme('colors.light.bg');
+    color: theme('colors.light.text');
+  }
+
+  .dark body {
+    background-color: theme('colors.dark.bg');
+    color: theme('colors.dark.text');
+  }
+
+  /* 접근성 개선 */
+  *:focus-visible {
+    outline: 2px solid theme('colors.primary');
+    outline-offset: 2px;
+  }
+
+  /* 터치 대상 최소 크기 */
+  button, a, input, textarea, select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white font-semibold py-3 px-6 rounded-2xl 
+           shadow-card transition-all duration-200 
+           hover:shadow-lg active:scale-95 
+           focus:ring-2 focus:ring-primary focus:ring-opacity-50;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-gray-700 font-semibold py-3 px-6 rounded-2xl 
+           border border-gray-200 shadow-card transition-all duration-200 
+           hover:shadow-lg hover:border-gray-300 active:scale-95
+           dark:bg-dark-card dark:text-dark-text dark:border-gray-600;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-card p-6 
+           dark:bg-dark-card dark:shadow-card-dark;
+  }
+
+  .progress-bar {
+    @apply w-full bg-gray-200 rounded-full h-2 
+           dark:bg-gray-700;
+  }
+
+  .progress-fill {
+    @apply bg-primary h-2 rounded-full transition-all duration-300;
+  }
+
+  .question-text {
+    @apply text-lg leading-relaxed text-center 
+           text-light-text dark:text-dark-text;
+  }
+
+  .choice-button {
+    @apply w-full p-4 text-left rounded-2xl border-2 
+           transition-all duration-200 font-medium
+           hover:shadow-md active:scale-95
+           focus:ring-2 focus:ring-primary focus:ring-opacity-50;
+  }
+
+  .choice-button.unselected {
+    @apply bg-white border-gray-200 text-gray-700
+           hover:border-gray-300
+           dark:bg-dark-card dark:border-gray-600 dark:text-dark-text;
+  }
+
+  .choice-button.selected {
+    @apply bg-primary border-primary text-white
+           shadow-lg transform scale-105;
+  }
+
+  .result-card {
+    @apply bg-white rounded-2xl shadow-card p-8 max-w-md mx-auto
+           dark:bg-dark-card dark:shadow-card-dark;
+  }
+
+  .type-nickname {
+    @apply text-3xl font-bold text-center mb-4
+           text-primary dark:text-primary;
+  }
+
+  .type-subtitle {
+    @apply text-lg text-center text-gray-600 mb-6
+           dark:text-dark-secondary;
+  }
+
+  .section-title {
+    @apply text-xl font-bold mb-4 text-light-text
+           dark:text-dark-text;
+  }
+
+  .tip-item {
+    @apply flex items-start space-x-3 mb-3;
+  }
+
+  .tip-number {
+    @apply flex-shrink-0 w-6 h-6 bg-primary text-white 
+           rounded-full text-sm font-bold flex items-center justify-center;
+  }
+
+  .share-bar {
+    @apply fixed bottom-0 left-0 right-0 bg-white border-t 
+           border-gray-200 p-4 flex gap-3
+           dark:bg-dark-card dark:border-gray-600;
+  }
+
+  .toast {
+    @apply fixed top-4 left-1/2 transform -translate-x-1/2 
+           bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg
+           z-50 animate-fade-in;
+  }
+}
+
+/* 인쇄 및 이미지 캡쳐용 스타일 */
+@media print, screen and (max-width: 0) {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* 모바일 최적화 */
+@media (max-width: 430px) {
+  .card {
+    @apply mx-4;
+  }
+  
+  .result-card {
+    @apply mx-4 p-6;
+  }
+  
+  .type-nickname {
+    @apply text-2xl;
+  }
+}
+
+/* 스와이프 제스처 비활성화 (네비게이션 우선) */
+.quiz-container {
+  touch-action: pan-y pinch-zoom;
+}

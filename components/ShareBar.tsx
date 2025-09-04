@@ -1,0 +1,177 @@
+'use client';
+
+import { useState } from 'react';
+import html2canvas from 'html2canvas';
+
+interface ShareBarProps {
+  typeCode: string;
+  nickname: string;
+  onRetest: () => void;
+  className?: string;
+}
+
+export default function ShareBar({ typeCode, nickname, onRetest, className = '' }: ShareBarProps) {
+  const [isSharing, setIsSharing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
+
+  const showToast = (message: string) => {
+    setToast(message);
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const handleShare = async () => {
+    setIsSharing(true);
+    
+    try {
+      const shareData = {
+        title: `나는 ${nickname}!`,
+        text: `TEAMITAKA 타입 테스트 결과: ${nickname} - 나의 협업 타입을 확인해보세요!`,
+        url: window.location.origin + `/result/${typeCode}`
+      };
+
+      // Web Share API 지원 여부 확인
+      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+        await navigator.share(shareData);
+        showToast('공유가 완료되었습니다!');
+      } else {
+        // 폴백: 클립보드에 링크 복사
+        await navigator.clipboard.writeText(shareData.url);
+        showToast('링크가 복사되었습니다!');
+      }
+    } catch (error) {
+      console.error('공유 실패:', error);
+      
+      // 클립보드 복사 폴백
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('링크가 복사되었습니다!');
+      } catch {
+        showToast('공유에 실패했습니다.');
+      }
+    } finally {
+      setIsSharing(false);
+    }
+  };
+
+  const handleSaveImage = async () => {
+    setIsSaving(true);
+
+    try {
+      const cardElement = document.getElementById('result-card');
+      if (!cardElement) {
+        throw new Error('결과 카드를 찾을 수 없습니다.');
+      }
+
+      // 폰트 로딩 대기
+      await document.fonts.ready;
+
+      // html2canvas 옵션 설정
+      const canvas = await html2canvas(cardElement, {
+        backgroundColor: null,
+        scale: 2, // 고해상도
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+        width: 400,
+        height: 600,
+        onclone: (clonedDoc) => {
+          // 복제된 문서에서 캡쳐 모드 활성화
+          const clonedCard = clonedDoc.getElementById('result-card');
+          if (clonedCard) {
+            clonedCard.style.width = '400px';
+            clonedCard.style.height = '600px';
+            clonedCard.style.padding = '32px';
+            clonedCard.style.boxSizing = 'border-box';
+          }
+        }
+      });
+
+      // 이미지 다운로드
+      const today = new Date().toISOString().split('T')[0].replace(/-/g, '');
+      const fileName = `teamitaka-type_${typeCode}_${today}.png`;
+      
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = fileName;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          
+          showToast('이미지가 저장되었습니다!');
+        } else {
+          throw new Error('이미지 생성에 실패했습니다.');
+        }
+      }, 'image/png');
+
+    } catch (error) {
+      console.error('이미지 저장 실패:', error);
+      showToast('이미지 저장에 실패했습니다.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  return (
+    <>
+      <div className={`share-bar ${className}`}>
+        <button
+          onClick={handleShare}
+          disabled={isSharing}
+          className="flex-1 flex items-center justify-center space-x-2 py-3 px-4 
+                     bg-gray-100 hover:bg-gray-200 rounded-2xl transition-colors
+                     dark:bg-gray-700 dark:hover:bg-gray-600
+                     disabled:opacity-50"
+        >
+          {isSharing ? (
+            <div className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+          ) : (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                    d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+            </svg>
+          )}
+          <span>카드 공유</span>
+        </button>
+
+        <button
+          onClick={handleSaveImage}
+          disabled={isSaving}
+          className="flex-1 flex items-center justify-center space-x-2 py-3 px-4 
+                     btn-primary disabled:opacity-50"
+        >
+          {isSaving ? (
+            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          ) : (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          )}
+          <span>카드 저장</span>
+        </button>
+      </div>
+
+      {/* 다시하기 링크 */}
+      <div className="text-center mt-4 mb-6">
+        <button
+          onClick={onRetest}
+          className="text-primary hover:text-primary/80 underline text-sm transition-colors"
+        >
+          테스트 다시하기
+        </button>
+      </div>
+
+      {/* 토스트 알림 */}
+      {toast && (
+        <div className="toast animate-fade-in">
+          {toast}
+        </div>
+      )}
+    </>
+  );
+}
