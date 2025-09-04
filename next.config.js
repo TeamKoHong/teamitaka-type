@@ -6,6 +6,14 @@ const nextConfig = {
   images: {
     domains: ['type.teamitaka.com'],
   },
+  // TypeScript 빌드 에러를 경고로 처리 (테스트 파일 때문)
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  // ESLint 에러를 경고로 처리
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
   async redirects() {
     return [];
   },
