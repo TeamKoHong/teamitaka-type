@@ -64,13 +64,13 @@ export default function QuizPage() {
     }
   };
 
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      handleBack();
-    }
-  };
-
   useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        handleBack();
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentQuestion]);
@@ -85,7 +85,7 @@ export default function QuizPage() {
 
     window.addEventListener('popstate', handlePopstate);
     return () => window.removeEventListener('popstate', handlePopstate);
-  }, [currentQuestion]);
+  }, [currentQuestion, handleBack]);
 
   const isLastQuestion = currentQuestion + 1 === questions.length;
 

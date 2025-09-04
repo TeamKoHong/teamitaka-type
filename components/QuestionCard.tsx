@@ -49,7 +49,7 @@ export default function QuestionCard({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedAnswer, isLoading]);
+  }, [selectedAnswer, isLoading, handleAnswerSelect, handleAnswerSubmit]);
 
   const handleAnswerSelect = (answer: boolean) => {
     if (isLoading) return;
