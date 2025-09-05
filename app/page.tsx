@@ -9,7 +9,7 @@ export default function HomePage() {
   const [showToast, setShowToast] = useState(false);
 
   const handleStartTest = () => {
-    router.push('/test');
+    router.push('/quiz');
   };
 
   const handleShare = async () => {
