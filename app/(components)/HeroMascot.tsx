@@ -13,7 +13,7 @@ export default function HeroMascot() {
       {/* Mascot with float animation */}
       <div className="animate-float">
         <Image
-          src="/mascot.svg"
+          src="/4x.png"
           alt="TEAMITAKA 캐릭터"
           width={200}
           height={200}
