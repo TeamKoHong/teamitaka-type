@@ -51,7 +51,7 @@ export default function HomePage() {
             id="headline"
             className="text-3xl font-bold tracking-tight leading-tight"
           >
-            티미타가 <span className="text-[var(--brand)]">캐릭터</span> 찾기
+            티미타카 <span className="text-[var(--brand)]">캐릭터</span> 찾기
           </h1>
         </div>
 
