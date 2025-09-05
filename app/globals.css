@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --brand: #F76241;
+  --bg: #2C2C2C;
+  --text: #FFFFFF;
+  --muted: #B5B5B8;
+  --elev: rgba(0,0,0,0.25);
+}
+
 /* Pretendard 폰트 로딩 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 
@@ -13,13 +21,17 @@
 
   body {
     font-family: 'Pretendard', 'Noto Sans KR', system-ui, sans-serif;
-    background-color: theme('colors.light.bg');
-    color: theme('colors.light.text');
+    background-color: var(--bg);
+    color: var(--text);
   }
 
-  .dark body {
-    background-color: theme('colors.dark.bg');
-    color: theme('colors.dark.text');
+  @supports (padding: env(safe-area-inset-top)) {
+    .safe-top {
+      padding-top: env(safe-area-inset-top);
+    }
+    .safe-bottom {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
   }
 
   /* 접근성 개선 */
