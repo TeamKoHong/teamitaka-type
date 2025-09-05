@@ -16,7 +16,7 @@ export default function HomePage() {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: '티미타가 캐릭터 찾기',
+          title: '티미타카 캐릭터 찾기',
           text: '프로젝트 가치관으로 알아보는 캐릭터 테스트',
           url: window.location.href,
         });
