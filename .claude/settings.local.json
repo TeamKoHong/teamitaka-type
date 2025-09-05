@@ -8,7 +8,9 @@
       "Bash(echo \"Build status: $?\")",
       "Bash(npm run test:*)",
       "Bash(npm run type-check:*)",
-      "Bash(npm install)"
+      "Bash(npm install)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []
