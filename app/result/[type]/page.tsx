@@ -116,17 +116,30 @@ export default function ResultPage() {
             <h2 className="text-lg font-semibold text-center mb-4 text-white">
               나의 티미 카드
             </h2>
-            <div className="flex justify-center">
-              <TimiCard
-                name={currentTimiCard.name}
-                front={currentTimiCard.front}
-                back={currentTimiCard.back}
-                initialFace="front"
-              />
+            <div className="flex justify-center mb-4">
+              <div className="w-48 h-64">
+                <TimiCard
+                  name={currentTimiCard.name}
+                  front={currentTimiCard.front}
+                  back={currentTimiCard.back}
+                  initialFace="front"
+                />
+              </div>
             </div>
-            <p className="text-sm text-gray-400 text-center mt-2">
+            <p className="text-center text-white font-medium mb-4">
+              {currentTimiCard.name}
+            </p>
+            <p className="text-sm text-gray-400 text-center mb-4">
               카드를 클릭하면 앞/뒤가 뒤집힙니다
             </p>
+            <div className="flex justify-center">
+              <button
+                onClick={() => router.push('/timi')}
+                className="px-6 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors"
+              >
+                자세히 보기
+              </button>
+            </div>
           </div>
         )}
 
@@ -173,17 +186,30 @@ export default function ResultPage() {
               <h2 className="text-lg font-semibold text-center mb-4 text-white">
                 나의 티미 카드
               </h2>
-              <div className="flex justify-center">
-                <TimiCard
-                  name={currentTimiCard.name}
-                  front={currentTimiCard.front}
-                  back={currentTimiCard.back}
-                  initialFace="front"
-                />
+              <div className="flex justify-center mb-4">
+                <div className="w-48 h-64">
+                  <TimiCard
+                    name={currentTimiCard.name}
+                    front={currentTimiCard.front}
+                    back={currentTimiCard.back}
+                    initialFace="front"
+                  />
+                </div>
               </div>
-              <p className="text-sm text-gray-400 text-center mt-2">
+              <p className="text-center text-white font-medium mb-4">
+                {currentTimiCard.name}
+              </p>
+              <p className="text-sm text-gray-400 text-center mb-4">
                 카드를 클릭하면 앞/뒤가 뒤집힙니다
               </p>
+              <div className="flex justify-center">
+                <button
+                  onClick={() => router.push('/timi')}
+                  className="px-6 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors"
+                >
+                  자세히 보기
+                </button>
+              </div>
             </div>
           )}
         </div>

@@ -25,12 +25,12 @@ export default function TimiCard({
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center h-full">
       <button
         type="button"
         aria-pressed={!isFront}
         onClick={handleFlip}
-        className="group relative w-full aspect-[5/7] cursor-pointer rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 transition-transform duration-300 hover:scale-[1.02] active:scale-[0.99]"
+        className="group relative w-full h-full cursor-pointer rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 transition-transform duration-300 hover:scale-[1.02] active:scale-[0.99]"
       >
         <div
           className={`relative h-full w-full rounded-xl shadow-md transition-transform duration-500 [transform-style:preserve-3d] ${
@@ -56,11 +56,6 @@ export default function TimiCard({
           </div>
         </div>
       </button>
-      
-      {/* 카드 이름 */}
-      <span className="mt-2 block text-center text-sm text-neutral-800 dark:text-neutral-200 font-medium">
-        {name}
-      </span>
     </div>
   );
 }
