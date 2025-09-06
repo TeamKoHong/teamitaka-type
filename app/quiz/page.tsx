@@ -66,7 +66,7 @@ export default function QuizPage() {
             });
           }
 
-          router.push(`/result/${encodeURIComponent(mbtiType)}`);
+          router.push(`/analysis-complete?type=${encodeURIComponent(mbtiType)}`);
         } catch (error) {
           console.error('타입 계산 오류:', error);
           alert('결과 분석 중 오류가 발생했습니다. 다시 시도해주세요.');
