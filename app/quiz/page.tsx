@@ -31,6 +31,14 @@ export default function QuizPage() {
       // 결과 분석 (의도적 지연으로 UX 개선)
       setTimeout(() => {
         try {
+          console.log('답변 배열 길이:', newAnswers.length);
+          console.log('질문 총 개수:', questions.length);
+          console.log('답변 내용:', newAnswers);
+          
+          if (newAnswers.length !== questions.length) {
+            throw new Error(`답변 길이 불일치: ${newAnswers.length}개 답변, ${questions.length}개 질문`);
+          }
+          
           const mbtiType = calculateMBTIType(newAnswers);
           
           // 완료 이벤트
