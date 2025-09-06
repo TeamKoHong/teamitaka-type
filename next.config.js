@@ -5,6 +5,7 @@ const nextConfig = {
   },
   images: {
     domains: ['type.teamitaka.com'],
+    unoptimized: false,
   },
   // TypeScript 빌드 에러를 경고로 처리 (테스트 파일 때문)
   typescript: {

@@ -39,24 +39,19 @@ export default function TimiCard({
         >
           {/* 앞면 */}
           <div className="absolute inset-0 rounded-xl overflow-hidden [backface-visibility:hidden] z-10">
-            <Image
+            <img
               src={safePublicSrc(front)}
               alt={`${name} 앞면`}
-              fill
-              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-              className="object-cover"
-              priority={true}
+              className="w-full h-full object-cover"
             />
           </div>
           
           {/* 뒷면 */}
           <div className="absolute inset-0 rounded-xl overflow-hidden [backface-visibility:hidden] [transform:rotateY(180deg)]">
-            <Image
+            <img
               src={safePublicSrc(back)}
               alt={`${name} 뒷면`}
-              fill
-              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-              className="object-cover"
+              className="w-full h-full object-cover"
             />
           </div>
         </div>
