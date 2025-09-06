@@ -17,11 +17,6 @@ export default function ResultPage() {
   // URL 디코딩 처리
   const typeCode = rawTypeCode ? decodeURIComponent(rawTypeCode) : '';
   
-  // 디버깅을 위한 로그
-  console.log('Raw typeCode:', rawTypeCode);
-  console.log('Decoded typeCode:', typeCode);
-  console.log('Available keys:', Object.keys(TYPE_METADATA));
-  
   const [viewMode, setViewMode] = useState<ViewMode>('light-card');
   const [isLoading, setIsLoading] = useState(true);
 
