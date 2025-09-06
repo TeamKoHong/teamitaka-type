@@ -12,12 +12,20 @@ type ViewMode = 'light-card' | 'dark-fullscreen';
 export default function ResultPage() {
   const router = useRouter();
   const params = useParams();
-  const typeCode = params.type as string;
+  const rawTypeCode = params.type as string;
+  
+  // URL 디코딩 처리
+  const typeCode = rawTypeCode ? decodeURIComponent(rawTypeCode) : '';
+  
+  // 디버깅을 위한 로그
+  console.log('Raw typeCode:', rawTypeCode);
+  console.log('Decoded typeCode:', typeCode);
+  console.log('Available keys:', Object.keys(TYPE_METADATA));
   
   const [viewMode, setViewMode] = useState<ViewMode>('light-card');
   const [isLoading, setIsLoading] = useState(true);
 
-  const typeMeta = TYPE_METADATA[typeCode?.toUpperCase()];
+  const typeMeta = TYPE_METADATA[typeCode];
 
   useEffect(() => {
     // 타입 유효성 검사
@@ -30,7 +38,7 @@ export default function ResultPage() {
     if (typeof window !== 'undefined' && (window as any).plausible) {
       (window as any).plausible('Result Viewed', { 
         props: { 
-          type: typeCode.toUpperCase(),
+          type: typeCode,
           nickname: typeMeta.nickname 
         } 
       });
@@ -102,7 +110,7 @@ export default function ResultPage() {
         {/* 하단 액션 버튼들 */}
         <div className="max-w-md mx-auto space-y-4">
           <ShareBar
-            typeCode={typeCode.toUpperCase()}
+            typeCode={typeCode}
             nickname={typeMeta.nickname}
             onRetest={handleRetest}
           />
@@ -180,7 +188,7 @@ export default function ResultPage() {
       {/* 하단 고정 액션 바 */}
       <div className="fixed bottom-0 left-0 right-0">
         <ShareBar
-          typeCode={typeCode.toUpperCase()}
+          typeCode={typeCode}
           nickname={typeMeta.nickname}
           onRetest={handleRetest}
           className="bg-white dark:bg-dark-card border-t border-gray-200 dark:border-gray-700 p-4"

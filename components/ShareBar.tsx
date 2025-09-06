@@ -27,7 +27,7 @@ export default function ShareBar({ typeCode, nickname, onRetest, className = '' 
       const shareData = {
         title: `나는 ${nickname}!`,
         text: `TEAMITAKA 타입 테스트 결과: ${nickname} - 나의 협업 타입을 확인해보세요!`,
-        url: window.location.origin + `/result/${typeCode}`
+        url: window.location.origin + `/result/${encodeURIComponent(typeCode)}`
       };
 
       // Web Share API 지원 여부 확인
