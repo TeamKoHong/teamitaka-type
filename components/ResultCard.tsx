@@ -6,7 +6,7 @@ interface ResultCardProps {
   typeMeta: TypeMeta;
   isDark?: boolean;
   className?: string;
-  captureMode?: boolean; // 캡쳐용 모드
+  captureMode?: boolean;
 }
 
 export default function ResultCard({ 
@@ -36,32 +36,16 @@ export default function ResultCard({
     >
       {/* 카드 헤더 */}
       <div className="text-center mb-8">
-        {/* 타입 코드 */}
-        <div 
-          className="inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4"
-          style={{ 
-            backgroundColor: accentColor + '20', 
-            color: accentColor 
-          }}
-        >
-          {typeMeta.code}
-        </div>
-        
         {/* 닉네임 */}
         <h1 
-          className="type-nickname"
+          className="text-3xl font-bold mb-4"
           style={{ color: accentColor }}
         >
           {typeMeta.nickname}
         </h1>
-        
-        {/* 한줄 소개 */}
-        <p className={`type-subtitle ${subtitleClass}`}>
-          {typeMeta.oneLiner}
-        </p>
       </div>
 
-      {/* 썸네일 영역 (추후 일러스트 대체) */}
+      {/* 썸네일 영역 */}
       <div className="mb-8 flex justify-center">
         <div 
           className="w-32 h-32 rounded-2xl flex items-center justify-center"
@@ -71,67 +55,57 @@ export default function ResultCard({
             className="text-4xl font-bold"
             style={{ color: accentColor }}
           >
-            {typeMeta.code.charAt(0)}
+            {typeMeta.nickname.charAt(0)}
           </div>
         </div>
       </div>
 
-      {/* 타입 설명 */}
-      <div className="mb-6">
-        <p className="text-sm leading-relaxed text-left">
-          {typeMeta.description}
-        </p>
-      </div>
-
-      {/* 강점 */}
-      <div className="mb-6">
-        <h3 className="section-title text-base mb-3">주요 강점</h3>
-        <div className="flex flex-wrap gap-2">
-          {typeMeta.strengths.map((strength, index) => (
-            <span
-              key={index}
-              className="px-3 py-1 text-sm rounded-full border"
-              style={{
-                borderColor: accentColor + '30',
-                backgroundColor: accentColor + '10',
-                color: isDark ? accentColor : accentColor
-              }}
-            >
-              {strength}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* 궁합 */}
-      <div className="mb-6">
-        <h3 className="section-title text-base mb-3">나와 잘 어울리는 티미 유형</h3>
-        <div className="space-y-2">
-          {typeMeta.bestMatches.map((match, index) => (
-            <div key={index} className="flex items-center space-x-2">
-              <div 
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: accentColor }}
-              />
-              <span className="text-sm">{match}</span>
+      {/* 능력치 */}
+      <div className="mb-8">
+        <h3 className="text-lg font-bold mb-4 text-center">능력치</h3>
+        <div className="space-y-3">
+          {Object.entries(typeMeta.stats).map(([statName, value]) => (
+            <div key={statName} className="flex items-center justify-between">
+              <span className="text-sm font-medium">{statName}</span>
+              <div className="flex items-center space-x-2">
+                <div className="flex space-x-1">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <div
+                      key={i}
+                      className="w-4 h-4 rounded-full"
+                      style={{
+                        backgroundColor: i <= value ? accentColor : (isDark ? '#444' : '#e5e5e5')
+                      }}
+                    />
+                  ))}
+                </div>
+                <span className="text-lg font-bold" style={{ color: accentColor }}>{value}</span>
+              </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* TIP */}
-      <div className="mb-6">
-        <h3 className="section-title text-base mb-3">적응티미 TIP</h3>
-        <div className="space-y-3">
-          {typeMeta.tips.map((tip, index) => (
-            <div key={index} className="tip-item">
-              <div 
-                className="tip-number"
-                style={{ backgroundColor: accentColor }}
-              >
-                {index + 1}
+      {/* 잘 맞는 티미 */}
+      <div className="mb-8">
+        <h3 className="text-lg font-bold mb-4 text-center">잘 맞는 티미</h3>
+        <div className="space-y-4">
+          {typeMeta.bestMatches.map((match, index) => (
+            <div key={index} className="p-3 rounded-lg" style={{ backgroundColor: accentColor + '10' }}>
+              <div className="flex items-start space-x-3">
+                <div 
+                  className="w-3 h-3 rounded-full mt-1 flex-shrink-0"
+                  style={{ backgroundColor: accentColor }}
+                />
+                <div>
+                  <div className="font-semibold text-sm" style={{ color: accentColor }}>
+                    {match.name}
+                  </div>
+                  <div className="text-xs mt-1 leading-relaxed">
+                    {match.reason}
+                  </div>
+                </div>
               </div>
-              <p className="text-sm leading-relaxed">{tip}</p>
             </div>
           ))}
         </div>
