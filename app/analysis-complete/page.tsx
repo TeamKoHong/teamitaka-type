@@ -2,6 +2,9 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
+import { TYPE_METADATA } from '@/lib/types';
+import { timiCards } from '@/lib/data/timiCards';
+import TimiCard from '@/components/TimiCard';
 
 function AnalysisCompleteContent() {
   const router = useRouter();
@@ -15,6 +18,13 @@ function AnalysisCompleteContent() {
       setTypeCode(type);
     }
   }, [searchParams]);
+
+  // 타입 메타데이터와 티미 카드 찾기
+  const typeMeta = typeCode ? TYPE_METADATA[typeCode] : null;
+  const currentTimiCard = typeMeta ? timiCards.find(card => 
+    card.name === typeMeta.nickname || 
+    card.name.includes(typeMeta.nickname?.replace('티미', '') || '')
+  ) : null;
 
   const handleViewDetails = () => {
     if (typeCode) {
@@ -71,11 +81,38 @@ function AnalysisCompleteContent() {
         </div>
 
         {/* 카드 영역 */}
-        <div className="bg-gray-200 rounded-xl h-64 mb-8 flex items-center justify-center">
-          <div className="w-16 h-16 bg-white rounded-full border-2 border-blue-300 flex items-center justify-center">
-            <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
-          </div>
+        <div className="mb-8 flex justify-center">
+          {currentTimiCard ? (
+            <div className="w-48 h-64">
+              <TimiCard
+                name={currentTimiCard.name}
+                front={currentTimiCard.front}
+                back={currentTimiCard.back}
+                initialFace="front"
+              />
+            </div>
+          ) : (
+            <div className="bg-gray-200 rounded-xl h-64 w-48 flex items-center justify-center">
+              <div className="w-16 h-16 bg-white rounded-full border-2 border-blue-300 flex items-center justify-center">
+                <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
+              </div>
+            </div>
+          )}
         </div>
+
+        {/* 티미 이름 표시 */}
+        {currentTimiCard && (
+          <div className="text-center mb-4">
+            <h2 className="text-xl font-bold text-black">
+              {currentTimiCard.name}
+            </h2>
+            {typeMeta && (
+              <p className="text-sm text-gray-600 mt-1">
+                {typeMeta.subtitle}
+              </p>
+            )}
+          </div>
+        )}
 
         {/* 액션 버튼들 */}
         <div className="space-y-4 mb-6">
