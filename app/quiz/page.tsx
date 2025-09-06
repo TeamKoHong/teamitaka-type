@@ -16,7 +16,15 @@ export default function QuizPage() {
   const handleAnswer = async (answer: boolean) => {
     if (isProcessing) return;
 
-    const newAnswers = [...answers, answer];
+    // 현재 질문에 대한 답변만 추가 (중복 방지)
+    const newAnswers = [...answers];
+    newAnswers[currentQuestion] = answer;
+    
+    // 배열 길이를 현재 질문 + 1로 제한
+    if (newAnswers.length > currentQuestion + 1) {
+      newAnswers.splice(currentQuestion + 1);
+    }
+    
     setAnswers(newAnswers);
 
     // 마지막 질문 완료 시
@@ -35,11 +43,21 @@ export default function QuizPage() {
           console.log('질문 총 개수:', questions.length);
           console.log('답변 내용:', newAnswers);
           
-          if (newAnswers.length !== questions.length) {
-            throw new Error(`답변 길이 불일치: ${newAnswers.length}개 답변, ${questions.length}개 질문`);
+          // 답변 배열을 정확히 15개로 조정
+          let finalAnswers = newAnswers.slice(0, questions.length);
+          
+          // 부족한 답변은 false로 채움 (안전장치)
+          while (finalAnswers.length < questions.length) {
+            finalAnswers.push(false);
           }
           
-          const mbtiType = calculateMBTIType(newAnswers);
+          console.log('최종 답변 배열:', finalAnswers);
+          
+          if (finalAnswers.length !== questions.length) {
+            throw new Error(`답변 길이 불일치: ${finalAnswers.length}개 답변, ${questions.length}개 질문`);
+          }
+          
+          const mbtiType = calculateMBTIType(finalAnswers);
           
           // 완료 이벤트
           if (typeof window !== 'undefined' && (window as any).plausible) {
@@ -66,11 +84,12 @@ export default function QuizPage() {
   const handleBack = useCallback(() => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
-      setAnswers(answers.slice(0, -1));
+      // 현재 질문 위치까지만 답변을 유지
+      setAnswers(prev => prev.slice(0, currentQuestion - 1));
     } else {
       router.push('/');
     }
-  }, [currentQuestion, answers, router]);
+  }, [currentQuestion, router]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
