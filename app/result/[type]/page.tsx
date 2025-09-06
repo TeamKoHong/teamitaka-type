@@ -5,7 +5,9 @@ import { useRouter, useParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
 import ResultCard from '@/components/ResultCard';
 import ShareBar from '@/components/ShareBar';
+import TimiCard from '@/components/TimiCard';
 import { TYPE_METADATA } from '@/lib/types';
+import { timiCards } from '@/lib/data/timiCards';
 
 type ViewMode = 'light-card' | 'dark-fullscreen';
 
@@ -21,6 +23,12 @@ export default function ResultPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   const typeMeta = TYPE_METADATA[typeCode];
+  
+  // 현재 티미의 카드 찾기
+  const currentTimiCard = timiCards.find(card => 
+    card.name === typeMeta?.nickname || 
+    card.name.includes(typeMeta?.nickname?.replace('티미', '') || '')
+  );
 
   useEffect(() => {
     // 타입 유효성 검사
@@ -102,6 +110,26 @@ export default function ResultPage() {
           className="mb-8"
         />
 
+        {/* 티미 카드 섹션 */}
+        {currentTimiCard && (
+          <div className="max-w-md mx-auto mb-8">
+            <h2 className="text-lg font-semibold text-center mb-4 text-white">
+              나의 티미 카드
+            </h2>
+            <div className="flex justify-center">
+              <TimiCard
+                name={currentTimiCard.name}
+                front={currentTimiCard.front}
+                back={currentTimiCard.back}
+                initialFace="front"
+              />
+            </div>
+            <p className="text-sm text-gray-400 text-center mt-2">
+              카드를 클릭하면 앞/뒤가 뒤집힙니다
+            </p>
+          </div>
+        )}
+
         {/* 하단 액션 버튼들 */}
         <div className="max-w-md mx-auto space-y-4">
           <ShareBar
@@ -138,6 +166,26 @@ export default function ResultPage() {
             captureMode={false}
             onRetest={handleRetest}
           />
+          
+          {/* 티미 카드 섹션 */}
+          {currentTimiCard && (
+            <div className="mt-8 px-6">
+              <h2 className="text-lg font-semibold text-center mb-4 text-white">
+                나의 티미 카드
+              </h2>
+              <div className="flex justify-center">
+                <TimiCard
+                  name={currentTimiCard.name}
+                  front={currentTimiCard.front}
+                  back={currentTimiCard.back}
+                  initialFace="front"
+                />
+              </div>
+              <p className="text-sm text-gray-400 text-center mt-2">
+                카드를 클릭하면 앞/뒤가 뒤집힙니다
+              </p>
+            </div>
+          )}
         </div>
       </main>
     </div>
