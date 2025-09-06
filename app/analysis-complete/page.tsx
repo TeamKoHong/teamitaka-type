@@ -70,7 +70,7 @@ function AnalysisCompleteContent() {
         {/* 카드 영역 */}
         <div className="mb-8 flex justify-center">
           {currentTimiCard ? (
-            <div className="w-48 h-64">
+            <div className="w-64 h-80">
               <TimiCard
                 name={currentTimiCard.name}
                 front={currentTimiCard.front}
@@ -79,7 +79,7 @@ function AnalysisCompleteContent() {
               />
             </div>
           ) : (
-            <div className="bg-gray-200 rounded-xl h-64 w-48 flex items-center justify-center">
+            <div className="bg-gray-200 rounded-xl h-80 w-64 flex items-center justify-center">
               <div className="w-16 h-16 bg-white rounded-full border-2 border-blue-300 flex items-center justify-center">
                 <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
               </div>
