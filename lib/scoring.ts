@@ -1,97 +1,102 @@
-import { SCORING_WEIGHTS } from './questions';
+import { SCORING_SYSTEM, PERSONALITY_TYPES, questions } from './questions';
 
 export type Answer = boolean; // true = 예, false = 아니오
 export type Answers = Answer[];
-export type MBTIType = string; // ENFP, INTJ 등
+export type PersonalityType = string; // 실험티미, 감각티미 등
 
 interface AxisScores {
-  E: number;
-  I: number;
-  N: number;
-  S: number;
-  T: number;
-  F: number;
-  P: number;
-  J: number;
+  energy: { active: number; stable: number };
+  thinking: { creative: number; analytical: number };
+  social: { positive: number; coordinating: number };
+  response: { adaptive: number; sensory: number };
 }
 
 /**
- * 사용자의 답변을 기반으로 MBTI 타입을 계산합니다.
+ * 사용자의 답변을 기반으로 점수를 계산합니다.
  * @param answers 15개 질문에 대한 답변 배열 (true=예, false=아니오)
- * @returns MBTI 4글자 타입 (예: "ENFP")
+ * @returns 4축별 점수
  */
-export function calculateMBTIType(answers: Answers): MBTIType {
-  if (answers.length !== 15) {
-    throw new Error('15개의 답변이 모두 필요합니다.');
-  }
-
-  // 각 축별 점수 초기화
+export function calculateScores(answers: Answers): AxisScores {
   const scores: AxisScores = {
-    E: 0, I: 0,
-    N: 0, S: 0,
-    T: 0, F: 0,
-    P: 0, J: 0
+    energy: { active: 0, stable: 0 },
+    thinking: { creative: 0, analytical: 0 },
+    social: { positive: 0, coordinating: 0 },
+    response: { adaptive: 0, sensory: 0 }
   };
 
-  // 답변을 바탕으로 점수 계산
   answers.forEach((answer, index) => {
-    const questionId = index + 1;
-    const value = answer ? 1 : -1; // 예=+1, 아니오=-1
-
-    // E-I 축 점수 계산
-    const eiWeight = SCORING_WEIGHTS.EI[questionId as keyof typeof SCORING_WEIGHTS.EI];
-    if (eiWeight) {
-      const weightedValue = value * eiWeight.weight;
-      if (eiWeight.axis === 'E') {
-        scores.E += weightedValue;
-      } else {
-        scores.I += Math.abs(weightedValue); // I는 항상 양수로 계산
-      }
-    }
-
-    // N-S 축 점수 계산
-    const nsWeight = SCORING_WEIGHTS.NS[questionId as keyof typeof SCORING_WEIGHTS.NS];
-    if (nsWeight) {
-      const weightedValue = value * nsWeight.weight;
-      if (nsWeight.axis === 'N') {
-        scores.N += weightedValue;
-      } else {
-        scores.S += Math.abs(weightedValue);
-      }
-    }
-
-    // T-F 축 점수 계산
-    const tfWeight = SCORING_WEIGHTS.TF[questionId as keyof typeof SCORING_WEIGHTS.TF];
-    if (tfWeight) {
-      const weightedValue = value * tfWeight.weight;
-      if (tfWeight.axis === 'T') {
-        scores.T += weightedValue;
-      } else {
-        scores.F += Math.abs(weightedValue);
-      }
-    }
-
-    // P-J 축 점수 계산
-    const pjWeight = SCORING_WEIGHTS.PJ[questionId as keyof typeof SCORING_WEIGHTS.PJ];
-    if (pjWeight) {
-      const weightedValue = value * pjWeight.weight;
-      if (pjWeight.axis === 'P') {
-        scores.P += weightedValue;
-      } else {
-        scores.J += Math.abs(weightedValue);
+    if (answer === true) { // '예' 답변일 때만 점수 부여
+      const questionId = index + 1;
+      const question = questions.find(q => q.id === questionId);
+      
+      if (question) {
+        const axis = question.axis;
+        const direction = question.direction;
+        
+        // 타입 안전한 점수 부여
+        const axisScoring = SCORING_SYSTEM[axis];
+        if (axisScoring && direction in axisScoring) {
+          const directionScoring = axisScoring[direction as keyof typeof axisScoring];
+          if (directionScoring && questionId in directionScoring) {
+            const scoreValue = (directionScoring as any)[questionId] || 0;
+            (scores[axis] as any)[direction] += scoreValue;
+          }
+        }
       }
     }
   });
 
-  // 각 축에서 더 높은 점수를 가진 성향 선택
-  const type = [
-    scores.E > scores.I ? 'E' : 'I',
-    scores.N > scores.S ? 'N' : 'S', 
-    scores.T > scores.F ? 'T' : 'F',
-    scores.P > scores.J ? 'P' : 'J'
-  ].join('');
+  return scores;
+}
 
-  return type as MBTIType;
+/**
+ * 최종 성격 유형을 결정합니다.
+ * @param scores 4축별 점수
+ * @param answers 원본 답변 배열 (동점 처리용)
+ * @returns 12개 성격 유형 중 하나
+ */
+export function determinePersonality(scores: AxisScores, answers: Answers): PersonalityType {
+  const results: Record<string, string> = {};
+  
+  // 각 축별로 우세한 방향 결정
+  Object.entries(scores).forEach(([axis, axisScores]) => {
+    const [option1, option2] = Object.keys(axisScores);
+    const score1 = axisScores[option1 as keyof typeof axisScores];
+    const score2 = axisScores[option2 as keyof typeof axisScores];
+    
+    if (score1 > score2) {
+      results[axis] = option1;
+    } else if (score2 > score1) {
+      results[axis] = option2;
+    } else {
+      // 동점 처리 - 앵커 질문 기준
+      const anchorQuestions: Record<string, number> = { 
+        energy: 0,    // Q1 (index 0)
+        thinking: 4,  // Q5 (index 4) 
+        social: 8,    // Q9 (index 8)
+        response: 12  // Q13 (index 12)
+      };
+      const anchorAnswer = answers[anchorQuestions[axis]];
+      results[axis] = anchorAnswer === true ? option1 : option2;
+    }
+  });
+
+  const typeKey = `${results.energy}-${results.thinking}-${results.social}-${results.response}`;
+  return PERSONALITY_TYPES[typeKey as keyof typeof PERSONALITY_TYPES] || "알 수 없는 유형";
+}
+
+/**
+ * 사용자의 답변을 기반으로 최종 성격 유형을 계산합니다.
+ * @param answers 15개 질문에 대한 답변 배열 (true=예, false=아니오)
+ * @returns 12개 성격 유형 중 하나
+ */
+export function calculateMBTIType(answers: Answers): PersonalityType {
+  if (answers.length !== 15) {
+    throw new Error('15개의 답변이 모두 필요합니다.');
+  }
+
+  const scores = calculateScores(answers);
+  return determinePersonality(scores, answers);
 }
 
 /**
@@ -104,27 +109,33 @@ export function calculateProgress(answers: Answers): number {
 }
 
 /**
- * 특정 질문 번호에 대한 가중치 정보를 반환합니다.
+ * 특정 질문 번호에 대한 점수 정보를 반환합니다.
  * @param questionId 질문 번호 (1-15)
- * @returns 해당 질문의 가중치 정보
+ * @returns 해당 질문의 점수 정보
  */
-export function getQuestionWeight(questionId: number) {
-  const weights = [];
+export function getQuestionScore(questionId: number) {
+  const question = questions.find(q => q.id === questionId);
+  if (!question) return null;
   
-  if (SCORING_WEIGHTS.EI[questionId as keyof typeof SCORING_WEIGHTS.EI]) {
-    weights.push(SCORING_WEIGHTS.EI[questionId as keyof typeof SCORING_WEIGHTS.EI]);
+  const axis = question.axis;
+  const direction = question.direction;
+  
+  // 타입 안전한 점수 검색
+  let score = 0;
+  const axisScoring = SCORING_SYSTEM[axis];
+  if (axisScoring && direction in axisScoring) {
+    const directionScoring = axisScoring[direction as keyof typeof axisScoring];
+    if (directionScoring && questionId in directionScoring) {
+      score = (directionScoring as any)[questionId];
+    }
   }
-  if (SCORING_WEIGHTS.NS[questionId as keyof typeof SCORING_WEIGHTS.NS]) {
-    weights.push(SCORING_WEIGHTS.NS[questionId as keyof typeof SCORING_WEIGHTS.NS]);
-  }
-  if (SCORING_WEIGHTS.TF[questionId as keyof typeof SCORING_WEIGHTS.TF]) {
-    weights.push(SCORING_WEIGHTS.TF[questionId as keyof typeof SCORING_WEIGHTS.TF]);
-  }
-  if (SCORING_WEIGHTS.PJ[questionId as keyof typeof SCORING_WEIGHTS.PJ]) {
-    weights.push(SCORING_WEIGHTS.PJ[questionId as keyof typeof SCORING_WEIGHTS.PJ]);
-  }
-
-  return weights;
+  
+  return {
+    axis,
+    direction,
+    score,
+    isAnchor: question.isAnchor || false
+  };
 }
 
 /**
@@ -132,4 +143,30 @@ export function getQuestionWeight(questionId: number) {
  */
 export function validateAnswers(answers: Answers): boolean {
   return answers.length <= 15 && answers.every(answer => typeof answer === 'boolean');
+}
+
+/**
+ * 디버깅용: 상세 점수 정보를 반환합니다.
+ */
+export function getDetailedResults(answers: Answers) {
+  const scores = calculateScores(answers);
+  const personality = determinePersonality(scores, answers);
+  
+  return {
+    scores,
+    personality,
+    breakdown: answers.map((answer, index) => {
+      const questionId = index + 1;
+      const question = questions.find(q => q.id === questionId);
+      const scoreInfo = getQuestionScore(questionId);
+      
+      return {
+        questionId,
+        question: question?.text,
+        answer,
+        scoreInfo,
+        appliedScore: answer && scoreInfo ? scoreInfo.score : 0
+      };
+    })
+  };
 }
