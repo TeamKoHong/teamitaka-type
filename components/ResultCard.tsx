@@ -38,11 +38,17 @@ export default function ResultCard({
       <div className="text-center mb-8">
         {/* 닉네임 */}
         <h1 
-          className="text-3xl font-bold mb-4"
+          className="text-3xl font-bold mb-2"
           style={{ color: accentColor }}
         >
           {typeMeta.nickname}
         </h1>
+        {/* 서브타이틀 */}
+        {typeMeta.subtitle && (
+          <p className={`text-lg font-medium mb-4 ${subtitleClass}`}>
+            {typeMeta.subtitle}
+          </p>
+        )}
       </div>
 
       {/* 썸네일 영역 */}
@@ -59,6 +65,15 @@ export default function ResultCard({
           </div>
         </div>
       </div>
+
+      {/* 설명 */}
+      {typeMeta.description && (
+        <div className="mb-8">
+          <p className={`text-sm leading-relaxed ${textClass}`}>
+            {typeMeta.description}
+          </p>
+        </div>
+      )}
 
       {/* 능력치 */}
       <div className="mb-8">
@@ -110,6 +125,49 @@ export default function ResultCard({
           ))}
         </div>
       </div>
+
+      {/* 팀플 TIP */}
+      {typeMeta.tips && typeMeta.tips.length > 0 && (
+        <div className="mb-8">
+          <h3 className="text-lg font-bold mb-4 text-center">팀플 TIP</h3>
+          <div className="space-y-4">
+            {typeMeta.tips.map((tip, index) => {
+              const [title, description] = tip.split('\n');
+              return (
+                <div key={index} className="p-4 rounded-lg" style={{ backgroundColor: accentColor + '10' }}>
+                  <div className="flex items-start space-x-3">
+                    <div 
+                      className="w-3 h-3 rounded-full mt-1 flex-shrink-0"
+                      style={{ backgroundColor: accentColor }}
+                    />
+                    <div>
+                      <div className="font-semibold text-sm mb-1" style={{ color: accentColor }}>
+                        {title}
+                      </div>
+                      {description && (
+                        <div className="text-xs leading-relaxed opacity-80">
+                          {description}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* 명언 */}
+      {typeMeta.quote && (
+        <div className="mb-8">
+          <div className="p-4 rounded-lg text-center" style={{ backgroundColor: accentColor + '10' }}>
+            <div className="text-sm font-medium italic" style={{ color: accentColor }}>
+              {typeMeta.quote}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 하단 안내 */}
       {captureMode && (
