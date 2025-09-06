@@ -52,9 +52,9 @@ export default function ResultCard({
       </div>
 
       {/* 썸네일 영역 */}
-      <div className="mb-8 flex justify-center">
+      <div className="mb-8 flex flex-col items-center">
         <div 
-          className="w-32 h-32 rounded-2xl flex items-center justify-center"
+          className="w-32 h-32 rounded-2xl flex items-center justify-center mb-4"
           style={{ backgroundColor: accentColor + '10' }}
         >
           <div 
@@ -63,6 +63,14 @@ export default function ResultCard({
           >
             {typeMeta.nickname.charAt(0)}
           </div>
+        </div>
+        <div className="text-center">
+          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">
+            MY TEAMI
+          </p>
+          <p className="text-sm font-bold" style={{ color: accentColor }}>
+            ANALYSIS
+          </p>
         </div>
       </div>
 
@@ -101,10 +109,21 @@ export default function ResultCard({
         </div>
       </div>
 
-      {/* 잘 맞는 티미 */}
+      {/* 나와 잘 어울리는 티미 유형 */}
       <div className="mb-8">
-        <h3 className="text-lg font-bold mb-4 text-center">잘 맞는 티미</h3>
-        <div className="space-y-4">
+        <h3 className="text-lg font-bold mb-4 text-center">나와 잘 어울리는 티미 유형</h3>
+        
+        {/* 전체 설명 */}
+        {typeMeta.matchDescription && (
+          <div className="mb-4 p-4 rounded-lg" style={{ backgroundColor: accentColor + '08' }}>
+            <p className="text-sm leading-relaxed text-center">
+              {typeMeta.matchDescription}
+            </p>
+          </div>
+        )}
+        
+        {/* 개별 매칭 */}
+        <div className="space-y-3">
           {typeMeta.bestMatches.map((match, index) => (
             <div key={index} className="p-3 rounded-lg" style={{ backgroundColor: accentColor + '10' }}>
               <div className="flex items-start space-x-3">
