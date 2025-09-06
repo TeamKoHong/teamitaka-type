@@ -44,19 +44,6 @@ function AnalysisCompleteContent() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* 상단 상태바 */}
-      <div className="bg-white px-4 py-2 flex items-center justify-between text-black text-sm">
-        <span className="font-medium">9:41</span>
-        <div className="flex items-center space-x-1">
-          <div className="w-4 h-2 bg-black rounded-sm"></div>
-          <div className="w-4 h-2 bg-black rounded-sm"></div>
-          <div className="w-4 h-2 bg-black rounded-sm"></div>
-          <div className="w-6 h-3 border border-black rounded-sm">
-            <div className="w-4 h-2 bg-black rounded-sm m-0.5"></div>
-          </div>
-        </div>
-      </div>
-
       {/* 메인 콘텐츠 */}
       <div className="px-6 py-8">
         {/* 닫기 버튼 */}
