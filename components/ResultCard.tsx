@@ -90,9 +90,10 @@ export default function ResultCard({
   return (
     <div 
       id="result-card"
-      className={`w-full max-w-md mx-auto bg-black text-white font-sans ${className}`}
+      className={`w-full max-w-md mx-auto text-white font-sans ${className}`}
       style={{
         fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif',
+        backgroundColor: '#1a1a1a',
         ...(captureMode && {
           width: '375px',
           minHeight: '600px',
@@ -100,36 +101,9 @@ export default function ResultCard({
         })
       }}
     >
-      {/* 상단 바 */}
-      <div className="bg-black px-4 py-2 flex items-center justify-between text-white text-sm relative">
-        <div className="flex items-center space-x-1">
-          <span>9:41</span>
-        </div>
-        
-        {/* Dynamic Island / Notch */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-full border border-gray-600"></div>
-        
-        <div className="flex items-center space-x-1">
-          {/* 신호 아이콘 */}
-          <div className="flex space-x-1">
-            <div className="w-1 h-3 bg-white rounded-sm"></div>
-            <div className="w-1 h-3 bg-white rounded-sm"></div>
-            <div className="w-1 h-3 bg-white rounded-sm"></div>
-          </div>
-          {/* WiFi 아이콘 */}
-          <div className="w-4 h-3 border border-white rounded-sm relative">
-            <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-white rounded-tl-sm"></div>
-          </div>
-          {/* 배터리 아이콘 */}
-          <div className="w-6 h-3 border border-white rounded-sm relative">
-            <div className="absolute right-0 top-0 w-1 h-1 bg-white rounded-r-sm"></div>
-            <div className="absolute left-0.5 top-0.5 w-4 h-2 bg-white rounded-sm"></div>
-          </div>
-        </div>
-      </div>
 
       {/* 헤더 영역 */}
-      <div className="bg-black px-6 py-8 text-center">
+      <div className="px-6 py-8 text-center" style={{ backgroundColor: '#1a1a1a' }}>
         <p className="text-sm text-white mb-4">어떤 환경에서도 제 역할을 해내는</p>
         <h1 
           className="text-3xl font-bold mb-6"
@@ -138,30 +112,6 @@ export default function ResultCard({
           {typeMeta.nickname}
         </h1>
         
-        {/* 메인 캐릭터 이미지 */}
-        <div className="flex justify-center mb-4">
-          <div className="w-24 h-32 relative">
-            {currentTimiCard && !imageErrors[`${currentTimiCard.name}_main`] ? (
-              <img
-                src={`/assets/detail/${currentTimiCard.name}_1.png`}
-                alt={`${currentTimiCard.name} 메인 캐릭터`}
-                className="w-full h-full object-contain"
-                onError={() => handleImageError(`${currentTimiCard.name}_main`)}
-              />
-            ) : (
-              <div 
-                className="w-full h-full relative flex items-center justify-center"
-                style={{ 
-                  background: 'linear-gradient(135deg, #A070E0 0%, #7B56B0 100%)',
-                  borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
-                  boxShadow: '4px 4px 0px #7B56B0'
-                }}
-              >
-                <div className="text-white text-xs">?</div>
-              </div>
-            )}
-          </div>
-        </div>
       </div>
 
       {/* 본문 설명 카드 */}
