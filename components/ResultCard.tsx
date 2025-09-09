@@ -96,30 +96,82 @@ export default function ResultCard({
       }}
     >
       {/* 상단 바 */}
-      <div className="bg-black px-4 py-2 flex items-center justify-between text-white text-sm">
+      <div className="bg-black px-4 py-2 flex items-center justify-between text-white text-sm relative">
         <div className="flex items-center space-x-1">
           <span>9:41</span>
         </div>
+        
+        {/* Dynamic Island / Notch */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-full border border-gray-600"></div>
+        
         <div className="flex items-center space-x-1">
-          <div className="w-4 h-2 bg-white rounded-sm"></div>
-          <div className="w-4 h-2 bg-white rounded-sm"></div>
-          <div className="w-4 h-2 bg-white rounded-sm"></div>
-        </div>
-        <div className="flex items-center space-x-1">
-          <div className="w-4 h-2 bg-white rounded-sm"></div>
-          <div className="w-4 h-2 bg-white rounded-sm"></div>
+          {/* 신호 아이콘 */}
+          <div className="flex space-x-1">
+            <div className="w-1 h-3 bg-white rounded-sm"></div>
+            <div className="w-1 h-3 bg-white rounded-sm"></div>
+            <div className="w-1 h-3 bg-white rounded-sm"></div>
+          </div>
+          {/* WiFi 아이콘 */}
+          <div className="w-4 h-3 border border-white rounded-sm relative">
+            <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-white rounded-tl-sm"></div>
+          </div>
+          {/* 배터리 아이콘 */}
+          <div className="w-6 h-3 border border-white rounded-sm relative">
+            <div className="absolute right-0 top-0 w-1 h-1 bg-white rounded-r-sm"></div>
+            <div className="absolute left-0.5 top-0.5 w-4 h-2 bg-white rounded-sm"></div>
+          </div>
         </div>
       </div>
 
       {/* 헤더 영역 */}
       <div className="bg-black px-6 py-8 text-center">
-        <p className="text-sm text-gray-300 mb-2">시작이 반이다! 빠른 실행력의 해결사</p>
+        <p className="text-sm text-white mb-4">어떤 환경에서도 제 역할을 해내는</p>
         <h1 
-          className="text-3xl font-bold"
-          style={{ color: accentColor }}
+          className="text-3xl font-bold mb-6"
+          style={{ color: '#A070E0' }}
         >
           {typeMeta.nickname}
         </h1>
+        
+        {/* 캐릭터 이미지 */}
+        <div className="flex justify-center mb-4">
+          <div className="relative">
+            {/* 메인 캐릭터 몸체 */}
+            <div 
+              className="w-24 h-32 relative"
+              style={{ 
+                background: 'linear-gradient(135deg, #A070E0 0%, #7B56B0 100%)',
+                borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
+                boxShadow: '4px 4px 0px #7B56B0'
+              }}
+            >
+              {/* 얼굴 */}
+              <div className="absolute top-4 left-1/2 transform -translate-x-1/2">
+                {/* 눈 */}
+                <div className="flex space-x-2 mb-2">
+                  <div className="w-3 h-4 bg-white rounded-full relative">
+                    <div className="absolute top-1 left-1 w-1.5 h-2 bg-black rounded-full"></div>
+                  </div>
+                  <div className="w-3 h-4 bg-white rounded-full relative">
+                    <div className="absolute top-1 left-1 w-1.5 h-2 bg-black rounded-full"></div>
+                  </div>
+                </div>
+                {/* 코 */}
+                <div className="w-1 h-1 bg-yellow-300 rounded-full mx-auto mb-1"></div>
+                {/* 입 */}
+                <div className="w-3 h-1 bg-black rounded-full mx-auto"></div>
+              </div>
+              
+              {/* 손 */}
+              <div className="absolute top-8 -left-2 w-4 h-6 bg-white rounded-full border-2 border-black"></div>
+              <div className="absolute top-8 -right-2 w-4 h-6 bg-white rounded-full border-2 border-black"></div>
+              
+              {/* 발 */}
+              <div className="absolute bottom-0 left-2 w-6 h-4 bg-white rounded-full border-2 border-black transform rotate-12"></div>
+              <div className="absolute bottom-0 right-2 w-6 h-4 bg-white rounded-full border-2 border-black transform -rotate-12"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* 본문 설명 카드 */}
@@ -144,27 +196,27 @@ export default function ResultCard({
         {/* 속성 바들 */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-400">긍정력</span>
-            <div className="w-24 h-2 bg-gray-700 rounded-full">
-              <div className="h-full bg-purple-500 rounded-full" style={{ width: '75%' }}></div>
+            <span className="text-xs text-white">긍정력</span>
+            <div className="w-24 h-2 rounded-full" style={{ backgroundColor: '#505050' }}>
+              <div className="h-full rounded-full" style={{ width: '80%', backgroundColor: '#A070E0' }}></div>
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-400">에너지</span>
-            <div className="w-24 h-2 bg-gray-700 rounded-full">
-              <div className="h-full bg-purple-500 rounded-full" style={{ width: '85%' }}></div>
+            <span className="text-xs text-white">에너지</span>
+            <div className="w-24 h-2 rounded-full" style={{ backgroundColor: '#505050' }}>
+              <div className="h-full rounded-full" style={{ width: '70%', backgroundColor: '#A070E0' }}></div>
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-400">인사력</span>
-            <div className="w-24 h-2 bg-gray-700 rounded-full">
-              <div className="h-full bg-purple-500 rounded-full" style={{ width: '60%' }}></div>
+            <span className="text-xs text-white">인사력</span>
+            <div className="w-24 h-2 rounded-full" style={{ backgroundColor: '#505050' }}>
+              <div className="h-full rounded-full" style={{ width: '85%', backgroundColor: '#A070E0' }}></div>
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-400">번개력</span>
-            <div className="w-24 h-2 bg-gray-700 rounded-full">
-              <div className="h-full bg-purple-500 rounded-full" style={{ width: '90%' }}></div>
+            <span className="text-xs text-white">번개력</span>
+            <div className="w-24 h-2 rounded-full" style={{ backgroundColor: '#505050' }}>
+              <div className="h-full rounded-full" style={{ width: '60%', backgroundColor: '#A070E0' }}></div>
             </div>
           </div>
         </div>
@@ -201,34 +253,96 @@ export default function ResultCard({
         </div>
         
         {/* 호환 티미 캐릭터들 */}
-        <div className="flex justify-center space-x-4 mb-4">
+        <div className="flex justify-center space-x-6 mb-4">
+          {/* 활동티미 - 별 모양 */}
           <div className="text-center">
-            <div className="w-16 h-16 bg-orange-400 rounded-full flex items-center justify-center mb-2">
-              <div className="w-12 h-12 bg-orange-300 rounded-full flex items-center justify-center">
-                <div className="w-8 h-8 bg-orange-200 rounded-full"></div>
+            <div className="relative mb-2">
+              <div 
+                className="w-16 h-16 relative"
+                style={{ 
+                  background: 'linear-gradient(135deg, #FF9933 0%, #CC7A29 100%)',
+                  clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
+                  boxShadow: '4px 4px 0px #CC7A29'
+                }}
+              >
+                {/* 얼굴 */}
+                <div className="absolute top-2 left-1/2 transform -translate-x-1/2">
+                  {/* 눈 */}
+                  <div className="flex space-x-1 mb-1">
+                    <div className="w-2 h-3 bg-white rounded-full relative">
+                      <div className="absolute top-0.5 left-0.5 w-1 h-1.5 bg-black rounded-full"></div>
+                    </div>
+                    <div className="w-2 h-3 bg-white rounded-full relative">
+                      <div className="absolute top-0.5 left-0.5 w-1 h-1.5 bg-black rounded-full"></div>
+                    </div>
+                  </div>
+                  {/* 입 */}
+                  <div className="w-2 h-1 bg-black rounded-full mx-auto"></div>
+                </div>
+                
+                {/* 손 */}
+                <div className="absolute top-4 -left-1 w-3 h-4 bg-white rounded-full border border-black"></div>
+                <div className="absolute top-4 -right-1 w-3 h-4 bg-white rounded-full border border-black"></div>
+                
+                {/* 발 */}
+                <div className="absolute bottom-1 left-2 w-4 h-3 bg-white rounded-full border border-black transform rotate-6"></div>
+                <div className="absolute bottom-1 right-2 w-4 h-3 bg-white rounded-full border border-black transform -rotate-6"></div>
               </div>
             </div>
-            <span className="text-xs text-gray-300">활동티미</span>
+            <span className="text-xs text-white">활동티미</span>
           </div>
+          
+          {/* 긍정티미 - 불규칙 모양 */}
           <div className="text-center">
-            <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mb-2">
-              <div className="w-12 h-12 bg-yellow-300 rounded-full flex items-center justify-center">
-                <div className="w-8 h-8 bg-yellow-200 rounded-full"></div>
+            <div className="relative mb-2">
+              <div 
+                className="w-16 h-16 relative"
+                style={{ 
+                  background: 'linear-gradient(135deg, #8B4513 0%, #6B350F 100%)',
+                  borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
+                  boxShadow: '4px 4px 0px #6B350F'
+                }}
+              >
+                {/* 얼굴 */}
+                <div className="absolute top-2 left-1/2 transform -translate-x-1/2">
+                  {/* 눈 */}
+                  <div className="flex space-x-1 mb-1">
+                    <div className="w-2 h-3 bg-white rounded-full relative">
+                      <div className="absolute top-0.5 left-0.5 w-1 h-1.5 bg-black rounded-full"></div>
+                    </div>
+                    <div className="w-2 h-3 bg-white rounded-full relative">
+                      <div className="absolute top-0.5 left-0.5 w-1 h-1.5 bg-black rounded-full"></div>
+                    </div>
+                  </div>
+                  {/* 입 */}
+                  <div className="w-2 h-1 bg-black rounded-full mx-auto"></div>
+                </div>
+                
+                {/* 손 */}
+                <div className="absolute top-4 -left-1 w-3 h-4 bg-white rounded-full border border-black"></div>
+                <div className="absolute top-4 -right-1 w-3 h-4 bg-white rounded-full border border-black"></div>
+                
+                {/* 발 */}
+                <div className="absolute bottom-1 left-2 w-4 h-3 bg-white rounded-full border border-black transform rotate-6"></div>
+                <div className="absolute bottom-1 right-2 w-4 h-3 bg-white rounded-full border border-black transform -rotate-6"></div>
               </div>
             </div>
-            <span className="text-xs text-gray-300">긍정티미</span>
+            <span className="text-xs text-white">긍정티미</span>
           </div>
         </div>
         
-        <p className="text-xs text-gray-400 leading-relaxed text-center">
-          {typeMeta.matchDescription}
-        </p>
+        {/* 호환성 설명 박스 */}
+        <div className="rounded-lg p-3 mb-4" style={{ backgroundColor: '#505050' }}>
+          <p className="text-xs text-white leading-relaxed text-center">
+            {typeMeta.matchDescription}
+          </p>
+        </div>
       </div>
 
       {/* TIP 카드 */}
       <div className="px-6 mb-6">
-        <div className="bg-gray-800 rounded-lg p-4">
-          <h3 className="text-sm font-bold mb-4" style={{ color: accentColor }}>
+        <div className="rounded-lg p-4" style={{ backgroundColor: '#505050' }}>
+          <h3 className="text-sm font-bold mb-4 text-white">
             {typeMeta.nickname} TIP
           </h3>
           <div className="space-y-4">
@@ -254,9 +368,11 @@ export default function ResultCard({
 
       {/* 하단 문구 */}
       <div className="px-6 mb-8">
-        <p className="text-sm text-center text-gray-300 italic leading-relaxed">
-          {typeMeta.quote}
-        </p>
+        <div className="rounded-lg p-4" style={{ backgroundColor: '#505050' }}>
+          <p className="text-sm text-center text-white leading-relaxed">
+            &ldquo;{typeMeta.quote}&rdquo;
+          </p>
+        </div>
       </div>
 
       {/* 버튼 영역 */}
@@ -274,20 +390,21 @@ export default function ResultCard({
               }
             }}
             className="flex-1 bg-white py-3 rounded-lg text-sm font-medium flex items-center justify-center space-x-2"
-            style={{ color: '#333' }}
+            style={{ color: '#000' }}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
             </svg>
             <span>카드 공유</span>
           </button>
           <button 
             onClick={handleSaveImage}
             disabled={isSaving}
-            className="flex-1 bg-orange-500 py-3 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 disabled:opacity-50"
+            className="flex-1 py-3 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 disabled:opacity-50 text-white"
+            style={{ backgroundColor: '#FF6633' }}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l4-4m0 0l4 4m-4-4v12" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             <span>{isSaving ? '저장 중...' : '카드 저장'}</span>
           </button>
