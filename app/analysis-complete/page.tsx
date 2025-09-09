@@ -53,7 +53,7 @@ function AnalysisCompleteContent() {
         {currentTimiCard ? (
           <div className="relative">
             {/* 카드 컨테이너 */}
-            <div className="w-64 h-80 relative">
+            <div className="w-80 h-96 relative bg-white rounded-xl shadow-lg overflow-hidden">
               {/* 앞면 */}
               <div 
                 className={`absolute inset-0 transition-transform duration-500 [transform-style:preserve-3d] ${
@@ -63,7 +63,7 @@ function AnalysisCompleteContent() {
                 <img
                   src={currentTimiCard.front}
                   alt={`${currentTimiCard.name} 앞면`}
-                  className="w-full h-full object-cover rounded-xl shadow-lg [backface-visibility:hidden]"
+                  className="w-full h-full object-contain [backface-visibility:hidden]"
                 />
               </div>
               
@@ -76,13 +76,13 @@ function AnalysisCompleteContent() {
                 <img
                   src={currentTimiCard.back}
                   alt={`${currentTimiCard.name} 뒷면`}
-                  className="w-full h-full object-cover rounded-xl shadow-lg [backface-visibility:hidden]"
+                  className="w-full h-full object-contain [backface-visibility:hidden]"
                 />
               </div>
             </div>
           </div>
         ) : (
-          <div className="w-64 h-80 bg-gray-300 rounded-xl flex items-center justify-center">
+          <div className="w-80 h-96 bg-gray-300 rounded-xl flex items-center justify-center">
             <div className="text-gray-500 text-2xl">?</div>
           </div>
         )}
