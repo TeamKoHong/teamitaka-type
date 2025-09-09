@@ -151,12 +151,6 @@ export default function QuizPage() {
         )}
       </div>
 
-      {/* 저작권 문구 */}
-      <div className="absolute bottom-4 left-0 right-0 text-center">
-        <p className="text-xs text-gray-500">
-          © 2025 TEAMITAKA. 개인정보 없이 진행되는 재미있는 테스트입니다.
-        </p>
-      </div>
     </div>
   );
 }
