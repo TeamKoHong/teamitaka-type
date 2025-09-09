@@ -110,35 +110,6 @@ export default function ResultPage() {
           className="mb-8"
         />
 
-        {/* 이미지 영역 */}
-        {currentTimiCard && (
-          <div className="max-w-md mx-auto mb-8">
-            <div className="bg-gray-200 rounded-xl p-4 mb-4">
-              <h3 className="text-gray-600 text-sm mb-3">이미지 영역</h3>
-              <img
-                src={`/assets/detail/${currentTimiCard.name}_1.png`}
-                alt={`${currentTimiCard.name} 상세 1`}
-                className="w-full h-32 object-cover rounded-lg"
-              />
-            </div>
-            
-            <div className="bg-gray-200 rounded-xl p-4">
-              <h3 className="text-gray-600 text-sm mb-3">추가 콘텐츠 영역</h3>
-              <div className="grid grid-cols-2 gap-2">
-                <img
-                  src={`/assets/detail/${currentTimiCard.name}_2.png`}
-                  alt={`${currentTimiCard.name} 상세 2`}
-                  className="w-full h-20 object-cover rounded-lg"
-                />
-                <img
-                  src={`/assets/detail/${currentTimiCard.name}_3.png`}
-                  alt={`${currentTimiCard.name} 상세 3`}
-                  className="w-full h-20 object-cover rounded-lg"
-                />
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* 하단 액션 버튼들 */}
         <div className="max-w-md mx-auto space-y-4">
@@ -177,35 +148,6 @@ export default function ResultPage() {
             onRetest={handleRetest}
           />
           
-          {/* 이미지 영역 */}
-          {currentTimiCard && (
-            <div className="mt-8 px-6">
-              <div className="bg-gray-200 rounded-xl p-4 mb-4">
-                <h3 className="text-gray-600 text-sm mb-3">이미지 영역</h3>
-                <img
-                  src={`/assets/detail/${currentTimiCard.name}_1.png`}
-                  alt={`${currentTimiCard.name} 상세 1`}
-                  className="w-full h-32 object-cover rounded-lg"
-                />
-              </div>
-              
-              <div className="bg-gray-200 rounded-xl p-4">
-                <h3 className="text-gray-600 text-sm mb-3">추가 콘텐츠 영역</h3>
-                <div className="grid grid-cols-2 gap-2">
-                  <img
-                    src={`/assets/detail/${currentTimiCard.name}_2.png`}
-                    alt={`${currentTimiCard.name} 상세 2`}
-                    className="w-full h-20 object-cover rounded-lg"
-                  />
-                  <img
-                    src={`/assets/detail/${currentTimiCard.name}_3.png`}
-                    alt={`${currentTimiCard.name} 상세 3`}
-                    className="w-full h-20 object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </main>
     </div>

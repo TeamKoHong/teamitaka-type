@@ -3,6 +3,7 @@
 import { TypeMeta } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { timiCards } from '@/lib/data/timiCards';
 
 interface ResultCardProps {
   typeMeta: TypeMeta;
@@ -22,6 +23,12 @@ export default function ResultCard({
   const router = useRouter();
   const [isSaving, setIsSaving] = useState(false);
   const accentColor = typeMeta.themeAccent || '#C6A5FF';
+  
+  // 현재 티미의 카드 찾기
+  const currentTimiCard = timiCards.find(card => 
+    card.name === typeMeta.nickname || 
+    card.name.includes(typeMeta.nickname?.replace('티미', '') || '')
+  );
 
   const handleSaveImage = async () => {
     if (isSaving) return;
@@ -117,9 +124,19 @@ export default function ResultCard({
 
       {/* 본문 설명 카드 */}
       <div className="px-6 mb-6">
-        <div className="bg-gray-300 h-32 rounded-lg mb-4 flex items-center justify-center">
-          <div className="text-gray-500 text-sm">이미지 영역</div>
-        </div>
+        {currentTimiCard ? (
+          <div className="h-32 rounded-lg mb-4 overflow-hidden">
+            <img
+              src={`/assets/detail/${currentTimiCard.name}_1.png`}
+              alt={`${currentTimiCard.name} 상세 1`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ) : (
+          <div className="bg-gray-300 h-32 rounded-lg mb-4 flex items-center justify-center">
+            <div className="text-gray-500 text-sm">이미지 영역</div>
+          </div>
+        )}
         <p className="text-sm leading-relaxed text-gray-300">
           {typeMeta.description}
         </p>
@@ -127,9 +144,26 @@ export default function ResultCard({
 
       {/* 중간 구분 영역 */}
       <div className="px-6 mb-6">
-        <div className="bg-gray-300 h-20 rounded-lg mb-4 flex items-center justify-center">
-          <div className="text-gray-500 text-sm">추가 콘텐츠 영역</div>
-        </div>
+        {currentTimiCard ? (
+          <div className="h-20 rounded-lg mb-4 overflow-hidden">
+            <div className="grid grid-cols-2 gap-1 h-full">
+              <img
+                src={`/assets/detail/${currentTimiCard.name}_2.png`}
+                alt={`${currentTimiCard.name} 상세 2`}
+                className="w-full h-full object-cover"
+              />
+              <img
+                src={`/assets/detail/${currentTimiCard.name}_3.png`}
+                alt={`${currentTimiCard.name} 상세 3`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="bg-gray-300 h-20 rounded-lg mb-4 flex items-center justify-center">
+            <div className="text-gray-500 text-sm">추가 콘텐츠 영역</div>
+          </div>
+        )}
         <div className="bg-black text-white px-4 py-2 rounded-lg text-center">
           <span className="text-sm font-medium">나와 잘 어울리는 티미 유형</span>
         </div>
