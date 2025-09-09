@@ -106,11 +106,11 @@ export default function QuestionCard({
             </h2>
           </div>
 
-          {/* 답변 버튼들 - 하단에 고정, 큰 둥근 버튼 디자인 */}
+          {/* 답변 버튼들 - 하단에 고정, 큰 정사각형 버튼 디자인 */}
           <div className="flex gap-4 justify-center pb-8">
             <button
               onClick={() => handleAnswerSelect(false)}
-              className={`w-32 h-16 rounded-full flex items-center justify-center font-semibold text-xl transition-all duration-200 ${
+              className={`w-24 h-24 rounded-2xl flex items-center justify-center font-semibold text-xl transition-all duration-200 ${
                 selectedAnswer === false 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black border border-gray-200'
@@ -124,7 +124,7 @@ export default function QuestionCard({
 
             <button
               onClick={() => handleAnswerSelect(true)}
-              className={`w-32 h-16 rounded-full flex items-center justify-center font-semibold text-xl transition-all duration-200 ${
+              className={`w-24 h-24 rounded-2xl flex items-center justify-center font-semibold text-xl transition-all duration-200 ${
                 selectedAnswer === true 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black border border-gray-200'
