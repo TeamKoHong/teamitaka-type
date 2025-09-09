@@ -53,7 +53,7 @@ function AnalysisCompleteContent() {
         {currentTimiCard ? (
           <div className="relative">
             {/* 카드 컨테이너 */}
-            <div className="w-80 h-96 relative bg-white rounded-xl shadow-lg overflow-hidden">
+            <div className="w-80 h-96 relative rounded-xl shadow-lg overflow-hidden">
               {/* 앞면 */}
               <div 
                 className={`absolute inset-0 transition-transform duration-500 [transform-style:preserve-3d] ${
