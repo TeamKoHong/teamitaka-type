@@ -39,7 +39,7 @@ export const TYPE_METADATA: Record<string, TypeMeta> = {
       '마감과 목표는 내가 확실히 챙긴다.\n실행력이 강한 캐릭터이니, 팀플의 데드라인을 확실하게 정리하고 체크리스트 담당자가 되면 신뢰도가 높아짐.'
     ],
     quote: '"빠른 실행으로 동력을 만들고, 모두가 함께 달릴 수 있도록 방향을 공유하자."',
-    themeAccent: '#FF6B6B'
+    themeAccent: '#FE902F'
   },
 
   '감각티미': {
@@ -64,7 +64,7 @@ export const TYPE_METADATA: Record<string, TypeMeta> = {
       '새로운 시도는 작은 성공으로 확인하자.\n즉흥적 선택이 많기 때문에, 작은 실험 등으로 결과를 확인하면 팀원들에게 신뢰와 동기부여를 줄 수 있음.'
     ],
     quote: '"순간의 아이디어를 믿고, 함께 움직이며 팀에 활력을 불어넣자!"',
-    themeAccent: '#4ECDC4'
+    themeAccent: '#F13D32'
   },
 
   '통찰티미': {
@@ -89,7 +89,7 @@ export const TYPE_METADATA: Record<string, TypeMeta> = {
       '중요한 정보는 팀과 공유하자.\n통찰한 내용을 적절히 공유하면 팀원들의 판단력과 협업 능력이 함께 향상됨.'
     ],
     quote: '"한 발 앞선 직관과 분석으로 팀의 길을 밝히고, 모두가 함께 올바른 방향으로 나아갈 수 있도록 이끌자."',
-    themeAccent: '#45B7D1'
+    themeAccent: '#5761FF'
   },
 
   '융합티미': {
@@ -114,7 +114,7 @@ export const TYPE_METADATA: Record<string, TypeMeta> = {
       '아이디어를 실용적으로 바꾸자.\n창의적 발상이나 제안을 현실적 해결책으로 연결하면 팀에 실질적 도움이 됨.'
     ],
     quote: '"모든 생각과 아이디어를 하나로 엮어 팀의 목표를 실현하고, 함께 성장할 수 있는 흐름을 만들어가자."',
-    themeAccent: '#96CEB4'
+    themeAccent: '#F9DA4B'
   },
 
   '긍정티미': {
@@ -139,7 +139,7 @@ export const TYPE_METADATA: Record<string, TypeMeta> = {
       '어려움 속에서도 희망을 보여주자.\n차분하지만 낙관적인 태도로 팀 사기를 유지하고, 신뢰를 높일 수 있음.'
     ],
     quote: '"언제나 밝고 긍정적인 에너지로 팀을 북돋우고, 함께 어려움을 극복하며 목표를 향해 나아가도록 하자."',
-    themeAccent: '#FFEAA7'
+    themeAccent: '#9F4A11'
   },
 
   '실험티미': {
@@ -164,7 +164,7 @@ export const TYPE_METADATA: Record<string, TypeMeta> = {
       '결과는 기록하고 배움으로 활용하자.\n실험 데이터를 팀의 성장 자산으로 만들면 다음 시도에 더 큰 도움이 됨.'
     ],
     quote: '"실패를 두려워하지 않고 모든 시도를 경험하며, 배움을 쌓고 목표를 향해 나아갈 수 있는 흐름을 만들자."',
-    themeAccent: '#FD79A8'
+    themeAccent: '#1ADFDB'
   },
 
   '적응티미': {
@@ -189,7 +189,7 @@ export const TYPE_METADATA: Record<string, TypeMeta> = {
       '균형 있는 선택을 우선하자.\n팀 전체의 안정감과 흐름을 고려해 균형 있는 결정을 내리면 신뢰를 얻음.'
     ],
     quote: '"어떤 변화 속에서도 팀의 흐름을 부드럽게 이어가고, 모두가 함께 목표를 향해 나아갈 수 있게 만들자."',
-    themeAccent: '#81ECEC'
+    themeAccent: '#B97DEF'
   },
 
   '안정티미': {
@@ -214,7 +214,7 @@ export const TYPE_METADATA: Record<string, TypeMeta> = {
       '작은 실수에도 흔들리지 말자.\n팀원에게 신뢰를 주는 태도로 안정적인 분위기를 유지하면 협력이 강화됨.'
     ],
     quote: '"차분함으로 팀의 중심을 잡고, 어떤 상황에서도 흔들리지 않고 함께 목표를 향해 나아갈 수 있게 만들자."',
-    themeAccent: '#B2DFDB'
+    themeAccent: '#62D264'
   },
 
   '분석티미': {
@@ -239,7 +239,7 @@ export const TYPE_METADATA: Record<string, TypeMeta> = {
       '계획과 실행을 연결하자.\n계획이 실행으로 이어지도록 체크리스트를 활용하면 팀 신뢰도와 효율이 올라감.'
     ],
     quote: '"논리와 근거를 바탕으로 팀을 똑똑하게 이끌고, 함께 올바른 방향으로 나아갈 수 있도록 만들자."',
-    themeAccent: '#A29BFE'
+    themeAccent: '#469AF0'
   },
 
   '창의티미': {
@@ -264,7 +264,7 @@ export const TYPE_METADATA: Record<string, TypeMeta> = {
       '팀 의견을 다양하게 받아들이자.\n다른 시각을 조합하면 창의적 연결로 더 나은 해결책을 만들 수 있음.'
     ],
     quote: '"상상력을 마음껏 펼치고, 팀과 함께 아이디어를 실현하며 모두가 성장할 수 있는 흐름을 만들어가자."',
-    themeAccent: '#FDCB6E'
+    themeAccent: '#6F66F3'
   },
 
   '조율티미': {
@@ -289,7 +289,7 @@ export const TYPE_METADATA: Record<string, TypeMeta> = {
       '팀 목표와 흐름을 항상 공유하자.\n균형 있는 진행과 소통으로 팀의 전반적인 효율과 협업 수준을 높임.'
     ],
     quote: '"모든 의견을 조화롭게 엮어 팀이 하나로 나아가고, 함께 목표를 향해 안정적으로 움직일 수 있도록 만들자."',
-    themeAccent: '#E17055'
+    themeAccent: '#FBA8DC'
   },
 
   '완벽티미': {
@@ -314,6 +314,6 @@ export const TYPE_METADATA: Record<string, TypeMeta> = {
       '결과를 점검하고 개선하자.\n작은 실수도 놓치지 않고 기록해 수정하면 팀의 신뢰도와 완성도가 함께 높아짐.'
     ],
     quote: '"완벽함을 추구하며 팀의 결과를 최고로 만들자."',
-    themeAccent: '#6C5CE7'
+    themeAccent: '#3B79FE'
   }
 };

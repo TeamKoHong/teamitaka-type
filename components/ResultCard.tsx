@@ -107,7 +107,7 @@ export default function ResultCard({
         <p className="text-sm text-white mb-4">어떤 환경에서도 제 역할을 해내는</p>
         <h1 
           className="text-3xl font-bold mb-6"
-          style={{ color: '#A070E0' }}
+          style={{ color: accentColor }}
         >
           {typeMeta.nickname}
         </h1>
@@ -155,9 +155,6 @@ export default function ResultCard({
 
       {/* 중간 구분 영역 */}
       <div className="px-6 mb-6">
-        <div className="bg-black text-white px-4 py-2 rounded-lg text-center mb-4">
-          <span className="text-sm font-medium">나와 잘 어울리는 티미 유형</span>
-        </div>
         {/* 호환 티미 이미지 */}
         <div className="mb-4">
           {currentTimiCard && !imageErrors[`${currentTimiCard.name}_compatible`] ? (
