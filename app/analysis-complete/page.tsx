@@ -9,6 +9,7 @@ function AnalysisCompleteContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [typeCode, setTypeCode] = useState<string>('');
+  const [showBack, setShowBack] = useState<boolean>(false);
 
   useEffect(() => {
     // URL에서 타입 코드 가져오기
@@ -76,38 +77,28 @@ function AnalysisCompleteContent() {
 
           {/* 캐릭터 영역 */}
           <div className="flex justify-center mb-6">
-            <div className="relative">
-              {/* 퍼즐 조각 캐릭터 */}
-              <div className="w-24 h-24 bg-purple-600 rounded-lg relative">
-                {/* 얼굴 */}
-                <div className="absolute top-3 left-1/2 transform -translate-x-1/2">
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                    <div className="w-4 h-4 bg-black rounded-full"></div>
-                  </div>
-                </div>
-                <div className="absolute top-3 left-1/2 transform -translate-x-1/2 ml-4">
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                    <div className="w-4 h-4 bg-black rounded-full"></div>
-                  </div>
-                </div>
-                {/* 입 */}
-                <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-8 h-4 border-2 border-white rounded-full border-t-0"></div>
+            {currentTimiCard ? (
+              <div className="w-32 h-40">
+                <img
+                  src={showBack ? currentTimiCard.back : currentTimiCard.front}
+                  alt={`${currentTimiCard.name} ${showBack ? '뒷면' : '앞면'}`}
+                  className="w-full h-full object-cover rounded-lg"
+                />
               </div>
-              
-              {/* 손 */}
-              <div className="absolute -left-2 top-8 w-4 h-6 bg-white rounded-full border-2 border-black"></div>
-              <div className="absolute -right-2 top-8 w-4 h-6 bg-white rounded-full border-2 border-black"></div>
-              
-              {/* 발 */}
-              <div className="absolute -left-1 -bottom-2 w-6 h-4 bg-white rounded-full border-2 border-black"></div>
-              <div className="absolute -right-1 -bottom-2 w-6 h-4 bg-white rounded-full border-2 border-black"></div>
-            </div>
+            ) : (
+              <div className="w-32 h-40 bg-purple-600 rounded-lg flex items-center justify-center">
+                <div className="text-white text-2xl">?</div>
+              </div>
+            )}
           </div>
 
-          {/* 티미 카드 뒷면 보기 버튼 */}
+          {/* 티미 카드 앞/뒷면 토글 버튼 */}
           <div className="text-center">
-            <button className="text-white text-sm underline">
-              티미 카드 뒷면 보기 &gt;
+            <button 
+              onClick={() => setShowBack(!showBack)}
+              className="text-white text-sm underline hover:text-purple-200 transition-colors"
+            >
+              티미 카드 {showBack ? '앞면' : '뒷면'} 보기 &gt;
             </button>
           </div>
         </div>
