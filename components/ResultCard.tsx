@@ -93,7 +93,7 @@ export default function ResultCard({
       className={`w-full max-w-md mx-auto text-white font-sans ${className}`}
       style={{
         fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif',
-        backgroundColor: '#1a1a1a',
+        backgroundColor: 'rgba(50, 48, 48, 0.9333)',
         ...(captureMode && {
           width: '375px',
           minHeight: '600px',
@@ -103,7 +103,7 @@ export default function ResultCard({
     >
 
       {/* 헤더 영역 */}
-      <div className="px-6 py-8 text-center" style={{ backgroundColor: '#1a1a1a' }}>
+      <div className="px-6 py-8 text-center" style={{ backgroundColor: 'rgba(50, 48, 48, 0.9333)' }}>
         <p className="text-sm text-white mb-4">어떤 환경에서도 제 역할을 해내는</p>
         <h1 
           className="text-3xl font-bold mb-6"
