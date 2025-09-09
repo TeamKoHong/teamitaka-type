@@ -132,6 +132,26 @@ export default function ResultPage() {
             <p className="text-sm text-gray-400 text-center mb-4">
               카드를 클릭하면 앞/뒤가 뒤집힙니다
             </p>
+            
+            {/* 상세 이미지들 */}
+            <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto mb-4">
+              <img
+                src={`/assets/detail/${currentTimiCard.name}_1.png`}
+                alt={`${currentTimiCard.name} 상세 1`}
+                className="w-full h-20 object-cover rounded-lg"
+              />
+              <img
+                src={`/assets/detail/${currentTimiCard.name}_2.png`}
+                alt={`${currentTimiCard.name} 상세 2`}
+                className="w-full h-20 object-cover rounded-lg"
+              />
+              <img
+                src={`/assets/detail/${currentTimiCard.name}_3.png`}
+                alt={`${currentTimiCard.name} 상세 3`}
+                className="w-full h-20 object-cover rounded-lg"
+              />
+            </div>
+            
             <div className="flex justify-center">
               <button
                 onClick={() => router.push('/timi')}
@@ -202,6 +222,26 @@ export default function ResultPage() {
               <p className="text-sm text-gray-400 text-center mb-4">
                 카드를 클릭하면 앞/뒤가 뒤집힙니다
               </p>
+              
+              {/* 상세 이미지들 */}
+              <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto mb-4">
+                <img
+                  src={`/assets/detail/${currentTimiCard.name}_1.png`}
+                  alt={`${currentTimiCard.name} 상세 1`}
+                  className="w-full h-20 object-cover rounded-lg"
+                />
+                <img
+                  src={`/assets/detail/${currentTimiCard.name}_2.png`}
+                  alt={`${currentTimiCard.name} 상세 2`}
+                  className="w-full h-20 object-cover rounded-lg"
+                />
+                <img
+                  src={`/assets/detail/${currentTimiCard.name}_3.png`}
+                  alt={`${currentTimiCard.name} 상세 3`}
+                  className="w-full h-20 object-cover rounded-lg"
+                />
+              </div>
+              
               <div className="flex justify-center">
                 <button
                   onClick={() => router.push('/timi')}

@@ -98,26 +98,6 @@ function AnalysisCompleteContent() {
           </div>
         )}
 
-        {/* 상세 이미지들 */}
-        {currentTimiCard && (
-          <div className="grid grid-cols-3 gap-2 max-w-sm">
-            <img
-              src={`/assets/detail/${currentTimiCard.name}_1.png`}
-              alt={`${currentTimiCard.name} 상세 1`}
-              className="w-full h-20 object-cover rounded-lg"
-            />
-            <img
-              src={`/assets/detail/${currentTimiCard.name}_2.png`}
-              alt={`${currentTimiCard.name} 상세 2`}
-              className="w-full h-20 object-cover rounded-lg"
-            />
-            <img
-              src={`/assets/detail/${currentTimiCard.name}_3.png`}
-              alt={`${currentTimiCard.name} 상세 3`}
-              className="w-full h-20 object-cover rounded-lg"
-            />
-          </div>
-        )}
 
         {/* 뒤집기 버튼 */}
         {currentTimiCard && (
