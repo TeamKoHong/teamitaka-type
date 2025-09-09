@@ -4,7 +4,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 import { TYPE_METADATA } from '@/lib/types';
 import { timiCards } from '@/lib/data/timiCards';
-import TimiCard from '@/components/TimiCard';
 
 function AnalysisCompleteContent() {
   const router = useRouter();
@@ -32,109 +31,122 @@ function AnalysisCompleteContent() {
     }
   };
 
-  const handleShareCard = () => {
-    // 카드 공유 기능 (추후 구현)
-    console.log('카드 공유');
-  };
-
-  const handleSaveCard = () => {
-    // 카드 저장 기능 (추후 구현)
-    console.log('카드 저장');
+  const handleRetest = () => {
+    router.push('/quiz');
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* 메인 콘텐츠 */}
-      <div className="px-6 py-8">
-        {/* 닫기 버튼 */}
-        <div className="flex justify-end mb-6">
-          <button
-            onClick={() => router.push('/')}
-            className="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center text-lg font-bold"
-            aria-label="닫기"
-          >
-            ×
-          </button>
-        </div>
-
-        {/* 제목 */}
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-black mb-2">
-            성향 분석 완료!
-          </h1>
-          <p className="text-lg text-gray-600">
-            나의 성향이 담긴 티미 확인하기
-          </p>
-        </div>
-
-        {/* 카드 영역 */}
-        <div className="mb-8 flex justify-center">
-          {currentTimiCard ? (
-            <div className="w-64 h-80">
-              <TimiCard
-                name={currentTimiCard.name}
-                front={currentTimiCard.front}
-                back={currentTimiCard.back}
-                initialFace="front"
-              />
-            </div>
-          ) : (
-            <div className="bg-gray-200 rounded-xl h-80 w-64 flex items-center justify-center">
-              <div className="w-16 h-16 bg-white rounded-full border-2 border-blue-300 flex items-center justify-center">
-                <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* 티미 이름 표시 */}
-        {currentTimiCard && (
-          <div className="text-center mb-4">
-            <h2 className="text-xl font-bold text-black">
-              {currentTimiCard.name}
-            </h2>
-            {typeMeta && (
-              <p className="text-sm text-gray-600 mt-1">
-                {typeMeta.subtitle}
-              </p>
-            )}
+    <div className="min-h-screen bg-gray-100">
+      {/* 상단 상태바 */}
+      <div className="bg-white px-4 py-2 flex items-center justify-between text-black text-sm">
+        <span className="font-medium">9:41</span>
+        <div className="flex items-center space-x-1">
+          <div className="w-4 h-2 bg-black rounded-sm"></div>
+          <div className="w-4 h-2 bg-black rounded-sm"></div>
+          <div className="w-4 h-2 bg-black rounded-sm"></div>
+          <div className="w-6 h-3 border border-black rounded-sm">
+            <div className="w-4 h-2 bg-black rounded-sm m-0.5"></div>
           </div>
-        )}
-
-        {/* 액션 버튼들 */}
-        <div className="space-y-4 mb-6">
-          <div className="flex space-x-3">
-            <button
-              onClick={handleShareCard}
-              className="flex-1 bg-gray-200 text-black py-3 rounded-lg font-medium flex items-center justify-center space-x-2"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-              </svg>
-              <span>카드 공유</span>
-            </button>
-            <button
-              onClick={handleSaveCard}
-              className="flex-1 bg-orange-500 text-white py-3 rounded-lg font-medium flex items-center justify-center space-x-2"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l4-4m0 0l4 4m-4-4v12" />
-              </svg>
-              <span>카드 저장</span>
-            </button>
-          </div>
-        </div>
-
-        {/* 자세히 보기 링크 */}
-        <div className="text-center">
-          <button
-            onClick={handleViewDetails}
-            className="text-black underline text-lg font-medium hover:text-gray-600 transition-colors"
-          >
-            나의 성향 자세히 보기
-          </button>
         </div>
       </div>
+
+      {/* 메인 콘텐츠 */}
+      <div className="px-6 py-8">
+        {/* 제목과 닫기 버튼 */}
+        <div className="flex items-start justify-between mb-8">
+          <div>
+            <h1 className="text-2xl font-bold text-black mb-2">
+              성향 분석 완료!
+            </h1>
+            <p className="text-lg text-gray-600">
+              나의 성향이 담긴 티미 확인하기
+            </p>
+          </div>
+          <button 
+            onClick={() => router.push('/')}
+            className="text-gray-500 text-xl"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* 보라색 카드 */}
+        <div className="bg-purple-500 rounded-2xl p-6 mb-8 relative overflow-hidden">
+          {/* 배경 퍼즐 조각들 */}
+          <div className="absolute top-4 right-4 w-16 h-16 border-2 border-purple-300 rounded-lg opacity-30"></div>
+          <div className="absolute bottom-4 left-4 w-12 h-12 border-2 border-purple-300 rounded-lg opacity-30"></div>
+          
+          {/* MY TEAMI 섹션 */}
+          <div className="mb-6">
+            <div className="text-white text-sm font-medium mb-2">MY TEAMI</div>
+            <div className="text-white text-sm mb-1">
+              {typeMeta?.subtitle || "어떤 환경에서도 제 역할을 해내는"}
+            </div>
+            <div className="text-white text-2xl font-bold">
+              {currentTimiCard?.name || "적응티미"}
+            </div>
+          </div>
+
+          {/* 캐릭터 영역 */}
+          <div className="flex justify-center mb-6">
+            <div className="relative">
+              {/* 퍼즐 조각 캐릭터 */}
+              <div className="w-24 h-24 bg-purple-600 rounded-lg relative">
+                {/* 얼굴 */}
+                <div className="absolute top-3 left-1/2 transform -translate-x-1/2">
+                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                    <div className="w-4 h-4 bg-black rounded-full"></div>
+                  </div>
+                </div>
+                <div className="absolute top-3 left-1/2 transform -translate-x-1/2 ml-4">
+                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                    <div className="w-4 h-4 bg-black rounded-full"></div>
+                  </div>
+                </div>
+                {/* 입 */}
+                <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-8 h-4 border-2 border-white rounded-full border-t-0"></div>
+              </div>
+              
+              {/* 손 */}
+              <div className="absolute -left-2 top-8 w-4 h-6 bg-white rounded-full border-2 border-black"></div>
+              <div className="absolute -right-2 top-8 w-4 h-6 bg-white rounded-full border-2 border-black"></div>
+              
+              {/* 발 */}
+              <div className="absolute -left-1 -bottom-2 w-6 h-4 bg-white rounded-full border-2 border-black"></div>
+              <div className="absolute -right-1 -bottom-2 w-6 h-4 bg-white rounded-full border-2 border-black"></div>
+            </div>
+          </div>
+
+          {/* 티미 카드 뒷면 보기 버튼 */}
+          <div className="text-center">
+            <button className="text-white text-sm underline">
+              티미 카드 뒷면 보기 &gt;
+            </button>
+          </div>
+        </div>
+
+        {/* 하단 버튼들 */}
+        <div className="space-y-4">
+          <button
+            onClick={handleViewDetails}
+            className="w-full bg-gray-800 text-white py-4 rounded-xl text-lg font-medium hover:bg-gray-700 transition-colors"
+          >
+            나의 성향 자세히 보기 →
+          </button>
+          
+          <div className="text-center">
+            <button
+              onClick={handleRetest}
+              className="text-gray-500 underline text-lg font-medium hover:text-gray-600 transition-colors"
+            >
+              테스트 다시하기
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 하단 홈 인디케이터 */}
+      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-black rounded-full"></div>
     </div>
   );
 }
@@ -142,7 +154,7 @@ function AnalysisCompleteContent() {
 export default function AnalysisCompletePage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-500">결과를 불러오는 중...</p>
