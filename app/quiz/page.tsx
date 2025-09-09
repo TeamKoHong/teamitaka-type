@@ -118,39 +118,8 @@ export default function QuizPage() {
 
   return (
     <div className="min-h-screen relative" style={{ backgroundColor: '#f2f2f2', fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif', height: '844px' }}>
-      {/* iPhone 스타일 상단바 */}
-      <div className="absolute w-full top-0 h-12 overflow-hidden" style={{ fontFamily: 'SF Pro Text' }}>
-        <div className="absolute top-3.5 left-1/2 transform -translate-x-1/2 w-14 h-5">
-          <div className="absolute top-0.5 left-1/2 transform -translate-x-1/2 text-sm font-semibold" style={{ letterSpacing: '-0.41px', lineHeight: '22px' }}>
-            9:41
-          </div>
-        </div>
-        
-        {/* Dynamic Island */}
-        <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-24 h-6 bg-black rounded-full"></div>
-        
-        {/* 우측 아이콘들 */}
-        <div className="absolute top-5 right-4 flex items-center space-x-1">
-          {/* 신호 아이콘 */}
-          <div className="flex space-x-0.5">
-            <div className="w-0.5 h-3 bg-black rounded-sm"></div>
-            <div className="w-0.5 h-3 bg-black rounded-sm"></div>
-            <div className="w-0.5 h-3 bg-black rounded-sm"></div>
-          </div>
-          {/* WiFi 아이콘 */}
-          <div className="w-4 h-3 border border-black rounded-sm relative ml-1">
-            <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-black rounded-tl-sm"></div>
-          </div>
-          {/* 배터리 아이콘 */}
-          <div className="w-7 h-3 border border-black rounded-sm relative ml-1">
-            <div className="absolute right-0 top-0 w-0.5 h-0.5 bg-black rounded-r-sm"></div>
-            <div className="absolute left-0.5 top-0.5 w-4 h-2 bg-black rounded-sm"></div>
-          </div>
-        </div>
-      </div>
-
       {/* 뒤로가기 버튼 */}
-      <div className="absolute top-10 left-4 z-10">
+      <div className="absolute top-4 left-4 z-10">
         <button
           onClick={handleBack}
           className="p-2 hover:bg-gray-200 rounded-full transition-colors"
@@ -165,7 +134,7 @@ export default function QuizPage() {
       </div>
 
       {/* 질문 카드 */}
-      <div className="absolute top-24 left-0 right-0 px-4">
+      <div className="absolute top-16 left-0 right-0 px-4">
         {isProcessing ? (
           <div className="text-center py-12">
             <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
