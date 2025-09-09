@@ -76,7 +76,7 @@ export default function QuestionCard({
   }, [selectedAnswer, isLoading, handleAnswerSelect, handleAnswerSubmit]);
 
   return (
-    <div className={`w-full ${className} ${isAnimating ? 'animate-scale-in' : ''}`}>
+    <div className={`w-full max-w-2xl mx-auto ${className} ${isAnimating ? 'animate-scale-in' : ''}`}>
       {isLoading ? (
         <div className="text-center py-12">
           <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
@@ -85,24 +85,24 @@ export default function QuestionCard({
       ) : (
         <>
           {/* 진행 표시 */}
-          <div className="w-full flex justify-start mb-2">
+          <div className="w-full flex justify-start mb-4">
             <div className="text-sm font-semibold text-gray-600" style={{ letterSpacing: '-0.03em' }}>
               {questionNumber} / {totalQuestions}
             </div>
           </div>
 
           {/* 질문 텍스트 */}
-          <div className="w-full mb-8">
-            <h2 className="text-xl font-semibold text-black leading-relaxed" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
+          <div className="w-full mb-12">
+            <h2 className="text-xl font-semibold text-black leading-relaxed text-center" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
               {question}
             </h2>
           </div>
 
-          {/* 답변 버튼들 - 큰 크기 */}
-          <div className="absolute bottom-0 left-0 right-0 flex px-4 pb-12 gap-2">
+          {/* 답변 버튼들 - 적절한 크기 */}
+          <div className="flex gap-2 justify-center">
             <button
               onClick={() => handleAnswerSelect(false)}
-              className={`w-44 h-48 rounded-lg flex items-center justify-center font-semibold text-xl transition-all duration-200 ${
+              className={`w-44 h-16 rounded-lg flex items-center justify-center font-semibold text-xl transition-all duration-200 ${
                 selectedAnswer === false 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black'
@@ -116,7 +116,7 @@ export default function QuestionCard({
 
             <button
               onClick={() => handleAnswerSelect(true)}
-              className={`w-44 h-48 rounded-lg flex items-center justify-center font-semibold text-xl transition-all duration-200 ${
+              className={`w-44 h-16 rounded-lg flex items-center justify-center font-semibold text-xl transition-all duration-200 ${
                 selectedAnswer === true 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black'
