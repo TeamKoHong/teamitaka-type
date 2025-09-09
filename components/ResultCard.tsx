@@ -186,136 +186,43 @@ export default function ResultCard({
           {typeMeta.description}
         </p>
         
-        {/* 속성 바들 */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-white">긍정력</span>
-            <div className="w-24 h-2 rounded-full" style={{ backgroundColor: '#505050' }}>
-              <div className="h-full rounded-full" style={{ width: '80%', backgroundColor: '#A070E0' }}></div>
+        {/* 속성 바 이미지 */}
+        <div className="h-20 rounded-lg mb-4 overflow-hidden bg-gray-800">
+          {currentTimiCard && !imageErrors[`${currentTimiCard.name}_attributes`] ? (
+            <img
+              src={`/assets/detail/${currentTimiCard.name}_2.png`}
+              alt={`${currentTimiCard.name} 속성`}
+              className="w-full h-full object-contain"
+              onError={() => handleImageError(`${currentTimiCard.name}_attributes`)}
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="text-gray-500 text-sm">속성 이미지</div>
             </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-white">에너지</span>
-            <div className="w-24 h-2 rounded-full" style={{ backgroundColor: '#505050' }}>
-              <div className="h-full rounded-full" style={{ width: '70%', backgroundColor: '#A070E0' }}></div>
-            </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-white">인사력</span>
-            <div className="w-24 h-2 rounded-full" style={{ backgroundColor: '#505050' }}>
-              <div className="h-full rounded-full" style={{ width: '85%', backgroundColor: '#A070E0' }}></div>
-            </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-white">번개력</span>
-            <div className="w-24 h-2 rounded-full" style={{ backgroundColor: '#505050' }}>
-              <div className="h-full rounded-full" style={{ width: '60%', backgroundColor: '#A070E0' }}></div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
       {/* 중간 구분 영역 */}
       <div className="px-6 mb-6">
-        {currentTimiCard ? (
-          <div className="rounded-lg mb-4 overflow-hidden">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="h-24 rounded-lg overflow-hidden bg-gray-800">
-                {!imageErrors[`${currentTimiCard.name}_2`] ? (
-                  <img
-                    src={`/assets/detail/${currentTimiCard.name}_2.png`}
-                    alt={`${currentTimiCard.name} 상세 2`}
-                    className="w-full h-full object-contain"
-                    onError={() => handleImageError(`${currentTimiCard.name}_2`)}
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="text-gray-500 text-xs">이미지 없음</div>
-                  </div>
-                )}
-              </div>
-              <div className="h-24 rounded-lg overflow-hidden bg-gray-800">
-                {!imageErrors[`${currentTimiCard.name}_3`] ? (
-                  <img
-                    src={`/assets/detail/${currentTimiCard.name}_3.png`}
-                    alt={`${currentTimiCard.name} 상세 3`}
-                    className="w-full h-full object-contain"
-                    onError={() => handleImageError(`${currentTimiCard.name}_3`)}
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="text-gray-500 text-xs">이미지 없음</div>
-                  </div>
-                )}
-              </div>
+        {/* 호환 티미 이미지 */}
+        <div className="h-32 rounded-lg mb-4 overflow-hidden bg-gray-800">
+          {currentTimiCard && !imageErrors[`${currentTimiCard.name}_compatible`] ? (
+            <img
+              src={`/assets/detail/${currentTimiCard.name}_3.png`}
+              alt={`${currentTimiCard.name} 호환 티미`}
+              className="w-full h-full object-contain"
+              onError={() => handleImageError(`${currentTimiCard.name}_compatible`)}
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="text-gray-500 text-sm">호환 티미 이미지</div>
             </div>
-          </div>
-        ) : (
-          <div className="bg-gray-300 h-20 rounded-lg mb-4 flex items-center justify-center">
-            <div className="text-gray-500 text-sm">추가 콘텐츠 영역</div>
-          </div>
-        )}
-        <div className="bg-black text-white px-4 py-2 rounded-lg text-center mb-4">
-          <span className="text-sm font-medium">나와 잘 어울리는 티미 유형</span>
+          )}
         </div>
         
-        {/* 호환 티미 캐릭터들 */}
-        <div className="flex justify-center space-x-6 mb-4">
-          {/* 활동티미 */}
-          <div className="text-center">
-            <div className="relative mb-2">
-              <div className="w-16 h-16 relative">
-                {!imageErrors['활동티미_2'] ? (
-                  <img
-                    src="/assets/detail/활동티미_2.png"
-                    alt="활동티미"
-                    className="w-full h-full object-contain"
-                    onError={() => handleImageError('활동티미_2')}
-                  />
-                ) : (
-                  <div 
-                    className="w-full h-full relative flex items-center justify-center"
-                    style={{ 
-                      background: 'linear-gradient(135deg, #FF9933 0%, #CC7A29 100%)',
-                      clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
-                      boxShadow: '4px 4px 0px #CC7A29'
-                    }}
-                  >
-                    <div className="text-white text-xs">?</div>
-                  </div>
-                )}
-              </div>
-            </div>
-            <span className="text-xs text-white">활동티미</span>
-          </div>
-          
-          {/* 긍정티미 */}
-          <div className="text-center">
-            <div className="relative mb-2">
-              <div className="w-16 h-16 relative">
-                {!imageErrors['긍정티미_2'] ? (
-                  <img
-                    src="/assets/detail/긍정티미_2.png"
-                    alt="긍정티미"
-                    className="w-full h-full object-contain"
-                    onError={() => handleImageError('긍정티미_2')}
-                  />
-                ) : (
-                  <div 
-                    className="w-full h-full relative flex items-center justify-center"
-                    style={{ 
-                      background: 'linear-gradient(135deg, #8B4513 0%, #6B350F 100%)',
-                      borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
-                      boxShadow: '4px 4px 0px #6B350F'
-                    }}
-                  >
-                    <div className="text-white text-xs">?</div>
-                  </div>
-                )}
-              </div>
-            </div>
-            <span className="text-xs text-white">긍정티미</span>
-          </div>
+        <div className="bg-black text-white px-4 py-2 rounded-lg text-center mb-4">
+          <span className="text-sm font-medium">나와 잘 어울리는 티미 유형</span>
         </div>
         
         {/* 호환성 설명 박스 */}
