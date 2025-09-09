@@ -51,38 +51,15 @@ function AnalysisCompleteContent() {
       {/* 카드 영역 */}
       <div className="flex flex-col items-center space-y-6">
         {currentTimiCard ? (
-          <div className="relative">
-            {/* 카드 컨테이너 */}
-            <div className="w-80 h-96 relative rounded-xl shadow-lg overflow-hidden">
-              {/* 앞면 */}
-              <div 
-                className={`absolute inset-0 transition-transform duration-500 [transform-style:preserve-3d] ${
-                  showBack ? '[transform:rotateY(180deg)]' : ''
-                }`}
-              >
-                <img
-                  src={currentTimiCard.front}
-                  alt={`${currentTimiCard.name} 앞면`}
-                  className="w-full h-full object-contain [backface-visibility:hidden]"
-                />
-              </div>
-              
-              {/* 뒷면 */}
-              <div 
-                className={`absolute inset-0 transition-transform duration-500 [transform-style:preserve-3d] [transform:rotateY(180deg)] ${
-                  showBack ? '[transform:rotateY(0deg)]' : ''
-                }`}
-              >
-                <img
-                  src={currentTimiCard.back}
-                  alt={`${currentTimiCard.name} 뒷면`}
-                  className="w-full h-full object-contain [backface-visibility:hidden]"
-                />
-              </div>
-            </div>
+          <div className="w-80 h-96">
+            <img
+              src={showBack ? currentTimiCard.back : currentTimiCard.front}
+              alt={`${currentTimiCard.name} ${showBack ? '뒷면' : '앞면'}`}
+              className="w-full h-full object-contain"
+            />
           </div>
         ) : (
-          <div className="w-80 h-96 bg-gray-300 rounded-xl flex items-center justify-center">
+          <div className="w-80 h-96 bg-gray-300 flex items-center justify-center">
             <div className="text-gray-500 text-2xl">?</div>
           </div>
         )}
