@@ -22,6 +22,7 @@ export default function ResultCard({
 }: ResultCardProps) {
   const router = useRouter();
   const [isSaving, setIsSaving] = useState(false);
+  const [imageErrors, setImageErrors] = useState<{[key: string]: boolean}>({});
   const accentColor = typeMeta.themeAccent || '#C6A5FF';
   
   // 현재 티미의 카드 찾기
@@ -80,6 +81,10 @@ export default function ResultCard({
     } else {
       router.push('/');
     }
+  };
+
+  const handleImageError = (imageKey: string) => {
+    setImageErrors(prev => ({ ...prev, [imageKey]: true }));
   };
 
   return (
@@ -176,17 +181,20 @@ export default function ResultCard({
 
       {/* 본문 설명 카드 */}
       <div className="px-6 mb-6">
-        {currentTimiCard ? (
-          <div className="aspect-[3/2] rounded-lg mb-4 overflow-hidden">
+        {currentTimiCard && !imageErrors[`${currentTimiCard.name}_1`] ? (
+          <div className="h-48 rounded-lg mb-4 overflow-hidden bg-gray-800">
             <img
               src={`/assets/detail/${currentTimiCard.name}_1.png`}
               alt={`${currentTimiCard.name} 상세 1`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
+              onError={() => handleImageError(`${currentTimiCard.name}_1`)}
             />
           </div>
         ) : (
-          <div className="bg-gray-300 aspect-[3/2] rounded-lg mb-4 flex items-center justify-center">
-            <div className="text-gray-500 text-sm">이미지 영역</div>
+          <div className="bg-gray-300 h-48 rounded-lg mb-4 flex items-center justify-center">
+            <div className="text-gray-500 text-sm">
+              {currentTimiCard ? '이미지를 불러올 수 없습니다' : '이미지 영역'}
+            </div>
           </div>
         )}
         <p className="text-sm leading-relaxed text-gray-300 mb-6">
@@ -226,20 +234,34 @@ export default function ResultCard({
       <div className="px-6 mb-6">
         {currentTimiCard ? (
           <div className="rounded-lg mb-4 overflow-hidden">
-            <div className="grid grid-cols-2 gap-2">
-              <div className="aspect-[3.5/1] overflow-hidden rounded-lg">
-                <img
-                  src={`/assets/detail/${currentTimiCard.name}_2.png`}
-                  alt={`${currentTimiCard.name} 상세 2`}
-                  className="w-full h-full object-cover"
-                />
+            <div className="grid grid-cols-2 gap-3">
+              <div className="h-24 rounded-lg overflow-hidden bg-gray-800">
+                {!imageErrors[`${currentTimiCard.name}_2`] ? (
+                  <img
+                    src={`/assets/detail/${currentTimiCard.name}_2.png`}
+                    alt={`${currentTimiCard.name} 상세 2`}
+                    className="w-full h-full object-contain"
+                    onError={() => handleImageError(`${currentTimiCard.name}_2`)}
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="text-gray-500 text-xs">이미지 없음</div>
+                  </div>
+                )}
               </div>
-              <div className="aspect-[9/5] overflow-hidden rounded-lg">
-                <img
-                  src={`/assets/detail/${currentTimiCard.name}_3.png`}
-                  alt={`${currentTimiCard.name} 상세 3`}
-                  className="w-full h-full object-cover"
-                />
+              <div className="h-24 rounded-lg overflow-hidden bg-gray-800">
+                {!imageErrors[`${currentTimiCard.name}_3`] ? (
+                  <img
+                    src={`/assets/detail/${currentTimiCard.name}_3.png`}
+                    alt={`${currentTimiCard.name} 상세 3`}
+                    className="w-full h-full object-contain"
+                    onError={() => handleImageError(`${currentTimiCard.name}_3`)}
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="text-gray-500 text-xs">이미지 없음</div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
