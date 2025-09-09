@@ -85,7 +85,7 @@ export default function ResultCard({
   return (
     <div 
       id="result-card"
-      className={`w-full max-w-sm mx-auto bg-black text-white font-sans ${className}`}
+      className={`w-full max-w-md mx-auto bg-black text-white font-sans ${className}`}
       style={{
         fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif',
         ...(captureMode && {
@@ -125,7 +125,7 @@ export default function ResultCard({
       {/* 본문 설명 카드 */}
       <div className="px-6 mb-6">
         {currentTimiCard ? (
-          <div className="h-32 rounded-lg mb-4 overflow-hidden">
+          <div className="aspect-[3/2] rounded-lg mb-4 overflow-hidden">
             <img
               src={`/assets/detail/${currentTimiCard.name}_1.png`}
               alt={`${currentTimiCard.name} 상세 1`}
@@ -133,7 +133,7 @@ export default function ResultCard({
             />
           </div>
         ) : (
-          <div className="bg-gray-300 h-32 rounded-lg mb-4 flex items-center justify-center">
+          <div className="bg-gray-300 aspect-[3/2] rounded-lg mb-4 flex items-center justify-center">
             <div className="text-gray-500 text-sm">이미지 영역</div>
           </div>
         )}
@@ -173,18 +173,22 @@ export default function ResultCard({
       {/* 중간 구분 영역 */}
       <div className="px-6 mb-6">
         {currentTimiCard ? (
-          <div className="h-20 rounded-lg mb-4 overflow-hidden">
-            <div className="grid grid-cols-2 gap-1 h-full">
-              <img
-                src={`/assets/detail/${currentTimiCard.name}_2.png`}
-                alt={`${currentTimiCard.name} 상세 2`}
-                className="w-full h-full object-cover"
-              />
-              <img
-                src={`/assets/detail/${currentTimiCard.name}_3.png`}
-                alt={`${currentTimiCard.name} 상세 3`}
-                className="w-full h-full object-cover"
-              />
+          <div className="rounded-lg mb-4 overflow-hidden">
+            <div className="grid grid-cols-2 gap-2">
+              <div className="aspect-[3.5/1] overflow-hidden rounded-lg">
+                <img
+                  src={`/assets/detail/${currentTimiCard.name}_2.png`}
+                  alt={`${currentTimiCard.name} 상세 2`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="aspect-[9/5] overflow-hidden rounded-lg">
+                <img
+                  src={`/assets/detail/${currentTimiCard.name}_3.png`}
+                  alt={`${currentTimiCard.name} 상세 3`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
         ) : (
