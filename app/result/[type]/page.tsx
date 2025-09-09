@@ -110,55 +110,32 @@ export default function ResultPage() {
           className="mb-8"
         />
 
-        {/* 티미 카드 섹션 */}
+        {/* 이미지 영역 */}
         {currentTimiCard && (
           <div className="max-w-md mx-auto mb-8">
-            <h2 className="text-lg font-semibold text-center mb-4 text-white">
-              나의 티미 카드
-            </h2>
-            <div className="flex justify-center mb-4">
-              <div className="w-48 h-64">
-                <TimiCard
-                  name={currentTimiCard.name}
-                  front={currentTimiCard.front}
-                  back={currentTimiCard.back}
-                  initialFace="front"
-                />
-              </div>
-            </div>
-            <p className="text-center text-white font-medium mb-4">
-              {currentTimiCard.name}
-            </p>
-            <p className="text-sm text-gray-400 text-center mb-4">
-              카드를 클릭하면 앞/뒤가 뒤집힙니다
-            </p>
-            
-            {/* 상세 이미지들 */}
-            <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto mb-4">
+            <div className="bg-gray-200 rounded-xl p-4 mb-4">
+              <h3 className="text-gray-600 text-sm mb-3">이미지 영역</h3>
               <img
                 src={`/assets/detail/${currentTimiCard.name}_1.png`}
                 alt={`${currentTimiCard.name} 상세 1`}
-                className="w-full h-20 object-cover rounded-lg"
-              />
-              <img
-                src={`/assets/detail/${currentTimiCard.name}_2.png`}
-                alt={`${currentTimiCard.name} 상세 2`}
-                className="w-full h-20 object-cover rounded-lg"
-              />
-              <img
-                src={`/assets/detail/${currentTimiCard.name}_3.png`}
-                alt={`${currentTimiCard.name} 상세 3`}
-                className="w-full h-20 object-cover rounded-lg"
+                className="w-full h-32 object-cover rounded-lg"
               />
             </div>
             
-            <div className="flex justify-center">
-              <button
-                onClick={() => router.push('/timi')}
-                className="px-6 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors"
-              >
-                자세히 보기
-              </button>
+            <div className="bg-gray-200 rounded-xl p-4">
+              <h3 className="text-gray-600 text-sm mb-3">추가 콘텐츠 영역</h3>
+              <div className="grid grid-cols-2 gap-2">
+                <img
+                  src={`/assets/detail/${currentTimiCard.name}_2.png`}
+                  alt={`${currentTimiCard.name} 상세 2`}
+                  className="w-full h-20 object-cover rounded-lg"
+                />
+                <img
+                  src={`/assets/detail/${currentTimiCard.name}_3.png`}
+                  alt={`${currentTimiCard.name} 상세 3`}
+                  className="w-full h-20 object-cover rounded-lg"
+                />
+              </div>
             </div>
           </div>
         )}
@@ -200,55 +177,32 @@ export default function ResultPage() {
             onRetest={handleRetest}
           />
           
-          {/* 티미 카드 섹션 */}
+          {/* 이미지 영역 */}
           {currentTimiCard && (
             <div className="mt-8 px-6">
-              <h2 className="text-lg font-semibold text-center mb-4 text-white">
-                나의 티미 카드
-              </h2>
-              <div className="flex justify-center mb-4">
-                <div className="w-48 h-64">
-                  <TimiCard
-                    name={currentTimiCard.name}
-                    front={currentTimiCard.front}
-                    back={currentTimiCard.back}
-                    initialFace="front"
-                  />
-                </div>
-              </div>
-              <p className="text-center text-white font-medium mb-4">
-                {currentTimiCard.name}
-              </p>
-              <p className="text-sm text-gray-400 text-center mb-4">
-                카드를 클릭하면 앞/뒤가 뒤집힙니다
-              </p>
-              
-              {/* 상세 이미지들 */}
-              <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto mb-4">
+              <div className="bg-gray-200 rounded-xl p-4 mb-4">
+                <h3 className="text-gray-600 text-sm mb-3">이미지 영역</h3>
                 <img
                   src={`/assets/detail/${currentTimiCard.name}_1.png`}
                   alt={`${currentTimiCard.name} 상세 1`}
-                  className="w-full h-20 object-cover rounded-lg"
-                />
-                <img
-                  src={`/assets/detail/${currentTimiCard.name}_2.png`}
-                  alt={`${currentTimiCard.name} 상세 2`}
-                  className="w-full h-20 object-cover rounded-lg"
-                />
-                <img
-                  src={`/assets/detail/${currentTimiCard.name}_3.png`}
-                  alt={`${currentTimiCard.name} 상세 3`}
-                  className="w-full h-20 object-cover rounded-lg"
+                  className="w-full h-32 object-cover rounded-lg"
                 />
               </div>
               
-              <div className="flex justify-center">
-                <button
-                  onClick={() => router.push('/timi')}
-                  className="px-6 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors"
-                >
-                  자세히 보기
-                </button>
+              <div className="bg-gray-200 rounded-xl p-4">
+                <h3 className="text-gray-600 text-sm mb-3">추가 콘텐츠 영역</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  <img
+                    src={`/assets/detail/${currentTimiCard.name}_2.png`}
+                    alt={`${currentTimiCard.name} 상세 2`}
+                    className="w-full h-20 object-cover rounded-lg"
+                  />
+                  <img
+                    src={`/assets/detail/${currentTimiCard.name}_3.png`}
+                    alt={`${currentTimiCard.name} 상세 3`}
+                    className="w-full h-20 object-cover rounded-lg"
+                  />
+                </div>
               </div>
             </div>
           )}
