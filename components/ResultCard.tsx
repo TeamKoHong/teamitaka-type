@@ -167,16 +167,16 @@ export default function ResultCard({
       {/* 본문 설명 카드 */}
       <div className="px-6 mb-6">
         {currentTimiCard && !imageErrors[`${currentTimiCard.name}_1`] ? (
-          <div className="h-48 rounded-lg mb-4 overflow-hidden bg-gray-800">
+          <div className="mb-4">
             <img
               src={`/assets/detail/${currentTimiCard.name}_1.png`}
               alt={`${currentTimiCard.name} 상세 1`}
-              className="w-full h-full object-contain"
+              className="w-full h-auto object-contain"
               onError={() => handleImageError(`${currentTimiCard.name}_1`)}
             />
           </div>
         ) : (
-          <div className="bg-gray-300 h-48 rounded-lg mb-4 flex items-center justify-center">
+          <div className="h-48 mb-4 flex items-center justify-center">
             <div className="text-gray-500 text-sm">
               {currentTimiCard ? '이미지를 불러올 수 없습니다' : '이미지 영역'}
             </div>
@@ -187,16 +187,16 @@ export default function ResultCard({
         </p>
         
         {/* 속성 바 이미지 */}
-        <div className="h-20 rounded-lg mb-4 overflow-hidden bg-gray-800">
+        <div className="mb-4">
           {currentTimiCard && !imageErrors[`${currentTimiCard.name}_attributes`] ? (
             <img
               src={`/assets/detail/${currentTimiCard.name}_2.png`}
               alt={`${currentTimiCard.name} 속성`}
-              className="w-full h-full object-contain"
+              className="w-full h-auto object-contain"
               onError={() => handleImageError(`${currentTimiCard.name}_attributes`)}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center">
+            <div className="w-full h-20 flex items-center justify-center">
               <div className="text-gray-500 text-sm">속성 이미지</div>
             </div>
           )}
@@ -206,16 +206,16 @@ export default function ResultCard({
       {/* 중간 구분 영역 */}
       <div className="px-6 mb-6">
         {/* 호환 티미 이미지 */}
-        <div className="h-32 rounded-lg mb-4 overflow-hidden bg-gray-800">
+        <div className="mb-4">
           {currentTimiCard && !imageErrors[`${currentTimiCard.name}_compatible`] ? (
             <img
               src={`/assets/detail/${currentTimiCard.name}_3.png`}
               alt={`${currentTimiCard.name} 호환 티미`}
-              className="w-full h-full object-contain"
+              className="w-full h-auto object-contain"
               onError={() => handleImageError(`${currentTimiCard.name}_compatible`)}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center">
+            <div className="w-full h-32 flex items-center justify-center">
               <div className="text-gray-500 text-sm">호환 티미 이미지</div>
             </div>
           )}
