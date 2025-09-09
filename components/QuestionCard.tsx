@@ -76,7 +76,7 @@ export default function QuestionCard({
   }, [selectedAnswer, isLoading, handleAnswerSelect, handleAnswerSubmit]);
 
   return (
-    <div className={`w-full max-w-2xl mx-auto ${className} ${isAnimating ? 'animate-scale-in' : ''}`}>
+    <div className={`w-full h-full flex flex-col ${className} ${isAnimating ? 'animate-scale-in' : ''}`}>
       {isLoading ? (
         <div className="text-center py-12">
           <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
@@ -91,15 +91,15 @@ export default function QuestionCard({
             </div>
           </div>
 
-          {/* 질문 텍스트 */}
-          <div className="w-full mb-12">
-            <h2 className="text-xl font-semibold text-black leading-relaxed text-center" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
+          {/* 질문 텍스트 - 중앙에 배치 */}
+          <div className="flex-1 flex items-center justify-center">
+            <h2 className="text-xl font-semibold text-black leading-relaxed text-center px-4" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
               {question}
             </h2>
           </div>
 
-          {/* 답변 버튼들 - 적절한 크기 */}
-          <div className="flex gap-2 justify-center">
+          {/* 답변 버튼들 - 하단에 고정 */}
+          <div className="flex gap-2 justify-center pb-8">
             <button
               onClick={() => handleAnswerSelect(false)}
               className={`w-44 h-16 rounded-lg flex items-center justify-center font-semibold text-xl transition-all duration-200 ${

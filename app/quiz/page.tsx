@@ -134,7 +134,7 @@ export default function QuizPage() {
       </div>
 
       {/* 질문 카드 */}
-      <div className="px-4 py-8">
+      <div className="px-4 h-full">
         {isProcessing ? (
           <div className="text-center py-12">
             <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
