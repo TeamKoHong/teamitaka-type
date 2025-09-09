@@ -51,12 +51,32 @@ function AnalysisCompleteContent() {
       {/* 카드 영역 */}
       <div className="flex flex-col items-center space-y-6">
         {currentTimiCard ? (
-          <div className="w-80 h-96">
-            <img
-              src={showBack ? currentTimiCard.back : currentTimiCard.front}
-              alt={`${currentTimiCard.name} ${showBack ? '뒷면' : '앞면'}`}
-              className="w-full h-full object-contain"
-            />
+          <div className="w-80 h-96 relative">
+            {/* 앞면 */}
+            <div 
+              className={`absolute inset-0 transition-all duration-500 ease-in-out ${
+                showBack ? 'opacity-0 [transform:rotateY(180deg)]' : 'opacity-100 [transform:rotateY(0deg)]'
+              }`}
+            >
+              <img
+                src={currentTimiCard.front}
+                alt={`${currentTimiCard.name} 앞면`}
+                className="w-full h-full object-contain"
+              />
+            </div>
+            
+            {/* 뒷면 */}
+            <div 
+              className={`absolute inset-0 transition-all duration-500 ease-in-out ${
+                showBack ? 'opacity-100 [transform:rotateY(0deg)]' : 'opacity-0 [transform:rotateY(-180deg)]'
+              }`}
+            >
+              <img
+                src={currentTimiCard.back}
+                alt={`${currentTimiCard.name} 뒷면`}
+                className="w-full h-full object-contain"
+              />
+            </div>
           </div>
         ) : (
           <div className="w-80 h-96 bg-gray-300 flex items-center justify-center">
