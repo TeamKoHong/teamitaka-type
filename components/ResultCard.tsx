@@ -138,43 +138,28 @@ export default function ResultCard({
           {typeMeta.nickname}
         </h1>
         
-        {/* 캐릭터 이미지 */}
+        {/* 메인 캐릭터 이미지 */}
         <div className="flex justify-center mb-4">
-          <div className="relative">
-            {/* 메인 캐릭터 몸체 */}
-            <div 
-              className="w-24 h-32 relative"
-              style={{ 
-                background: 'linear-gradient(135deg, #A070E0 0%, #7B56B0 100%)',
-                borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
-                boxShadow: '4px 4px 0px #7B56B0'
-              }}
-            >
-              {/* 얼굴 */}
-              <div className="absolute top-4 left-1/2 transform -translate-x-1/2">
-                {/* 눈 */}
-                <div className="flex space-x-2 mb-2">
-                  <div className="w-3 h-4 bg-white rounded-full relative">
-                    <div className="absolute top-1 left-1 w-1.5 h-2 bg-black rounded-full"></div>
-                  </div>
-                  <div className="w-3 h-4 bg-white rounded-full relative">
-                    <div className="absolute top-1 left-1 w-1.5 h-2 bg-black rounded-full"></div>
-                  </div>
-                </div>
-                {/* 코 */}
-                <div className="w-1 h-1 bg-yellow-300 rounded-full mx-auto mb-1"></div>
-                {/* 입 */}
-                <div className="w-3 h-1 bg-black rounded-full mx-auto"></div>
+          <div className="w-24 h-32 relative">
+            {currentTimiCard && !imageErrors[`${currentTimiCard.name}_main`] ? (
+              <img
+                src={`/assets/detail/${currentTimiCard.name}_1.png`}
+                alt={`${currentTimiCard.name} 메인 캐릭터`}
+                className="w-full h-full object-contain"
+                onError={() => handleImageError(`${currentTimiCard.name}_main`)}
+              />
+            ) : (
+              <div 
+                className="w-full h-full relative flex items-center justify-center"
+                style={{ 
+                  background: 'linear-gradient(135deg, #A070E0 0%, #7B56B0 100%)',
+                  borderRadius: '50% 50% 50% 50% / 60% 60% 40% 40%',
+                  boxShadow: '4px 4px 0px #7B56B0'
+                }}
+              >
+                <div className="text-white text-xs">?</div>
               </div>
-              
-              {/* 손 */}
-              <div className="absolute top-8 -left-2 w-4 h-6 bg-white rounded-full border-2 border-black"></div>
-              <div className="absolute top-8 -right-2 w-4 h-6 bg-white rounded-full border-2 border-black"></div>
-              
-              {/* 발 */}
-              <div className="absolute bottom-0 left-2 w-6 h-4 bg-white rounded-full border-2 border-black transform rotate-12"></div>
-              <div className="absolute bottom-0 right-2 w-6 h-4 bg-white rounded-full border-2 border-black transform -rotate-12"></div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -276,77 +261,57 @@ export default function ResultCard({
         
         {/* 호환 티미 캐릭터들 */}
         <div className="flex justify-center space-x-6 mb-4">
-          {/* 활동티미 - 별 모양 */}
+          {/* 활동티미 */}
           <div className="text-center">
             <div className="relative mb-2">
-              <div 
-                className="w-16 h-16 relative"
-                style={{ 
-                  background: 'linear-gradient(135deg, #FF9933 0%, #CC7A29 100%)',
-                  clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
-                  boxShadow: '4px 4px 0px #CC7A29'
-                }}
-              >
-                {/* 얼굴 */}
-                <div className="absolute top-2 left-1/2 transform -translate-x-1/2">
-                  {/* 눈 */}
-                  <div className="flex space-x-1 mb-1">
-                    <div className="w-2 h-3 bg-white rounded-full relative">
-                      <div className="absolute top-0.5 left-0.5 w-1 h-1.5 bg-black rounded-full"></div>
-                    </div>
-                    <div className="w-2 h-3 bg-white rounded-full relative">
-                      <div className="absolute top-0.5 left-0.5 w-1 h-1.5 bg-black rounded-full"></div>
-                    </div>
+              <div className="w-16 h-16 relative">
+                {!imageErrors['활동티미_2'] ? (
+                  <img
+                    src="/assets/detail/활동티미_2.png"
+                    alt="활동티미"
+                    className="w-full h-full object-contain"
+                    onError={() => handleImageError('활동티미_2')}
+                  />
+                ) : (
+                  <div 
+                    className="w-full h-full relative flex items-center justify-center"
+                    style={{ 
+                      background: 'linear-gradient(135deg, #FF9933 0%, #CC7A29 100%)',
+                      clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
+                      boxShadow: '4px 4px 0px #CC7A29'
+                    }}
+                  >
+                    <div className="text-white text-xs">?</div>
                   </div>
-                  {/* 입 */}
-                  <div className="w-2 h-1 bg-black rounded-full mx-auto"></div>
-                </div>
-                
-                {/* 손 */}
-                <div className="absolute top-4 -left-1 w-3 h-4 bg-white rounded-full border border-black"></div>
-                <div className="absolute top-4 -right-1 w-3 h-4 bg-white rounded-full border border-black"></div>
-                
-                {/* 발 */}
-                <div className="absolute bottom-1 left-2 w-4 h-3 bg-white rounded-full border border-black transform rotate-6"></div>
-                <div className="absolute bottom-1 right-2 w-4 h-3 bg-white rounded-full border border-black transform -rotate-6"></div>
+                )}
               </div>
             </div>
             <span className="text-xs text-white">활동티미</span>
           </div>
           
-          {/* 긍정티미 - 불규칙 모양 */}
+          {/* 긍정티미 */}
           <div className="text-center">
             <div className="relative mb-2">
-              <div 
-                className="w-16 h-16 relative"
-                style={{ 
-                  background: 'linear-gradient(135deg, #8B4513 0%, #6B350F 100%)',
-                  borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
-                  boxShadow: '4px 4px 0px #6B350F'
-                }}
-              >
-                {/* 얼굴 */}
-                <div className="absolute top-2 left-1/2 transform -translate-x-1/2">
-                  {/* 눈 */}
-                  <div className="flex space-x-1 mb-1">
-                    <div className="w-2 h-3 bg-white rounded-full relative">
-                      <div className="absolute top-0.5 left-0.5 w-1 h-1.5 bg-black rounded-full"></div>
-                    </div>
-                    <div className="w-2 h-3 bg-white rounded-full relative">
-                      <div className="absolute top-0.5 left-0.5 w-1 h-1.5 bg-black rounded-full"></div>
-                    </div>
+              <div className="w-16 h-16 relative">
+                {!imageErrors['긍정티미_2'] ? (
+                  <img
+                    src="/assets/detail/긍정티미_2.png"
+                    alt="긍정티미"
+                    className="w-full h-full object-contain"
+                    onError={() => handleImageError('긍정티미_2')}
+                  />
+                ) : (
+                  <div 
+                    className="w-full h-full relative flex items-center justify-center"
+                    style={{ 
+                      background: 'linear-gradient(135deg, #8B4513 0%, #6B350F 100%)',
+                      borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%',
+                      boxShadow: '4px 4px 0px #6B350F'
+                    }}
+                  >
+                    <div className="text-white text-xs">?</div>
                   </div>
-                  {/* 입 */}
-                  <div className="w-2 h-1 bg-black rounded-full mx-auto"></div>
-                </div>
-                
-                {/* 손 */}
-                <div className="absolute top-4 -left-1 w-3 h-4 bg-white rounded-full border border-black"></div>
-                <div className="absolute top-4 -right-1 w-3 h-4 bg-white rounded-full border border-black"></div>
-                
-                {/* 발 */}
-                <div className="absolute bottom-1 left-2 w-4 h-3 bg-white rounded-full border border-black transform rotate-6"></div>
-                <div className="absolute bottom-1 right-2 w-4 h-3 bg-white rounded-full border border-black transform -rotate-6"></div>
+                )}
               </div>
             </div>
             <span className="text-xs text-white">긍정티미</span>
