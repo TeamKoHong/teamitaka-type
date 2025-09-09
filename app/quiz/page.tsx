@@ -184,6 +184,13 @@ export default function QuizPage() {
 
       {/* iPhone 홈 인디케이터 */}
       <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-black rounded-full"></div>
+      
+      {/* 저작권 문구 */}
+      <div className="absolute bottom-8 left-0 right-0 text-center">
+        <p className="text-xs text-gray-500">
+          © 2025 TEAMITAKA. 개인정보 없이 진행되는 재미있는 테스트입니다.
+        </p>
+      </div>
     </div>
   );
 }
