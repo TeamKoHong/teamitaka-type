@@ -76,53 +76,48 @@ export default function QuestionCard({
   }, [selectedAnswer, isLoading, handleAnswerSelect, handleAnswerSubmit]);
 
   return (
-    <div className={`card max-w-2xl mx-auto ${className} ${isAnimating ? 'animate-scale-in' : ''}`}>
+    <div className={`max-w-2xl mx-auto ${className} ${isAnimating ? 'animate-scale-in' : ''}`}>
       {isLoading ? (
         <div className="text-center py-12">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-500 dark:text-gray-400">결과 분석 중...</p>
+          <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-500">결과 분석 중...</p>
         </div>
       ) : (
         <>
+          {/* 질문 텍스트 */}
           <div className="text-center mb-8">
-            <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-              질문 {questionNumber} / {totalQuestions}
-            </div>
-            <h2 className="question-text">
+            <h2 className="text-lg font-medium text-black leading-relaxed">
               {question}
             </h2>
           </div>
 
+          {/* 답변 버튼들 */}
           <div className="space-y-4">
             <button
-              onClick={() => handleAnswerSelect(true)}
-              className={`choice-button ${selectedAnswer === true ? 'selected' : 'unselected'}`}
-              disabled={isLoading}
-              aria-label="예"
-            >
-              <div className="flex items-center justify-between">
-                <span>예</span>
-                <span className="text-sm opacity-70">← 또는 1</span>
-              </div>
-            </button>
-
-            <button
               onClick={() => handleAnswerSelect(false)}
-              className={`choice-button ${selectedAnswer === false ? 'selected' : 'unselected'}`}
+              className={`w-full py-4 px-6 rounded-lg text-center font-medium transition-all duration-200 ${
+                selectedAnswer === false 
+                  ? 'bg-orange-500 text-white' 
+                  : 'bg-white text-black border border-gray-200'
+              }`}
               disabled={isLoading}
               aria-label="아니오"
             >
-              <div className="flex items-center justify-between">
-                <span>아니오</span>
-                <span className="text-sm opacity-70">→ 또는 2</span>
-              </div>
+              아니오
             </button>
-          </div>
 
-          <div className="text-center mt-6">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              감으로 빠르게 선택해도 좋아요
-            </p>
+            <button
+              onClick={() => handleAnswerSelect(true)}
+              className={`w-full py-4 px-6 rounded-lg text-center font-medium transition-all duration-200 ${
+                selectedAnswer === true 
+                  ? 'bg-orange-500 text-white' 
+                  : 'bg-white text-black border border-gray-200'
+              }`}
+              disabled={isLoading}
+              aria-label="예"
+            >
+              예
+            </button>
           </div>
         </>
       )}

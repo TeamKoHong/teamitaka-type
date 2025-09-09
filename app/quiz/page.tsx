@@ -117,13 +117,41 @@ export default function QuizPage() {
   const isLastQuestion = currentQuestion + 1 === questions.length;
 
   return (
-    <div className="min-h-screen p-4 quiz-container">
-      {/* 상단 헤더 */}
-      <header className="max-w-2xl mx-auto mb-8">
-        <div className="flex items-center justify-between mb-6">
+    <div className="min-h-screen bg-white" style={{ fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif' }}>
+      {/* 상단바 */}
+      <div className="bg-black px-4 py-2 flex items-center justify-between text-white text-sm relative">
+        <div className="flex items-center space-x-1">
+          <span>9:41</span>
+        </div>
+        
+        {/* Dynamic Island / Notch */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-full border border-gray-600"></div>
+        
+        <div className="flex items-center space-x-1">
+          {/* 신호 아이콘 */}
+          <div className="flex space-x-1">
+            <div className="w-1 h-3 bg-white rounded-sm"></div>
+            <div className="w-1 h-3 bg-white rounded-sm"></div>
+            <div className="w-1 h-3 bg-white rounded-sm"></div>
+          </div>
+          {/* WiFi 아이콘 */}
+          <div className="w-4 h-3 border border-white rounded-sm relative">
+            <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-white rounded-tl-sm"></div>
+          </div>
+          {/* 배터리 아이콘 */}
+          <div className="w-6 h-3 border border-white rounded-sm relative">
+            <div className="absolute right-0 top-0 w-1 h-1 bg-white rounded-r-sm"></div>
+            <div className="absolute left-0.5 top-0.5 w-4 h-2 bg-white rounded-sm"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* 헤더 */}
+      <header className="px-4 py-4">
+        <div className="flex items-center justify-between mb-4">
           <button
             onClick={handleBack}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
             aria-label="이전으로"
             disabled={isProcessing}
           >
@@ -133,55 +161,36 @@ export default function QuizPage() {
             </svg>
           </button>
           
-          <h1 className="text-lg font-semibold text-light-text dark:text-dark-text">
+          <h1 className="text-lg font-semibold text-black">
             팀플 성향 테스트
+            {currentQuestion > 0 && <span className="text-gray-500 ml-2">(인터랙션)</span>}
           </h1>
           
           <div className="w-10"></div> {/* 균형을 위한 spacer */}
         </div>
 
-        {/* 진행률 바 */}
-        <ProgressBar 
-          current={currentQuestion + 1} 
-          total={questions.length}
-          className="mb-2"
-        />
+        {/* 진행 표시 */}
+        <div className="text-sm text-gray-500 mb-6">
+          {currentQuestion + 1} / {questions.length}
+        </div>
       </header>
 
       {/* 질문 카드 */}
-      <div className="max-w-2xl mx-auto">
+      <div className="px-4">
         {isProcessing ? (
-          <QuestionCard
-            question=""
-            questionNumber={currentQuestion + 1}
-            totalQuestions={questions.length}
-            onAnswer={handleAnswer}
-            isLoading={true}
-          />
+          <div className="text-center py-12">
+            <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-500">결과 분석 중...</p>
+          </div>
         ) : (
           <QuestionCard
             question={questions[currentQuestion].text}
             questionNumber={currentQuestion + 1}
             totalQuestions={questions.length}
             onAnswer={handleAnswer}
-            key={currentQuestion} // 질문 변경 시 컴포넌트 리렌더링
+            key={currentQuestion}
           />
         )}
-      </div>
-
-      {/* 진행 상태 안내 */}
-      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 text-center">
-        <div className="bg-white dark:bg-gray-800 px-4 py-2 rounded-full shadow-card text-sm">
-          {isProcessing ? (
-            <span className="text-primary font-medium">결과 분석 중...</span>
-          ) : isLastQuestion ? (
-            <span className="text-primary font-medium">마지막 질문이에요!</span>
-          ) : (
-            <span className="text-gray-500 dark:text-gray-400">
-              키보드 ← → 또는 스와이프로도 답변 가능
-            </span>
-          )}
-        </div>
       </div>
     </div>
   );
