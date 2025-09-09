@@ -137,9 +137,37 @@ export default function ResultCard({
             <div className="text-gray-500 text-sm">이미지 영역</div>
           </div>
         )}
-        <p className="text-sm leading-relaxed text-gray-300">
+        <p className="text-sm leading-relaxed text-gray-300 mb-6">
           {typeMeta.description}
         </p>
+        
+        {/* 속성 바들 */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-400">긍정력</span>
+            <div className="w-24 h-2 bg-gray-700 rounded-full">
+              <div className="h-full bg-purple-500 rounded-full" style={{ width: '75%' }}></div>
+            </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-400">에너지</span>
+            <div className="w-24 h-2 bg-gray-700 rounded-full">
+              <div className="h-full bg-purple-500 rounded-full" style={{ width: '85%' }}></div>
+            </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-400">인사력</span>
+            <div className="w-24 h-2 bg-gray-700 rounded-full">
+              <div className="h-full bg-purple-500 rounded-full" style={{ width: '60%' }}></div>
+            </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-400">번개력</span>
+            <div className="w-24 h-2 bg-gray-700 rounded-full">
+              <div className="h-full bg-purple-500 rounded-full" style={{ width: '90%' }}></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* 중간 구분 영역 */}
@@ -164,9 +192,33 @@ export default function ResultCard({
             <div className="text-gray-500 text-sm">추가 콘텐츠 영역</div>
           </div>
         )}
-        <div className="bg-black text-white px-4 py-2 rounded-lg text-center">
+        <div className="bg-black text-white px-4 py-2 rounded-lg text-center mb-4">
           <span className="text-sm font-medium">나와 잘 어울리는 티미 유형</span>
         </div>
+        
+        {/* 호환 티미 캐릭터들 */}
+        <div className="flex justify-center space-x-4 mb-4">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-orange-400 rounded-full flex items-center justify-center mb-2">
+              <div className="w-12 h-12 bg-orange-300 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-orange-200 rounded-full"></div>
+              </div>
+            </div>
+            <span className="text-xs text-gray-300">활동티미</span>
+          </div>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mb-2">
+              <div className="w-12 h-12 bg-yellow-300 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-yellow-200 rounded-full"></div>
+              </div>
+            </div>
+            <span className="text-xs text-gray-300">긍정티미</span>
+          </div>
+        </div>
+        
+        <p className="text-xs text-gray-400 leading-relaxed text-center">
+          {typeMeta.matchDescription}
+        </p>
       </div>
 
       {/* TIP 카드 */}
@@ -204,21 +256,38 @@ export default function ResultCard({
       </div>
 
       {/* 버튼 영역 */}
-      <div className="px-6 pb-8 space-y-4">
-        <button 
-          onClick={handleSaveImage}
-          disabled={isSaving}
-          className="w-full bg-white py-3 rounded-full text-sm font-medium disabled:opacity-50"
-          style={{ color: '#FF4D4D' }}
-        >
-          {isSaving ? '저장 중...' : '이미지로 저장하기'}
-        </button>
-        <button 
-          onClick={handleRetest}
-          className="w-full text-gray-400 text-sm underline"
-        >
-          테스트 다시하기
-        </button>
+      <div className="px-6 pb-8">
+        <div className="flex space-x-3">
+          <button 
+            onClick={() => {
+              // 카드 공유 기능
+              if (navigator.share) {
+                navigator.share({
+                  title: `나는 ${typeMeta.nickname}!`,
+                  text: `TEAMITAKA 타입 테스트 결과: ${typeMeta.nickname}`,
+                  url: window.location.href
+                });
+              }
+            }}
+            className="flex-1 bg-white py-3 rounded-lg text-sm font-medium flex items-center justify-center space-x-2"
+            style={{ color: '#333' }}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+            </svg>
+            <span>카드 공유</span>
+          </button>
+          <button 
+            onClick={handleSaveImage}
+            disabled={isSaving}
+            className="flex-1 bg-orange-500 py-3 rounded-lg text-sm font-medium flex items-center justify-center space-x-2 disabled:opacity-50"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l4-4m0 0l4 4m-4-4v12" />
+            </svg>
+            <span>{isSaving ? '저장 중...' : '카드 저장'}</span>
+          </button>
+        </div>
       </div>
 
       {/* 하단 안내 */}
