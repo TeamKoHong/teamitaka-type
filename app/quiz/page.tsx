@@ -117,70 +117,32 @@ export default function QuizPage() {
   const isLastQuestion = currentQuestion + 1 === questions.length;
 
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif' }}>
-      {/* 상단바 */}
-      <div className="bg-black px-4 py-2 flex items-center justify-between text-white text-sm relative">
-        <div className="flex items-center space-x-1">
-          <span>9:41</span>
-        </div>
+    <div className="min-h-screen" style={{ backgroundColor: '#363636', fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif' }}>
+      {/* 간소화된 상단바 */}
+      <div className="px-4 py-4 flex items-center">
+        <button
+          onClick={handleBack}
+          className="p-2 hover:bg-gray-600 rounded-full transition-colors"
+          aria-label="이전으로"
+          disabled={isProcessing}
+        >
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                  d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
         
-        {/* Dynamic Island / Notch */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-full border border-gray-600"></div>
-        
-        <div className="flex items-center space-x-1">
-          {/* 신호 아이콘 */}
-          <div className="flex space-x-1">
-            <div className="w-1 h-3 bg-white rounded-sm"></div>
-            <div className="w-1 h-3 bg-white rounded-sm"></div>
-            <div className="w-1 h-3 bg-white rounded-sm"></div>
-          </div>
-          {/* WiFi 아이콘 */}
-          <div className="w-4 h-3 border border-white rounded-sm relative">
-            <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-white rounded-tl-sm"></div>
-          </div>
-          {/* 배터리 아이콘 */}
-          <div className="w-6 h-3 border border-white rounded-sm relative">
-            <div className="absolute right-0 top-0 w-1 h-1 bg-white rounded-r-sm"></div>
-            <div className="absolute left-0.5 top-0.5 w-4 h-2 bg-white rounded-sm"></div>
-          </div>
-        </div>
-      </div>
-
-      {/* 헤더 */}
-      <header className="px-4 py-4">
-        <div className="flex items-center justify-between mb-4">
-          <button
-            onClick={handleBack}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-            aria-label="이전으로"
-            disabled={isProcessing}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-                    d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          
-          <h1 className="text-lg font-semibold text-black">
-            팀플 성향 테스트
-            {currentQuestion > 0 && <span className="text-gray-500 ml-2">(인터랙션)</span>}
-          </h1>
-          
-          <div className="w-10"></div> {/* 균형을 위한 spacer */}
-        </div>
-
-        {/* 진행 표시 */}
-        <div className="text-sm text-gray-500 mb-6">
+        <div className="text-white text-sm ml-4">
           {currentQuestion + 1} / {questions.length}
         </div>
-      </header>
+      </div>
 
       {/* 질문 카드 */}
       <div className="px-4">
         {isProcessing ? (
           <div className="text-center py-12">
             <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-500">결과 분석 중...</p>
+            <p className="text-gray-300">결과 분석 중...</p>
           </div>
         ) : (
           <QuestionCard

@@ -80,22 +80,22 @@ export default function QuestionCard({
       {isLoading ? (
         <div className="text-center py-12">
           <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-500">결과 분석 중...</p>
+          <p className="text-gray-300">결과 분석 중...</p>
         </div>
       ) : (
         <>
-          {/* 질문 텍스트 */}
-          <div className="text-center mb-8">
-            <h2 className="text-lg font-medium text-black leading-relaxed">
+          {/* 질문 카드 */}
+          <div className="bg-white rounded-lg p-6 mb-6 shadow-lg">
+            <h2 className="text-lg font-medium text-black leading-relaxed text-center">
               {question}
             </h2>
           </div>
 
-          {/* 답변 버튼들 */}
-          <div className="space-y-4">
+          {/* 답변 버튼들 - 가로 레이아웃 */}
+          <div className="flex space-x-4">
             <button
               onClick={() => handleAnswerSelect(false)}
-              className={`w-full py-4 px-6 rounded-lg text-center font-medium transition-all duration-200 ${
+              className={`flex-1 py-4 px-6 rounded-lg text-center font-medium transition-all duration-200 ${
                 selectedAnswer === false 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black border border-gray-200'
@@ -108,7 +108,7 @@ export default function QuestionCard({
 
             <button
               onClick={() => handleAnswerSelect(true)}
-              className={`w-full py-4 px-6 rounded-lg text-center font-medium transition-all duration-200 ${
+              className={`flex-1 py-4 px-6 rounded-lg text-center font-medium transition-all duration-200 ${
                 selectedAnswer === true 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black border border-gray-200'
