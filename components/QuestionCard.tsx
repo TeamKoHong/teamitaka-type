@@ -91,10 +91,18 @@ export default function QuestionCard({
             </div>
           </div>
 
-          {/* 질문 텍스트 - 중앙에 배치 */}
+          {/* 질문 텍스트 - 중앙에 배치, 두 줄로 나누기 */}
           <div className="flex-1 flex items-center justify-center">
             <h2 className="text-xl font-semibold text-black leading-relaxed text-center px-4" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
-              {question}
+              {question.split(' ').length > 8 ? 
+                question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').map((line, index) => (
+                  <span key={index}>
+                    {line}
+                    {index < question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').length - 1 && <br />}
+                  </span>
+                )) : 
+                question
+              }
             </h2>
           </div>
 
@@ -105,7 +113,7 @@ export default function QuestionCard({
               className={`w-44 h-16 rounded-lg flex items-center justify-center font-semibold text-xl transition-all duration-200 ${
                 selectedAnswer === false 
                   ? 'bg-orange-500 text-white' 
-                  : 'bg-white text-black'
+                  : 'bg-white text-black border border-gray-200'
               }`}
               disabled={isLoading}
               aria-label="아니오"
@@ -119,7 +127,7 @@ export default function QuestionCard({
               className={`w-44 h-16 rounded-lg flex items-center justify-center font-semibold text-xl transition-all duration-200 ${
                 selectedAnswer === true 
                   ? 'bg-orange-500 text-white' 
-                  : 'bg-white text-black'
+                  : 'bg-white text-black border border-gray-200'
               }`}
               disabled={isLoading}
               aria-label="예"
