@@ -36,7 +36,7 @@ function AnalysisCompleteContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4 sm:p-6">
       {/* 닫기 버튼 */}
       <div className="absolute top-4 right-4">
         <button 
@@ -47,13 +47,28 @@ function AnalysisCompleteContent() {
         </button>
       </div>
 
+      {/* 제목 영역 */}
+      <div className="text-center mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">성향 분석 완료!</h1>
+        <p className="text-base sm:text-lg text-gray-600 px-4">나의 성향이 담긴 티미 확인하기</p>
+      </div>
+
       {/* 카드 영역 */}
       <div className="flex flex-col items-center space-y-6">
         {currentTimiCard ? (
-          <div 
-            className="w-80 h-96 relative cursor-pointer transition-transform duration-200 hover:scale-105"
+          <button
+            type="button"
+            className="w-72 h-80 sm:w-80 sm:h-96 relative cursor-pointer transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-xl"
             onClick={() => setShowBack(!showBack)}
-            title={showBack ? '앞면 보기' : '뒷면 보기'}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setShowBack(!showBack);
+              }
+            }}
+            aria-label={`티미 카드 ${showBack ? '앞면' : '뒷면'} 보기`}
+            aria-pressed={showBack}
+            title="카드를 클릭하여 뒤집기"
           >
             {/* 앞면 */}
             <div 
@@ -80,41 +95,28 @@ function AnalysisCompleteContent() {
                 className="w-full h-full object-contain"
               />
             </div>
-          </div>
+          </button>
         ) : (
-          <div className="w-80 h-96 bg-gray-300 flex items-center justify-center rounded-xl">
+          <div className="w-72 h-80 sm:w-80 sm:h-96 bg-gray-300 flex items-center justify-center rounded-xl">
             <div className="text-gray-500 text-2xl">?</div>
           </div>
         )}
 
-        {/* 카드 이름 */}
-        {currentTimiCard && (
-          <div className="text-center">
-            <h2 className="text-xl font-bold text-gray-800 mb-1">
-              {currentTimiCard.name}
-            </h2>
-            {typeMeta && (
-              <p className="text-sm text-gray-600">
-                {typeMeta.subtitle}
-              </p>
-            )}
-          </div>
-        )}
 
 
 
         {/* 하단 버튼들 */}
-        <div className="space-y-3 w-full max-w-sm">
+        <div className="flex flex-col items-center space-y-4">
           <button
             onClick={handleViewDetails}
-            className="w-full bg-gray-800 text-white py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors"
+            className="bg-gray-800 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors"
           >
             나의 성향 자세히 보기 →
           </button>
           
           <button
             onClick={handleRetest}
-            className="w-full text-gray-500 underline font-medium hover:text-gray-600 transition-colors"
+            className="text-sm text-gray-600 underline hover:text-gray-700 transition-colors"
           >
             테스트 다시하기
           </button>
