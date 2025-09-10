@@ -106,33 +106,37 @@ export default function QuestionCard({
             </h2>
           </div>
 
-          {/* 답변 버튼들 - 하단에 고정, 큰 정사각형 버튼 디자인 */}
-          <div className="flex gap-4 justify-center pb-8">
+          {/* 답변 버튼들 - 하단에 고정, 가로형 직사각형 버튼 디자인 */}
+          <div className="flex gap-8 justify-center pb-4">
             <button
               onClick={() => handleAnswerSelect(false)}
-              className={`w-24 h-24 rounded-2xl flex items-center justify-center font-semibold text-xl transition-all duration-200 ${
+              className={`w-32 h-16 rounded-lg flex flex-col items-center justify-center font-semibold text-lg transition-all duration-200 ${
                 selectedAnswer === false 
                   ? 'bg-orange-500 text-white' 
-                  : 'bg-white text-black border border-gray-200'
+                  : 'bg-white text-black'
               }`}
               disabled={isLoading}
               aria-label="아니오"
-              style={{ lineHeight: '30px' }}
             >
+              {selectedAnswer === false && (
+                <div className="w-6 h-6 bg-blue-500 rounded-full mb-2"></div>
+              )}
               아니오
             </button>
 
             <button
               onClick={() => handleAnswerSelect(true)}
-              className={`w-24 h-24 rounded-2xl flex items-center justify-center font-semibold text-xl transition-all duration-200 ${
+              className={`w-32 h-16 rounded-lg flex flex-col items-center justify-center font-semibold text-lg transition-all duration-200 ${
                 selectedAnswer === true 
                   ? 'bg-orange-500 text-white' 
-                  : 'bg-white text-black border border-gray-200'
+                  : 'bg-white text-black'
               }`}
               disabled={isLoading}
               aria-label="예"
-              style={{ lineHeight: '30px' }}
             >
+              {selectedAnswer === true && (
+                <div className="w-6 h-6 bg-blue-500 rounded-full mb-2"></div>
+              )}
               예
             </button>
           </div>
