@@ -78,49 +78,36 @@ export default function QuestionCard({
 
   return (
     <div className={`w-full h-screen bg-gray-100 relative overflow-hidden ${className} ${isAnimating ? 'animate-scale-in' : ''}`} style={{ fontFamily: 'Pretendard, sans-serif' }}>
-      {/* iPhone 상태바 */}
-      <div className="absolute top-0 left-0 right-0 h-12 bg-black text-white flex items-center justify-between px-4 z-20">
-        <div className="text-sm font-semibold">9:41</div>
-        <div className="flex items-center space-x-1">
-          <div className="w-6 h-3 border border-white rounded-sm">
-            <div className="w-4 h-2 bg-white rounded-sm m-0.5"></div>
-          </div>
-          <div className="w-4 h-3 border border-white rounded-sm"></div>
-          <div className="w-4 h-3 border border-white rounded-sm"></div>
-        </div>
-      </div>
-
-      {/* 뒤로가기 버튼 - 상태바 아래 */}
-      <button 
-        className="absolute top-14 left-4 z-10 p-2"
-        onClick={() => window.history.back()}
-        aria-label="뒤로가기"
-      >
-        <Image 
-          src="/back-arrow.svg" 
-          alt="뒤로가기" 
-          width={7} 
-          height={15}
-          className="w-auto h-4"
-        />
-      </button>
-
-      {/* 진행 표시 - 뒤로가기 버튼 아래 */}
-      <div className="absolute top-20 left-4 z-10">
-        <span className="text-sm font-semibold text-gray-600" style={{ letterSpacing: '-0.03em' }}>
-          {questionNumber} / {totalQuestions}
-        </span>
-      </div>
-
       {isLoading ? (
         <div className="flex items-center justify-center h-full">
           <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
         </div>
       ) : (
         <>
-          {/* 질문 영역 - 중앙 상단 */}
-          <div className="absolute top-32 left-4 right-4 text-center">
-            <h2 className="text-xl font-semibold leading-8 text-black" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
+          {/* 뒤로가기 바 - 위치: (0, 40), 크기: 390x63 */}
+          <div className="absolute top-10 left-0 w-full h-16 flex items-center justify-between px-4">
+            <button 
+              className="p-2"
+              onClick={() => window.history.back()}
+              aria-label="뒤로가기"
+            >
+              <Image 
+                src="/back-arrow.svg" 
+                alt="뒤로가기" 
+                width={7} 
+                height={15}
+                className="w-auto h-4"
+              />
+            </button>
+            <span className="text-sm font-semibold text-gray-600" style={{ letterSpacing: '-0.03em' }}>
+              {questionNumber} / {totalQuestions}
+            </span>
+            <div className="w-8"></div> {/* 중앙 정렬을 위한 빈 공간 */}
+          </div>
+
+          {/* 질문 박스 - 위치: (0, 108), 크기: 390x288 */}
+          <div className="absolute top-27 left-0 w-full h-72 flex items-center justify-center px-4">
+            <h2 className="text-xl font-semibold leading-8 text-black text-center" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
               {question.split(' ').length > 8 ? 
                 question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').map((line, index) => (
                   <span key={index}>
@@ -133,11 +120,11 @@ export default function QuestionCard({
             </h2>
           </div>
 
-          {/* 답변 버튼들 - 하단에 고정, 큰 세로형 직사각형 버튼 */}
-          <div className="absolute bottom-12 left-4 right-4 flex gap-2 justify-center">
+          {/* 답변 버튼들 - 위치: (16, 213)과 (199, 213), 크기: 각각 390x63 */}
+          <div className="absolute top-53 left-0 w-full h-16 flex gap-2 px-4">
             <button
               onClick={() => handleAnswerSelect(false)}
-              className={`w-[175px] h-[186px] rounded-lg flex items-center justify-center font-bold text-xl transition-all duration-200 ${
+              className={`flex-1 h-16 rounded-lg flex items-center justify-center font-bold text-xl transition-all duration-200 ${
                 selectedAnswer === false 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black'
@@ -151,7 +138,7 @@ export default function QuestionCard({
 
             <button
               onClick={() => handleAnswerSelect(true)}
-              className={`w-[175px] h-[186px] rounded-lg flex items-center justify-center font-bold text-xl transition-all duration-200 ${
+              className={`flex-1 h-16 rounded-lg flex items-center justify-center font-bold text-xl transition-all duration-200 ${
                 selectedAnswer === true 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black'
@@ -163,9 +150,6 @@ export default function QuestionCard({
               예
             </button>
           </div>
-
-          {/* iPhone 홈 인디케이터 */}
-          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-black rounded-full"></div>
         </>
       )}
     </div>
