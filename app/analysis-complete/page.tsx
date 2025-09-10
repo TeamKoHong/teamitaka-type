@@ -22,8 +22,7 @@ function AnalysisCompleteContent() {
   // 타입 메타데이터와 티미 카드 찾기
   const typeMeta = typeCode ? TYPE_METADATA[typeCode] : null;
   const currentTimiCard = typeMeta ? timiCards.find(card => 
-    card.name === typeMeta.nickname || 
-    card.name.includes(typeMeta.nickname?.replace('티미', '') || '')
+    card.name === typeMeta.nickname
   ) : null;
 
   const handleViewDetails = () => {
@@ -51,7 +50,11 @@ function AnalysisCompleteContent() {
       {/* 카드 영역 */}
       <div className="flex flex-col items-center space-y-6">
         {currentTimiCard ? (
-          <div className="w-80 h-96 relative">
+          <div 
+            className="w-80 h-96 relative cursor-pointer transition-transform duration-200 hover:scale-105"
+            onClick={() => setShowBack(!showBack)}
+            title={showBack ? '앞면 보기' : '뒷면 보기'}
+          >
             {/* 앞면 */}
             <div 
               className={`absolute inset-0 transition-all duration-500 ease-in-out ${
@@ -79,7 +82,7 @@ function AnalysisCompleteContent() {
             </div>
           </div>
         ) : (
-          <div className="w-80 h-96 bg-gray-300 flex items-center justify-center">
+          <div className="w-80 h-96 bg-gray-300 flex items-center justify-center rounded-xl">
             <div className="text-gray-500 text-2xl">?</div>
           </div>
         )}
@@ -99,15 +102,6 @@ function AnalysisCompleteContent() {
         )}
 
 
-        {/* 뒤집기 버튼 */}
-        {currentTimiCard && (
-          <button 
-            onClick={() => setShowBack(!showBack)}
-            className="px-6 py-3 bg-purple-500 text-white rounded-lg font-medium hover:bg-purple-600 transition-colors"
-          >
-            {showBack ? '앞면 보기' : '뒷면 보기'}
-          </button>
-        )}
 
         {/* 하단 버튼들 */}
         <div className="space-y-3 w-full max-w-sm">
