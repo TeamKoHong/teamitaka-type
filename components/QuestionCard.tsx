@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 
 interface QuestionCardProps {
   question: string;
@@ -76,24 +77,50 @@ export default function QuestionCard({
   }, [selectedAnswer, isLoading, handleAnswerSelect, handleAnswerSubmit]);
 
   return (
-    <div className={`w-full h-full flex flex-col ${className} ${isAnimating ? 'animate-scale-in' : ''}`}>
+    <div className={`w-full h-screen bg-gray-100 relative overflow-hidden ${className} ${isAnimating ? 'animate-scale-in' : ''}`} style={{ fontFamily: 'Pretendard, sans-serif' }}>
+      {/* iPhone 상태바 */}
+      <div className="absolute top-0 left-0 right-0 h-12 bg-black text-white flex items-center justify-between px-4 z-20">
+        <div className="text-sm font-semibold">9:41</div>
+        <div className="flex items-center space-x-1">
+          <div className="w-6 h-3 border border-white rounded-sm">
+            <div className="w-4 h-2 bg-white rounded-sm m-0.5"></div>
+          </div>
+          <div className="w-4 h-3 border border-white rounded-sm"></div>
+          <div className="w-4 h-3 border border-white rounded-sm"></div>
+        </div>
+      </div>
+
+      {/* 뒤로가기 버튼 - 상태바 아래 */}
+      <button 
+        className="absolute top-14 left-4 z-10 p-2"
+        onClick={() => window.history.back()}
+        aria-label="뒤로가기"
+      >
+        <Image 
+          src="/back-arrow.svg" 
+          alt="뒤로가기" 
+          width={7} 
+          height={15}
+          className="w-auto h-4"
+        />
+      </button>
+
+      {/* 진행 표시 - 뒤로가기 버튼 아래 */}
+      <div className="absolute top-20 left-4 z-10">
+        <span className="text-sm font-semibold text-gray-600" style={{ letterSpacing: '-0.03em' }}>
+          {questionNumber} / {totalQuestions}
+        </span>
+      </div>
+
       {isLoading ? (
-        <div className="text-center py-12">
+        <div className="flex items-center justify-center h-full">
           <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">결과 분석 중...</p>
         </div>
       ) : (
         <>
-          {/* 진행 표시 */}
-          <div className="w-full flex justify-start mb-4">
-            <div className="text-sm font-semibold text-gray-600" style={{ letterSpacing: '-0.03em' }}>
-              {questionNumber} / {totalQuestions}
-            </div>
-          </div>
-
-          {/* 질문 텍스트 - 중앙에 배치, 두 줄로 나누기 */}
-          <div className="flex-1 flex items-center justify-center">
-            <h2 className="text-xl font-semibold text-black leading-relaxed text-center px-4" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
+          {/* 질문 영역 - 중앙 상단 */}
+          <div className="absolute top-32 left-4 right-4 text-center">
+            <h2 className="text-xl font-semibold leading-8 text-black" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
               {question.split(' ').length > 8 ? 
                 question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').map((line, index) => (
                   <span key={index}>
@@ -106,40 +133,39 @@ export default function QuestionCard({
             </h2>
           </div>
 
-          {/* 답변 버튼들 - 하단에 고정, 가로형 직사각형 버튼 디자인 */}
-          <div className="flex gap-8 justify-center pb-4">
+          {/* 답변 버튼들 - 하단에 고정, 큰 세로형 직사각형 버튼 */}
+          <div className="absolute bottom-12 left-4 right-4 flex gap-2 justify-center">
             <button
               onClick={() => handleAnswerSelect(false)}
-              className={`w-32 h-16 rounded-lg flex flex-col items-center justify-center font-semibold text-lg transition-all duration-200 ${
+              className={`w-[175px] h-[186px] rounded-lg flex items-center justify-center font-bold text-xl transition-all duration-200 ${
                 selectedAnswer === false 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black'
               }`}
               disabled={isLoading}
               aria-label="아니오"
+              style={{ lineHeight: '30px' }}
             >
-              {selectedAnswer === false && (
-                <div className="w-6 h-6 bg-blue-500 rounded-full mb-2"></div>
-              )}
               아니오
             </button>
 
             <button
               onClick={() => handleAnswerSelect(true)}
-              className={`w-32 h-16 rounded-lg flex flex-col items-center justify-center font-semibold text-lg transition-all duration-200 ${
+              className={`w-[175px] h-[186px] rounded-lg flex items-center justify-center font-bold text-xl transition-all duration-200 ${
                 selectedAnswer === true 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black'
               }`}
               disabled={isLoading}
               aria-label="예"
+              style={{ lineHeight: '30px' }}
             >
-              {selectedAnswer === true && (
-                <div className="w-6 h-6 bg-blue-500 rounded-full mb-2"></div>
-              )}
               예
             </button>
           </div>
+
+          {/* iPhone 홈 인디케이터 */}
+          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-black rounded-full"></div>
         </>
       )}
     </div>
