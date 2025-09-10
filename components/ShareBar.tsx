@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import html2canvas from 'html2canvas';
 
 interface ShareBarProps {
   typeCode: string;
@@ -58,54 +57,29 @@ export default function ShareBar({ typeCode, nickname, onRetest, className = '' 
     setIsSaving(true);
 
     try {
-      const cardElement = document.getElementById('result-card');
-      if (!cardElement) {
-        throw new Error('결과 카드를 찾을 수 없습니다.');
+      // saved-image 폴더에 있는 이미지 경로
+      const imagePath = `/assets/saved-image/${nickname}.png`;
+      const fileName = `${nickname}.png`;
+      
+      // 이미지를 fetch로 가져와서 다운로드
+      const response = await fetch(imagePath);
+      if (!response.ok) {
+        throw new Error('이미지를 찾을 수 없습니다.');
       }
 
-      // 폰트 로딩 대기
-      await document.fonts.ready;
-
-      // html2canvas 옵션 설정
-      const canvas = await html2canvas(cardElement, {
-        scale: 2, // 고해상도
-        useCORS: true,
-        allowTaint: true,
-        logging: false,
-        width: 400,
-        height: 600,
-        onclone: (clonedDoc: Document) => {
-          // 복제된 문서에서 캡쳐 모드 활성화
-          const clonedCard = clonedDoc.getElementById('result-card');
-          if (clonedCard) {
-            clonedCard.style.width = '400px';
-            clonedCard.style.height = '600px';
-            clonedCard.style.padding = '32px';
-            clonedCard.style.boxSizing = 'border-box';
-          }
-        }
-      } as any);
-
-      // 이미지 다운로드
-      const today = new Date().toISOString().split('T')[0].replace(/-/g, '');
-      const fileName = `teamitaka-type_${typeCode}_${today}.png`;
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
       
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = fileName;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-          
-          showToast('이미지가 저장되었습니다!');
-        } else {
-          throw new Error('이미지 생성에 실패했습니다.');
-        }
-      }, 'image/png');
+      // 다운로드 링크 생성 및 클릭
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      showToast('이미지가 저장되었습니다!');
 
     } catch (error) {
       console.error('이미지 저장 실패:', error);
