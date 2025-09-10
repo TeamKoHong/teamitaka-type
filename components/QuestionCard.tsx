@@ -105,8 +105,8 @@ export default function QuestionCard({
             <div className="w-8"></div> {/* 중앙 정렬을 위한 빈 공간 */}
           </div>
 
-          {/* 질문 박스 - 위치: (0, 108), 크기: 390x288 */}
-          <div className="absolute left-0 w-full flex items-center justify-center px-4" style={{ top: '108px', height: '288px' }}>
+          {/* 질문 박스 - 화면 중앙에 배치 */}
+          <div className="absolute left-0 w-full flex items-center justify-center px-4" style={{ top: '120px', bottom: '120px' }}>
             <h2 className="text-xl font-semibold leading-8 text-black text-center" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
               {question.split(' ').length > 8 ? 
                 question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').map((line, index) => (
@@ -120,8 +120,8 @@ export default function QuestionCard({
             </h2>
           </div>
 
-          {/* 답변 버튼들 - 위치: (16, 213)과 (199, 213), 크기: 각각 390x63 */}
-          <div className="absolute left-0 w-full h-16 flex gap-2 px-4" style={{ top: '213px' }}>
+          {/* 답변 버튼들 - 화면 하단에 고정 */}
+          <div className="absolute left-0 w-full h-16 flex gap-2 px-4" style={{ bottom: '40px' }}>
             <button
               onClick={() => handleAnswerSelect(false)}
               className={`flex-1 h-16 rounded-lg flex items-center justify-center font-bold text-xl transition-all duration-200 ${
