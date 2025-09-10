@@ -125,12 +125,13 @@ export default function ResultPage() {
 
   // 모바일 카드형 모드 (기본)
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen" style={{ backgroundColor: '#333131' }}>
       {/* 상단 닫기 버튼 */}
       <div className="absolute top-4 right-4 z-10">
         <button
           onClick={() => router.push('/')}
-          className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-lg font-bold"
+          className="w-8 h-8 text-white rounded-full flex items-center justify-center text-lg font-bold"
+          style={{ backgroundColor: '#505050' }}
           aria-label="닫기"
         >
           ×
