@@ -49,13 +49,22 @@ export default function ResultCard({
         useCORS: true,
         allowTaint: true,
         logging: false,
-        width: 375,
-        height: 600,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: cardElement.scrollWidth,
+        windowHeight: cardElement.scrollHeight,
         onclone: (clonedDoc: Document) => {
           // 복제된 문서에서 캡쳐 모드 활성화
           const clonedCard = clonedDoc.getElementById('result-card');
           if (clonedCard) {
             clonedCard.style.boxSizing = 'border-box';
+            clonedCard.style.overflow = 'visible';
+            // 전체 콘텐츠가 보이도록 스타일 조정
+            const body = clonedDoc.body;
+            if (body) {
+              body.style.overflow = 'visible';
+              body.style.height = 'auto';
+            }
           }
         }
       } as any);
