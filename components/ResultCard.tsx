@@ -160,6 +160,7 @@ export default function ResultCard({
               }
             });
 
+
             // 모든 rounded 클래스 요소에 borderRadius 강제 적용
             const roundedElements = clonedCard.querySelectorAll('.rounded-lg, .rounded');
             roundedElements.forEach((element) => {
