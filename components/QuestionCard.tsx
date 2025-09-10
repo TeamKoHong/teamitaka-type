@@ -85,7 +85,7 @@ export default function QuestionCard({
       ) : (
         <>
           {/* 뒤로가기 바 - 위치: (0, 40), 크기: 390x63 */}
-          <div className="absolute top-10 left-0 w-full h-16 flex items-center justify-between px-4">
+          <div className="absolute left-0 w-full h-16 flex items-center justify-between px-4" style={{ top: '40px' }}>
             <button 
               className="p-2"
               onClick={() => window.history.back()}
@@ -106,7 +106,7 @@ export default function QuestionCard({
           </div>
 
           {/* 질문 박스 - 위치: (0, 108), 크기: 390x288 */}
-          <div className="absolute top-27 left-0 w-full h-72 flex items-center justify-center px-4">
+          <div className="absolute left-0 w-full flex items-center justify-center px-4" style={{ top: '108px', height: '288px' }}>
             <h2 className="text-xl font-semibold leading-8 text-black text-center" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
               {question.split(' ').length > 8 ? 
                 question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').map((line, index) => (
@@ -121,7 +121,7 @@ export default function QuestionCard({
           </div>
 
           {/* 답변 버튼들 - 위치: (16, 213)과 (199, 213), 크기: 각각 390x63 */}
-          <div className="absolute top-53 left-0 w-full h-16 flex gap-2 px-4">
+          <div className="absolute left-0 w-full h-16 flex gap-2 px-4" style={{ top: '213px' }}>
             <button
               onClick={() => handleAnswerSelect(false)}
               className={`flex-1 h-16 rounded-lg flex items-center justify-center font-bold text-xl transition-all duration-200 ${
