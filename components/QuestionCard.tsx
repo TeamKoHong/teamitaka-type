@@ -18,34 +18,26 @@ export default function QuestionCard({
   totalQuestions, 
   onAnswer,
   isLoading = false,
-  className = '' 
+  className = ''
 }: QuestionCardProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<boolean | null>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
 
-  const handleAnswerSubmit = useCallback((answer: boolean = selectedAnswer!) => {
-    if (answer === null || isLoading) return;
-    
-    onAnswer(answer);
-    
-    // 다음 질문을 위한 상태 리셋
-    setTimeout(() => {
-      setSelectedAnswer(null);
-      setIsAnimating(false);
-    }, 100);
-  }, [selectedAnswer, isLoading, onAnswer]);
+  // 질문 변경 시 상태 초기화
+  useEffect(() => {
+    setSelectedAnswer(null);
+  }, [question]);
 
   const handleAnswerSelect = useCallback((answer: boolean) => {
     if (isLoading) return;
     
+    // 즉시 선택 상태 표시
     setSelectedAnswer(answer);
-    setIsAnimating(true);
     
-    // 애니메이션 후 자동 진행
+    // 짧은 지연 후 답변 처리 (시각적 피드백 보장)
     setTimeout(() => {
-      handleAnswerSubmit(answer);
-    }, 300);
-  }, [isLoading, handleAnswerSubmit]);
+      onAnswer(answer);
+    }, 150);
+  }, [isLoading, onAnswer]);
 
   // 키보드 네비게이션
   useEffect(() => {
@@ -64,20 +56,17 @@ export default function QuestionCard({
           handleAnswerSelect(false);
           break;
         case 'Enter':
-          event.preventDefault();
-          if (selectedAnswer !== null) {
-            handleAnswerSubmit();
-          }
+          // Enter 키는 비활성화 (즉시 선택 방식이므로 불필요)
           break;
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedAnswer, isLoading, handleAnswerSelect, handleAnswerSubmit]);
+  }, [isLoading, handleAnswerSelect]);
 
   return (
-    <div className={`w-full h-screen bg-gray-100 relative overflow-hidden ${className} ${isAnimating ? 'animate-scale-in' : ''}`} style={{ fontFamily: 'Pretendard, sans-serif' }}>
+    <div className={`w-full h-screen bg-gray-100 relative overflow-hidden ${className}`} style={{ fontFamily: 'Pretendard, sans-serif' }}>
       {isLoading ? (
         <div className="flex items-center justify-center h-full">
           <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
@@ -124,12 +113,12 @@ export default function QuestionCard({
           <div className="absolute left-0 w-full flex gap-2 px-4 justify-center" style={{ bottom: '40px' }}>
             <button
               onClick={() => handleAnswerSelect(false)}
-              className={`w-[175px] h-[186px] rounded-lg flex items-center justify-center font-bold text-xl transition-all duration-200 ${
+              className={`w-[175px] h-[186px] rounded-lg flex items-center justify-center font-bold text-xl ${
                 selectedAnswer === false 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black'
               }`}
-              disabled={isLoading}
+              disabled={isLoading || selectedAnswer !== null}
               aria-label="아니오"
               style={{ lineHeight: '30px' }}
             >
@@ -138,12 +127,12 @@ export default function QuestionCard({
 
             <button
               onClick={() => handleAnswerSelect(true)}
-              className={`w-[175px] h-[186px] rounded-lg flex items-center justify-center font-bold text-xl transition-all duration-200 ${
+              className={`w-[175px] h-[186px] rounded-lg flex items-center justify-center font-bold text-xl ${
                 selectedAnswer === true 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black'
               }`}
-              disabled={isLoading}
+              disabled={isLoading || selectedAnswer !== null}
               aria-label="예"
               style={{ lineHeight: '30px' }}
             >

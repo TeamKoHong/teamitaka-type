@@ -74,10 +74,8 @@ export default function QuizPage() {
         }
       }, 1500);
     } else {
-      // 다음 질문으로
-      setTimeout(() => {
-        setCurrentQuestion(currentQuestion + 1);
-      }, 200);
+      // 다음 질문으로 즉시 전환
+      setCurrentQuestion(currentQuestion + 1);
     }
   };
 
@@ -146,7 +144,7 @@ export default function QuizPage() {
             questionNumber={currentQuestion + 1}
             totalQuestions={questions.length}
             onAnswer={handleAnswer}
-            key={currentQuestion}
+            key="quiz-card"
           />
         )}
       </div>
