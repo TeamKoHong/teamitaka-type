@@ -211,7 +211,7 @@ function AnalysisCompleteContent() {
   }, [browserInfo]);
 
   // 진단 함수
-  const runDiagnostics = (): DiagnosticResults => {
+  const runDiagnostics = useCallback((): DiagnosticResults => {
     const results: DiagnosticResults = {
       timestamp: new Date().toISOString(),
       url: window.location.href,
@@ -234,7 +234,7 @@ function AnalysisCompleteContent() {
     }
 
     // 2. 데이터 매칭 체크
-    const typeMeta = TYPE_METADATA[typeParam];
+    const typeMeta = typeParam ? TYPE_METADATA[typeParam] : null;
     const card = timiCards.find(c => c.name === typeMeta?.nickname);
     
     if (!card && typeMeta) {
@@ -269,7 +269,7 @@ function AnalysisCompleteContent() {
 
     results.status = results.issues.some(issue => issue.type === 'error') ? 'error' : 'success';
     return results;
-  };
+  }, [browserInfo]);
 
   useEffect(() => {
     // URL에서 타입 코드 가져오기
@@ -294,7 +294,7 @@ function AnalysisCompleteContent() {
         console.groupEnd();
       }
     }
-  }, [searchParams]);
+  }, [searchParams, runDiagnostics]);
 
   // 타입 메타데이터와 티미 카드 찾기
   const typeMeta = typeCode ? TYPE_METADATA[typeCode] : null;
