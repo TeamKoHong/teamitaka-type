@@ -1,0 +1,267 @@
+/* 브라우저별 최적화 스타일 - globals.css에 추가할 내용 */
+
+/* CSS 변수 for Safari viewport height fix */
+:root {
+  --vh: 1vh;
+}
+
+/* Safari 최적화 */
+.safari-optimized {
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.safari-optimized .card-face {
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+}
+
+/* Safari 100vh 문제 해결 */
+.safari-full-height {
+  height: 100vh;
+  height: -webkit-fill-available;
+  height: 100dvh; /* 최신 브라우저 */
+}
+
+/* Chrome 최적화 */
+.chrome-optimized {
+  will-change: transform;
+  contain: layout style paint;
+}
+
+.chrome-optimized:hover {
+  transform: scale(1.05);
+}
+
+/* Firefox 최적화 */
+.firefox-optimized {
+  /* Firefox flexbox 버그 대응 */
+  min-height: 0;
+}
+
+@supports (-moz-appearance: none) {
+  .firefox-optimized {
+    transition-timing-function: ease-out;
+  }
+}
+
+/* 모바일 최적화 */
+.mobile-optimized {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* iOS 특화 최적화 */
+@supports (-webkit-touch-callout: none) {
+  .mobile-optimized {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* Android 최적화 */
+@media (max-width: 768px) and (min-resolution: 2dppx) {
+  .mobile-optimized {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+}
+
+/* 디바이스별 세밀한 조정 */
+
+/* Galaxy Fold (280px 접힌 상태) */
+@media (max-width: 320px) {
+  .ultra-compact {
+    font-size: 0.75rem;
+    padding: 0.25rem;
+  }
+  
+  .ultra-compact .title {
+    font-size: 1.25rem;
+  }
+  
+  .ultra-compact .card-text {
+    font-size: 0.7rem;
+  }
+}
+
+/* iPhone SE, iPhone 12 mini (375px) */
+@media (max-width: 375px) and (-webkit-device-pixel-ratio: 3) {
+  .iphone-small {
+    padding: 0.75rem;
+  }
+  
+  .iphone-small .title {
+    font-size: 1.5rem;
+  }
+}
+
+/* iPhone 14 Pro Max, iPhone 15 Plus (430px) */
+@media (min-width: 414px) and (max-width: 430px) and (-webkit-device-pixel-ratio: 3) {
+  .iphone-large {
+    padding: 1.25rem;
+  }
+  
+  .iphone-large .card-container {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Dynamic Island 대응 */
+@media (min-width: 393px) and (-webkit-device-pixel-ratio: 3) {
+  .dynamic-island-safe {
+    padding-top: max(1rem, env(safe-area-inset-top) + 0.5rem);
+  }
+}
+
+/* Galaxy S 시리즈 (412px) */
+@media (max-width: 412px) and (min-resolution: 2.625dppx) {
+  .android-optimization {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .android-optimization .button {
+    min-height: 44px; /* Android touch target */
+  }
+}
+
+/* iPad 대응 */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .tablet-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  
+  .tablet-layout .card-section {
+    flex: 0 0 auto;
+  }
+  
+  .tablet-layout .content-section {
+    flex: 1;
+    max-width: 400px;
+    padding: 2rem;
+  }
+}
+
+/* 가로 모드 대응 */
+@media (orientation: landscape) and (max-height: 500px) {
+  .landscape-compact {
+    flex-direction: row;
+    gap: 2rem;
+    padding: 1rem;
+  }
+  
+  .landscape-compact .card-container {
+    width: auto;
+    height: 80vh;
+    max-height: 400px;
+  }
+  
+  .landscape-compact .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+/* 애니메이션 최적화 */
+.card-flip-animation {
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.card-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-front {
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.card-flipped .card-front {
+  transform: rotateY(-180deg);
+}
+
+.card-flipped .card-back {
+  transform: rotateY(0deg);
+}
+
+/* 성능 최적화 */
+.performance-layer {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* 스크롤 최적화 */
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* 접근성 개선 */
+@media (prefers-reduced-motion: reduce) {
+  .card-flip-animation,
+  .chrome-optimized {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* 고대비 모드 지원 */
+@media (prefers-contrast: high) {
+  .card-container {
+    border: 2px solid currentColor;
+  }
+  
+  .button-primary {
+    border: 2px solid;
+  }
+}
+
+/* 다크모드 지원 (미래 확장용) */
+@media (prefers-color-scheme: dark) {
+  .card-container {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+  
+  .error-state {
+    background: #2a2a2a;
+    color: #e5e5e5;
+  }
+}
+
+/* 프린트 최적화 */
+@media print {
+  .card-container {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+  
+  .interactive-elements {
+    display: none;
+  }
+}
