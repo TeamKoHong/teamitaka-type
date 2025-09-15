@@ -99,6 +99,25 @@
     color: #222222 !important;
   }
 
+  /* Tailwind CSS 완전 무시 */
+  .text-responsive-question,
+  .text-responsive-header,
+  .text-responsive-button,
+  .text-responsive-small {
+    color: #FFFFFF !important;
+  }
+
+  /* 모든 버튼 강제 스타일 */
+  button {
+    color: #FFFFFF !important;
+    background-color: #F76241 !important;
+  }
+
+  /* 모든 텍스트 강제 스타일 */
+  p, h1, h2, h3, h4, h5, h6, span, div {
+    color: #FFFFFF !important;
+  }
+
   /* Pull to refresh 색상 설정 - 모바일 호환 버전 */
   html {
     background-color: #403E3E;
