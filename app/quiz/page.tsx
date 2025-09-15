@@ -98,7 +98,7 @@ export default function QuizPage() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentQuestion]);
+  }, [handleBack]);
 
   // 뒤로가기 제스처 처리 (모바일)
   useEffect(() => {

@@ -10,25 +10,25 @@ export const useSafariViewport = () => {
     const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
     setIsSafari(isSafari);
 
-    const setViewportHeight = () => {
+    const updateViewportHeight = () => {
       const vh = window.innerHeight * 0.01;
       setViewportHeight(vh);
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
 
-    setViewportHeight();
+    updateViewportHeight();
     
     if (isSafari) {
       // Safari에서 주소창 변화 감지
-      window.addEventListener('resize', setViewportHeight);
-      window.addEventListener('orientationchange', setViewportHeight);
+      window.addEventListener('resize', updateViewportHeight);
+      window.addEventListener('orientationchange', updateViewportHeight);
       
       // 스크롤 이벤트로 주소창 상태 감지
       let ticking = false;
       const handleScroll = () => {
         if (!ticking) {
           requestAnimationFrame(() => {
-            setViewportHeight();
+            updateViewportHeight();
             ticking = false;
           });
           ticking = true;
@@ -38,8 +38,8 @@ export const useSafariViewport = () => {
       window.addEventListener('scroll', handleScroll);
       
       return () => {
-        window.removeEventListener('resize', setViewportHeight);
-        window.removeEventListener('orientationchange', setViewportHeight);
+        window.removeEventListener('resize', updateViewportHeight);
+        window.removeEventListener('orientationchange', updateViewportHeight);
         window.removeEventListener('scroll', handleScroll);
       };
     }
