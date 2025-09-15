@@ -48,13 +48,16 @@ export default function HomePage() {
         minHeight: 'calc(var(--vh, 1vh) * 100)'
       })
     }}>
-      <div className="mx-auto max-w-[420px] px-5 py-8 flex flex-col justify-center min-h-screen">
+      <div 
+        className="mx-auto max-w-[420px] px-5 py-8 flex flex-col justify-center min-h-screen"
+        style={{ color: '#FFFFFF' }}
+      >
         
         {/* Headline block */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8" style={{ color: '#FFFFFF' }}>
           <p 
             className="text-responsive-small mb-2"
-            style={{ color: '#B5B5B8' }}
+            style={{ color: '#B5B5B8 !important' }}
             aria-describedby="headline"
           >
             프로젝트 가치관으로 알아보는
@@ -64,10 +67,10 @@ export default function HomePage() {
             className="font-bold tracking-tight leading-tight text-responsive-question"
             style={{ 
               fontSize: 'clamp(24px, calc(30px * (100vw / 390px)), 36px)',
-              color: '#FFFFFF'
+              color: '#FFFFFF !important'
             }}
           >
-            티미타카 <span style={{ color: '#F76241' }}>캐릭터</span> 찾기
+            티미타카 <span style={{ color: '#F76241 !important' }}>캐릭터</span> 찾기
           </h1>
         </div>
 
