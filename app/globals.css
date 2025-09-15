@@ -21,31 +21,36 @@
 
   body {
     font-family: 'Pretendard', 'Noto Sans KR', system-ui, sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
   }
 
-  /* Pull to refresh 색상 설정 - 안전한 버전 */
+  /* Pull to refresh 색상 설정 - 강화된 버전 */
   html {
-    background-color: var(--bg);
+    background-color: var(--bg) !important;
   }
 
   body {
-    background-color: var(--bg);
+    background-color: var(--bg) !important;
+  }
+
+  /* 모든 컨테이너 요소에 배경색 강제 적용 */
+  #__next, main, div[class*="min-h-screen"] {
+    background-color: var(--bg) !important;
   }
 
   /* iOS Safari Pull to refresh 색상 */
   @supports (-webkit-touch-callout: none) {
     html, body {
-      background-color: var(--bg);
+      background-color: var(--bg) !important;
       -webkit-overflow-scrolling: touch;
     }
   }
 
   /* 모바일 Pull to refresh 색상 */
   @media (max-width: 768px) {
-    html, body {
-      background-color: var(--bg);
+    html, body, #__next, main {
+      background-color: var(--bg) !important;
     }
   }
 
