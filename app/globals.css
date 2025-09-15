@@ -25,23 +25,91 @@
     color: var(--text);
   }
 
-  /* Pull to refresh 색상 설정 */
+  /* Pull to refresh 색상 설정 - 강화된 버전 */
   html {
-    background-color: var(--bg);
+    background-color: var(--bg) !important;
+    background: var(--bg) !important;
   }
 
-  /* iOS Safari Pull to refresh 색상 */
+  body {
+    background-color: var(--bg) !important;
+    background: var(--bg) !important;
+  }
+
+  /* iOS Safari Pull to refresh 색상 - 더 강력한 설정 */
   @supports (-webkit-touch-callout: none) {
+    html {
+      background-color: var(--bg) !important;
+      background: var(--bg) !important;
+    }
+    
     body {
-      background-color: var(--bg);
+      background-color: var(--bg) !important;
+      background: var(--bg) !important;
       -webkit-overflow-scrolling: touch;
+    }
+    
+    /* iOS Safari 전용 추가 설정 */
+    * {
+      background-color: inherit;
     }
   }
 
-  /* Android Chrome Pull to refresh 색상 */
+  /* Android Chrome Pull to refresh 색상 - 더 강력한 설정 */
   @media screen and (max-width: 768px) {
-    html, body {
-      background-color: var(--bg);
+    html {
+      background-color: var(--bg) !important;
+      background: var(--bg) !important;
+    }
+    
+    body {
+      background-color: var(--bg) !important;
+      background: var(--bg) !important;
+    }
+    
+    /* Android Chrome 전용 추가 설정 */
+    * {
+      background-color: inherit;
+    }
+  }
+
+  /* 모든 모바일 브라우저에 대한 강제 설정 */
+  @media (max-width: 768px) {
+    html, body, #__next, main, div[class*="min-h-screen"] {
+      background-color: var(--bg) !important;
+      background: var(--bg) !important;
+    }
+  }
+
+  /* Pull to refresh 전용 강제 설정 */
+  @media (max-width: 768px) {
+    /* 모든 가능한 컨테이너 요소들 */
+    html, body, #__next, main, div, section, article {
+      background-color: #403E3E !important;
+      background: #403E3E !important;
+    }
+    
+    /* Next.js 특화 설정 */
+    [data-nextjs-scroll-focus-boundary] {
+      background-color: #403E3E !important;
+      background: #403E3E !important;
+    }
+    
+    /* 뷰포트 전체 덮기 */
+    * {
+      background-color: inherit !important;
+    }
+  }
+
+  /* iOS Safari 전용 추가 강제 설정 */
+  @supports (-webkit-touch-callout: none) {
+    @media (max-width: 768px) {
+      html, body {
+        background-color: #403E3E !important;
+        background: #403E3E !important;
+        -webkit-background-size: cover !important;
+        background-size: cover !important;
+      }
     }
   }
 

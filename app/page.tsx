@@ -41,6 +41,8 @@ export default function HomePage() {
     <div className={`min-h-screen bg-[var(--bg)] text-[var(--text)] safe-top safe-bottom ${
       isSafari ? 'safari-dynamic-height' : ''
     }`} style={{
+      backgroundColor: 'var(--bg)',
+      background: 'var(--bg)',
       ...(isSafari && {
         height: 'calc(var(--vh, 1vh) * 100)',
         minHeight: 'calc(var(--vh, 1vh) * 100)'
