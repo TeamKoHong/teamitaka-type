@@ -80,7 +80,7 @@ export default function RootLayout({
         {/* Plausible Analytics (예시) */}
         {/* <script defer data-domain="type.teamitaka.com" src="https://plausible.io/js/script.js"></script> */}
       </head>
-      <body className="antialiased min-h-screen transition-colors" style={{ backgroundColor: 'var(--bg)' }}>
+      <body className="antialiased min-h-screen transition-colors" style={{ backgroundColor: '#403E3E' }}>
         <div className="min-h-screen flex flex-col">
           <main className="flex-1">
             {children}
