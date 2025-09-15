@@ -12,10 +12,10 @@ export default function ProgressBar({ current, total, className = '' }: Progress
   return (
     <div className={`w-full ${className}`}>
       <div className="flex justify-between items-center mb-2">
-        <span className="text-sm text-gray-600 dark:text-gray-400">
+        <span className="text-responsive-small text-gray-600 dark:text-gray-400">
           {current} / {total}
         </span>
-        <span className="text-sm font-medium text-primary">
+        <span className="text-responsive-small font-medium text-primary">
           {percentage}%
         </span>
       </div>

@@ -105,14 +105,19 @@ export default function QuestionCard({
                 className="w-auto h-4"
               />
             </button>
-            <span className="text-sm font-semibold text-gray-600" style={{ letterSpacing: '-0.03em' }}>
+            <span className="font-semibold text-gray-600 text-responsive-header" style={{ 
+              letterSpacing: '-0.03em'
+            }}>
               {questionNumber} / {totalQuestions}
             </span>
           </div>
 
           {/* 질문 박스 - 유연한 중앙 배치 */}
           <div className="flex-1 flex items-center justify-center px-6 py-12">
-            <h2 className="text-xl font-semibold leading-8 text-black text-center" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
+            <h2 className="font-semibold text-black text-center text-responsive-question" style={{ 
+              letterSpacing: '-0.03em', 
+              lineHeight: '1.5'
+            }}>
               {question.split(' ').length > 8 ? 
                 question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').map((line, index) => (
                   <span key={index}>
@@ -131,28 +136,32 @@ export default function QuestionCard({
           }`}>
             <button
               onClick={() => handleAnswerSelect(false)}
-              className={`w-[160px] h-[180px] rounded-xl flex items-center justify-center font-bold text-xl ${
+              className={`w-[160px] h-[180px] rounded-xl flex items-center justify-center font-bold text-responsive-button ${
                 selectedAnswer === false 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black'
               }`}
               disabled={isLoading || selectedAnswer !== null}
               aria-label="아니오"
-              style={{ lineHeight: '30px' }}
+              style={{ 
+                lineHeight: '1.2'
+              }}
             >
               아니오
             </button>
 
             <button
               onClick={() => handleAnswerSelect(true)}
-              className={`w-[160px] h-[180px] rounded-xl flex items-center justify-center font-bold text-xl ${
+              className={`w-[160px] h-[180px] rounded-xl flex items-center justify-center font-bold text-responsive-button ${
                 selectedAnswer === true 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black'
               }`}
               disabled={isLoading || selectedAnswer !== null}
               aria-label="예"
-              style={{ lineHeight: '30px' }}
+              style={{ 
+                lineHeight: '1.2'
+              }}
             >
               예
             </button>

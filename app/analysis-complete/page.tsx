@@ -405,8 +405,8 @@ function AnalysisCompleteContent() {
 
       {/* 제목 영역 */}
       <div className="text-center mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">성향 분석 완료!</h1>
-        <p className="text-base sm:text-lg text-gray-600 px-4">나의 성향이 담긴 티미 확인하기</p>
+        <h1 className="font-bold text-gray-800 mb-2 text-responsive-question" style={{ fontSize: 'clamp(20px, calc(24px * (100vw / 390px)), 28px)' }}>성향 분석 완료!</h1>
+        <p className="text-responsive-header text-gray-600 px-4">나의 성향이 담긴 티미 확인하기</p>
       </div>
 
       {/* 카드 영역 */}
@@ -506,14 +506,12 @@ function AnalysisCompleteContent() {
             <div className="text-gray-500 mb-4" style={{ fontSize: Math.min(cardSize.width * 0.15, 60) }}>❓</div>
             <div className="text-gray-600 text-center px-4">
               <div 
-                className="font-medium mb-2"
-                style={{ fontSize: Math.min(cardSize.width * 0.04, 16) }}
+                className="font-medium mb-2 text-responsive-header"
               >
                 결과를 불러올 수 없습니다
               </div>
               <div 
-                className="text-sm"
-                style={{ fontSize: Math.min(cardSize.width * 0.035, 14) }}
+                className="text-responsive-small"
               >
                 {!typeCode 
                   ? 'URL 파라미터가 없습니다' 
@@ -545,13 +543,12 @@ function AnalysisCompleteContent() {
           <button
             onClick={handleViewDetails}
             disabled={!typeCode || !typeMeta}
-            className={`w-full px-6 py-3 rounded-lg font-medium transition-colors text-center ${
+            className={`w-full px-6 py-3 rounded-lg font-medium transition-colors text-center text-responsive-button ${
               typeCode && typeMeta
                 ? `bg-gray-800 text-white ${!browserInfo.isMobile ? 'hover:bg-gray-700' : ''}`
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
             style={{
-              fontSize: Math.min(cardSize.width * 0.04, 16),
               // Android에서 터치 최적화
               ...(browserInfo.isAndroid && {
                 WebkitTapHighlightColor: 'transparent',
@@ -565,12 +562,9 @@ function AnalysisCompleteContent() {
           
           <button
             onClick={handleRetest}
-            className={`text-gray-600 underline transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 rounded px-2 py-1 ${
+            className={`text-gray-600 underline transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 rounded px-2 py-1 text-responsive-small ${
               !browserInfo.isMobile ? 'hover:text-gray-700' : ''
             }`}
-            style={{
-              fontSize: Math.min(cardSize.width * 0.035, 14)
-            }}
           >
             테스트 다시하기
           </button>

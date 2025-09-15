@@ -89,7 +89,7 @@ export default function ResultPage() {
             </svg>
           </button>
           
-          <h1 className="text-lg font-semibold">성향 분석 완료!</h1>
+          <h1 className="font-semibold text-responsive-header">성향 분석 완료!</h1>
           
           <button
             onClick={() => router.push('/')}

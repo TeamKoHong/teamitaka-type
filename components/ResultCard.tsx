@@ -107,10 +107,13 @@ export default function ResultCard({
       >
         {/* 헤더 영역 */}
       <div className="px-6 py-8 text-center" style={{ backgroundColor: '#333131' }}>
-        <p className="text-sm text-white mb-4">어떤 환경에서도 제 역할을 해내는</p>
+        <p className="text-responsive-small text-white mb-4">어떤 환경에서도 제 역할을 해내는</p>
         <h1 
-          className="text-3xl font-bold mb-6"
-          style={{ color: accentColor }}
+          className="font-bold mb-6 text-responsive-question"
+          style={{ 
+            color: accentColor,
+            fontSize: 'clamp(24px, calc(30px * (100vw / 390px)), 36px)'
+          }}
         >
           {typeMeta.nickname}
         </h1>
@@ -135,7 +138,7 @@ export default function ResultCard({
             </div>
           </div>
         )}
-        <p className="text-sm leading-relaxed text-gray-300 mb-6">
+        <p className="text-responsive-small leading-relaxed text-gray-300 mb-6">
           {typeMeta.description}
         </p>
         
@@ -150,7 +153,7 @@ export default function ResultCard({
             />
           ) : (
             <div className="w-full h-20 flex items-center justify-center">
-              <div className="text-gray-500 text-sm">속성 이미지</div>
+              <div className="text-gray-500 text-responsive-small">속성 이미지</div>
             </div>
           )}
         </div>
@@ -194,11 +197,11 @@ export default function ResultCard({
               return (
                 <div key={index}>
                   <div className="flex items-start space-x-3">
-                    <span className="text-sm font-bold text-white">{index + 1}.</span>
+                    <span className="text-responsive-small font-bold text-white">{index + 1}.</span>
                     <div>
-                      <p className="text-sm font-medium text-white mb-1">{title}</p>
+                      <p className="text-responsive-small font-medium text-white mb-1">{title}</p>
                       {description && (
-                        <p className="text-xs text-gray-300 leading-relaxed">{description}</p>
+                        <p className="text-responsive-small text-gray-300 leading-relaxed">{description}</p>
                       )}
                     </div>
                   </div>
@@ -212,7 +215,7 @@ export default function ResultCard({
         {/* 하단 문구 */}
         <div className="px-6 mb-6">
           <div className="rounded-lg p-4" style={{ backgroundColor: '#505050', borderRadius: '0.5rem' }}>
-            <p className="text-sm text-center text-white leading-relaxed">
+            <p className="text-responsive-small text-center text-white leading-relaxed">
               &ldquo;{typeMeta.quote}&rdquo;
             </p>
           </div>
