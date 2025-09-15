@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { useBrowserOptimization } from '@/lib/hooks/useBrowserOptimization';
+import { useSafariViewport } from '@/lib/hooks/useSafariViewport';
 
 interface QuestionCardProps {
   question: string;
@@ -25,6 +26,7 @@ export default function QuestionCard({
 }: QuestionCardProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<boolean | null>(null);
   const browserOptimization = useBrowserOptimization();
+  const { viewportHeight, isSafari } = useSafariViewport();
 
   // 질문 변경 시 상태 초기화
   useEffect(() => {
@@ -70,7 +72,18 @@ export default function QuestionCard({
   }, [isLoading, handleAnswerSelect]);
 
   return (
-    <div className={`w-full min-h-screen bg-gray-100 flex flex-col ${browserOptimization.layoutClass} ${className}`} style={{ fontFamily: 'Pretendard, sans-serif' }}>
+    <div 
+      className={`w-full bg-gray-100 flex flex-col ${browserOptimization.layoutClass} ${
+        isSafari ? 'safari-dynamic-height' : 'min-h-screen'
+      } ${className}`} 
+      style={{ 
+        fontFamily: 'Pretendard, sans-serif',
+        ...(isSafari && {
+          height: `calc(var(--vh, 1vh) * 100)`,
+          minHeight: `calc(var(--vh, 1vh) * 100)`
+        })
+      }}
+    >
       {isLoading ? (
         <div className="flex items-center justify-center h-full">
           <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
@@ -113,8 +126,10 @@ export default function QuestionCard({
             </h2>
           </div>
 
-          {/* 답변 버튼들 - 하단 고정하되 잘리지 않도록 */}
-          <div className="flex-shrink-0 flex gap-2 px-4 pb-8 justify-center">
+          {/* 답변 버튼들 - Safari 대응 */}
+          <div className={`flex-shrink-0 flex gap-2 px-4 justify-center ${
+            isSafari ? 'safari-bottom-safe' : 'pb-8'
+          }`}>
             <button
               onClick={() => handleAnswerSelect(false)}
               className={`w-[175px] h-[186px] rounded-lg flex items-center justify-center font-bold text-xl ${

@@ -256,3 +256,54 @@
     padding: 3rem 0;
   }
 }
+
+/* Safari 주소창 대응 */
+@layer base {
+  /* Safari 주소창 고려한 뷰포트 높이 */
+  .safari-viewport {
+    height: 100vh;
+    height: -webkit-fill-available; /* Safari 전용 */
+    height: 100dvh; /* 최신 브라우저 */
+  }
+  
+  /* 하단 Safe Area 대응 */
+  .safari-bottom-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: max(env(safe-area-inset-bottom), 1rem);
+  }
+  
+  /* 동적 뷰포트 높이 */
+  .safari-dynamic-height {
+    height: calc(var(--vh, 1vh) * 100);
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
+}
+
+@layer components {
+  /* 하단 고정 버튼 - Safari 대응 */
+  .bottom-fixed-safari {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    background: white;
+    border-top: 1px solid #e5e5e5;
+    z-index: 50;
+  }
+  
+  /* 메인 콘텐츠 - 하단 버튼 공간 확보 */
+  .main-content-safari {
+    padding-bottom: 120px; /* 버튼 높이 + 여백 */
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
+  
+  /* 인라인 버튼 - 스크롤 가능 */
+  .inline-buttons-safari {
+    padding: 1rem;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    background: white;
+    border-top: 1px solid #e5e5e5;
+  }
+}

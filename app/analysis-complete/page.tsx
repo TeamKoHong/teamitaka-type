@@ -6,6 +6,7 @@ import { TYPE_METADATA } from '@/lib/types';
 import { timiCards } from '@/lib/data/timiCards';
 import { useBrowserOptimization } from '@/lib/hooks/useBrowserOptimization';
 import { useViewportHeight } from '@/lib/hooks/useViewportHeight';
+import { useSafariViewport } from '@/lib/hooks/useSafariViewport';
 
 interface DiagnosticIssue {
   type: 'error' | 'warning' | 'success';
@@ -140,6 +141,7 @@ function AnalysisCompleteContent() {
   const { cardSize, browserInfo } = useResponsiveCard();
   const browserOptimization = useBrowserOptimization();
   const viewportHeight = useViewportHeight();
+  const { viewportHeight: safariVh, isSafari } = useSafariViewport();
 
   // 브라우저별 클래스 생성
   const getCardClasses = useCallback(() => {
@@ -331,9 +333,14 @@ function AnalysisCompleteContent() {
 
   return (
     <div 
-      className="bg-gray-100 flex flex-col items-center justify-center p-4 sm:p-6"
+      className={`bg-gray-100 flex flex-col items-center justify-center p-4 sm:p-6 ${
+        isSafari ? 'safari-dynamic-height' : 'min-h-screen'
+      }`}
       style={{
-        minHeight: browserInfo.isSafari ? 'calc(var(--vh, 1vh) * 100)' : '100vh'
+        ...(isSafari && {
+          height: `calc(var(--vh, 1vh) * 100)`,
+          minHeight: `calc(var(--vh, 1vh) * 100)`
+        })
       }}
     >
       {/* 개발 환경 진단 정보 */}
@@ -522,13 +529,17 @@ function AnalysisCompleteContent() {
 
 
 
-        {/* 하단 버튼들 - Safe Area 대응 */}
+        {/* 하단 버튼들 - Safari 대응 */}
         <div 
-          className="flex flex-col items-center space-y-4 w-full max-w-sm"
+          className={`flex flex-col items-center space-y-4 w-full max-w-sm ${
+            isSafari ? 'safari-bottom-safe' : ''
+          }`}
           style={{
-            paddingBottom: browserInfo.isMobile 
-              ? `max(1rem, env(safe-area-inset-bottom))` 
-              : '1rem'
+            ...(isSafari ? {} : {
+              paddingBottom: browserInfo.isMobile 
+                ? `max(1rem, env(safe-area-inset-bottom))` 
+                : '1rem'
+            })
           }}
         >
           <button
