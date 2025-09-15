@@ -3,10 +3,12 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import HeroMascot from './(components)/HeroMascot';
+import { useSafariViewport } from '@/lib/hooks/useSafariViewport';
 
 export default function HomePage() {
   const router = useRouter();
   const [showToast, setShowToast] = useState(false);
+  const { isSafari } = useSafariViewport();
 
   const handleStartTest = () => {
     router.push('/quiz');
@@ -36,7 +38,14 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] safe-top safe-bottom">
+    <div className={`min-h-screen bg-[var(--bg)] text-[var(--text)] safe-top safe-bottom ${
+      isSafari ? 'safari-dynamic-height' : ''
+    }`} style={{
+      ...(isSafari && {
+        height: 'calc(var(--vh, 1vh) * 100)',
+        minHeight: 'calc(var(--vh, 1vh) * 100)'
+      })
+    }}>
       <div className="mx-auto max-w-[420px] px-5 py-8 flex flex-col justify-center min-h-screen">
         
         {/* Headline block */}

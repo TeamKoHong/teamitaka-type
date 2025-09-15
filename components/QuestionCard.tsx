@@ -90,10 +90,10 @@ export default function QuestionCard({
         </div>
       ) : (
         <>
-          {/* 뒤로가기 바 */}
-          <div className="flex-shrink-0 h-16 flex items-center justify-between px-4 pt-4">
+          {/* 뒤로가기 바 - 좌측 정렬 */}
+          <div className="flex-shrink-0 h-16 flex items-center px-4 pt-6">
             <button 
-              className="p-2"
+              className="p-2 mr-4"
               onClick={onBack || (() => window.history.back())}
               aria-label="뒤로가기"
             >
@@ -108,11 +108,10 @@ export default function QuestionCard({
             <span className="text-sm font-semibold text-gray-600" style={{ letterSpacing: '-0.03em' }}>
               {questionNumber} / {totalQuestions}
             </span>
-            <div className="w-8"></div> {/* 중앙 정렬을 위한 빈 공간 */}
           </div>
 
           {/* 질문 박스 - 유연한 중앙 배치 */}
-          <div className="flex-1 flex items-center justify-center px-4 py-8">
+          <div className="flex-1 flex items-center justify-center px-6 py-12">
             <h2 className="text-xl font-semibold leading-8 text-black text-center" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
               {question.split(' ').length > 8 ? 
                 question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').map((line, index) => (
@@ -127,12 +126,12 @@ export default function QuestionCard({
           </div>
 
           {/* 답변 버튼들 - Safari 대응 */}
-          <div className={`flex-shrink-0 flex gap-2 px-4 justify-center ${
+          <div className={`flex-shrink-0 flex gap-3 px-6 justify-center ${
             isSafari ? 'safari-bottom-safe' : 'pb-8'
           }`}>
             <button
               onClick={() => handleAnswerSelect(false)}
-              className={`w-[175px] h-[186px] rounded-lg flex items-center justify-center font-bold text-xl ${
+              className={`w-[160px] h-[180px] rounded-xl flex items-center justify-center font-bold text-xl ${
                 selectedAnswer === false 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black'
@@ -146,7 +145,7 @@ export default function QuestionCard({
 
             <button
               onClick={() => handleAnswerSelect(true)}
-              className={`w-[175px] h-[186px] rounded-lg flex items-center justify-center font-bold text-xl ${
+              className={`w-[160px] h-[180px] rounded-xl flex items-center justify-center font-bold text-xl ${
                 selectedAnswer === true 
                   ? 'bg-orange-500 text-white' 
                   : 'bg-white text-black'

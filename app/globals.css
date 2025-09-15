@@ -276,6 +276,21 @@
   .safari-dynamic-height {
     height: calc(var(--vh, 1vh) * 100);
     min-height: calc(var(--vh, 1vh) * 100);
+    overflow-x: hidden;
+    position: relative;
+  }
+  
+  /* Safari에서 위로 스크롤 시 주황색 배경 방지 */
+  .safari-dynamic-height::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg);
+    z-index: -1;
+    pointer-events: none;
   }
 }
 
