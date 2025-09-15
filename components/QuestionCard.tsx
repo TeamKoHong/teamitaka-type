@@ -90,10 +90,10 @@ export default function QuestionCard({
         </div>
       ) : (
         <>
-          {/* 뒤로가기 바 - 세로 배치 */}
+          {/* 뒤로가기 버튼과 질문 영역을 묶어서 배치 */}
           <div className="flex-shrink-0 px-4 pt-6">
             <button 
-              className="p-2 mb-2"
+              className="p-2 mb-4 -ml-2"
               onClick={onBack || (() => window.history.back())}
               aria-label="뒤로가기"
             >
@@ -105,33 +105,35 @@ export default function QuestionCard({
                 className="w-auto h-4"
               />
             </button>
-            <span className="font-semibold text-gray-600 text-responsive-header" style={{ 
-              letterSpacing: '-0.03em'
-            }}>
-              {questionNumber} / {totalQuestions}
-            </span>
+            
+            {/* 테스트 단계와 질문을 묶어서 배치 - 같은 x값으로 정렬 */}
+            <div className="space-y-6">
+              <span className="font-semibold text-gray-600 text-responsive-header" style={{ 
+                letterSpacing: '-0.03em'
+              }}>
+                {questionNumber} / {totalQuestions}
+              </span>
+              
+              {/* 질문 텍스트 */}
+              <h2 className="font-semibold text-black text-responsive-question" style={{ 
+                letterSpacing: '-0.03em', 
+                lineHeight: '1.5'
+              }}>
+                {question.split(' ').length > 8 ? 
+                  question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').map((line, index) => (
+                    <span key={index}>
+                      {line}
+                      {index < question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').length - 1 && <br />}
+                    </span>
+                  )) :
+                  question
+                }
+              </h2>
+            </div>
           </div>
 
-          {/* 질문 박스 - 유연한 중앙 배치 */}
-          <div className="flex-1 flex items-center justify-center px-6 py-12">
-            <h2 className="font-semibold text-black text-center text-responsive-question" style={{ 
-              letterSpacing: '-0.03em', 
-              lineHeight: '1.5'
-            }}>
-              {question.split(' ').length > 8 ? 
-                question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').map((line, index) => (
-                  <span key={index}>
-                    {line}
-                    {index < question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').length - 1 && <br />}
-                  </span>
-                )) : 
-                question
-              }
-            </h2>
-          </div>
-
-          {/* 답변 버튼들 - Safari 대응 */}
-          <div className={`flex-shrink-0 flex gap-3 px-6 justify-center ${
+          {/* 답변 버튼들 - 하단에 배치 */}
+          <div className={`flex-shrink-0 flex gap-3 px-6 justify-center mt-auto ${
             isSafari ? 'safari-bottom-safe' : 'pb-8'
           }`}>
             <button
