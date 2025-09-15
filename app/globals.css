@@ -311,6 +311,11 @@
     z-index: -1;
     pointer-events: none;
   }
+  
+  /* Safari에서 주황색 그림자 완전히 숨기기 */
+  .safari-dynamic-height .bg-\[var\(--brand\)\]\/30 {
+    z-index: -2 !important;
+  }
 }
 
 @layer components {
