@@ -24,13 +24,14 @@ export default function HeroMascot() {
       
       {/* Soft orange shadow ellipse - Safari safe positioning */}
       <div 
-        className="mx-auto h-3 w-48 rounded-full bg-[var(--brand)]/30 blur-md -mt-4 relative orange-shadow" 
+        className="mx-auto h-3 w-48 rounded-full blur-md -mt-4 relative orange-shadow" 
         aria-hidden="true"
         style={{
           marginTop: '-1rem',
           maxWidth: '12rem',
           zIndex: -2,
-          position: 'relative'
+          position: 'relative',
+          backgroundColor: 'rgba(247, 98, 65, 0.3)'
         }}
       />
     </div>

@@ -53,7 +53,8 @@ export default function HomePage() {
         {/* Headline block */}
         <div className="text-center mb-8">
           <p 
-            className="text-responsive-small text-[var(--muted)] mb-2"
+            className="text-responsive-small mb-2"
+            style={{ color: '#B5B5B8' }}
             aria-describedby="headline"
           >
             프로젝트 가치관으로 알아보는
@@ -61,9 +62,12 @@ export default function HomePage() {
           <h1 
             id="headline"
             className="font-bold tracking-tight leading-tight text-responsive-question"
-            style={{ fontSize: 'clamp(24px, calc(30px * (100vw / 390px)), 36px)' }}
+            style={{ 
+              fontSize: 'clamp(24px, calc(30px * (100vw / 390px)), 36px)',
+              color: '#FFFFFF'
+            }}
           >
-            티미타카 <span className="text-[var(--brand)]">캐릭터</span> 찾기
+            티미타카 <span style={{ color: '#F76241' }}>캐릭터</span> 찾기
           </h1>
         </div>
 
@@ -72,7 +76,14 @@ export default function HomePage() {
 
         {/* Social proof pill */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-[var(--elev)]/50 backdrop-blur-sm text-responsive-small text-white/90 border border-white/10">
+          <div 
+            className="inline-flex items-center px-4 py-2 rounded-full backdrop-blur-sm text-responsive-small border"
+            style={{ 
+              backgroundColor: 'rgba(0,0,0,0.25)',
+              color: 'rgba(255,255,255,0.9)',
+              borderColor: 'rgba(255,255,255,0.1)'
+            }}
+          >
             현재 2,358명이 나의 티미를 찾았어요!
           </div>
         </div>
@@ -82,9 +93,13 @@ export default function HomePage() {
           {/* Primary CTA */}
           <button
             onClick={handleStartTest}
-            className="w-full h-14 bg-[var(--brand)] text-white font-medium text-responsive-button rounded-2xl shadow-lg 
+            className="w-full h-14 font-medium text-responsive-button rounded-2xl shadow-lg 
                        transition-all duration-200 hover:brightness-110 active:scale-[0.98]
                        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+            style={{ 
+              backgroundColor: '#F76241',
+              color: '#FFFFFF'
+            }}
             aria-label="캐릭터 테스트 시작하기"
           >
             테스트 시작하기
@@ -93,9 +108,14 @@ export default function HomePage() {
           {/* Secondary CTA */}
           <button
             onClick={handleShare}
-            className="w-full h-14 bg-white text-gray-900 font-medium text-responsive-button rounded-2xl border border-white/20 
+            className="w-full h-14 font-medium text-responsive-button rounded-2xl border
                        transition-all duration-200 hover:bg-white/90 active:scale-[0.98]
                        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+            style={{ 
+              backgroundColor: '#FFFFFF',
+              color: '#222222',
+              borderColor: 'rgba(255,255,255,0.2)'
+            }}
             aria-label="테스트 공유하기"
           >
             테스트 공유하기
@@ -105,7 +125,8 @@ export default function HomePage() {
           <div className="text-center pt-2">
             <button
               onClick={handleLater}
-              className="text-responsive-small text-[var(--muted)] hover:underline focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+              className="text-responsive-small hover:underline focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+              style={{ color: '#B5B5B8' }}
             >
               나중에 할래요
             </button>

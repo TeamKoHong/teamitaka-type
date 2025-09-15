@@ -36,6 +36,11 @@
     color: var(--text);
   }
 
+  /* 모든 텍스트 요소에 기본 색상 강제 적용 */
+  h1, h2, h3, h4, h5, h6, p, span, div, button {
+    color: #FFFFFF;
+  }
+
   /* Pull to refresh 색상 설정 - 모바일 호환 버전 */
   html {
     background-color: #403E3E;
