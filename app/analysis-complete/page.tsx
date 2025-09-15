@@ -4,6 +4,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense, useCallback } from 'react';
 import { TYPE_METADATA } from '@/lib/types';
 import { timiCards } from '@/lib/data/timiCards';
+import { useBrowserOptimization } from '@/lib/hooks/useBrowserOptimization';
+import { useViewportHeight } from '@/lib/hooks/useViewportHeight';
 
 interface DiagnosticIssue {
   type: 'error' | 'warning' | 'success';
@@ -136,26 +138,12 @@ function AnalysisCompleteContent() {
   
   // 반응형 카드 훅 사용
   const { cardSize, browserInfo } = useResponsiveCard();
+  const browserOptimization = useBrowserOptimization();
+  const viewportHeight = useViewportHeight();
 
   // 브라우저별 클래스 생성
   const getCardClasses = useCallback(() => {
-    let classes = "relative cursor-pointer transition-transform duration-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2";
-    
-    if (browserInfo.isSafari) {
-      classes += " safari-optimized";
-    }
-    
-    if (browserInfo.isChrome) {
-      classes += " chrome-optimized";
-    }
-    
-    if (browserInfo.isFirefox) {
-      classes += " firefox-optimized";
-    }
-    
-    if (browserInfo.isMobile) {
-      classes += " mobile-optimized";
-    }
+    let classes = `relative cursor-pointer transition-transform duration-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${browserOptimization.layoutClass}`;
     
     // 호버 효과는 데스크톱에서만
     if (!browserInfo.isMobile) {
@@ -163,7 +151,7 @@ function AnalysisCompleteContent() {
     }
     
     return classes;
-  }, [browserInfo]);
+  }, [browserInfo, browserOptimization]);
 
   // 터치 이벤트 최적화
   const handleCardTouch = useCallback((e: React.TouchEvent) => {
@@ -457,7 +445,7 @@ function AnalysisCompleteContent() {
               <img
                 src={currentTimiCard.front}
                 alt={`${currentTimiCard.name} 앞면`}
-                className="w-full h-full object-contain"
+                className={`w-full h-full object-contain ${browserOptimization.imageClass}`}
                 onError={(e) => {
                   console.error('Front image loading failed:', e.currentTarget.src);
                   e.currentTarget.style.display = 'none';
@@ -483,7 +471,7 @@ function AnalysisCompleteContent() {
               <img
                 src={currentTimiCard.back}
                 alt={`${currentTimiCard.name} 뒷면`}
-                className="w-full h-full object-contain"
+                className={`w-full h-full object-contain ${browserOptimization.imageClass}`}
                 onError={(e) => {
                   console.error('Back image loading failed:', e.currentTarget.src);
                   e.currentTarget.style.display = 'none';

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import { useBrowserOptimization } from '@/lib/hooks/useBrowserOptimization';
 
 interface QuestionCardProps {
   question: string;
@@ -21,6 +22,7 @@ export default function QuestionCard({
   className = ''
 }: QuestionCardProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<boolean | null>(null);
+  const browserOptimization = useBrowserOptimization();
 
   // 질문 변경 시 상태 초기화
   useEffect(() => {
@@ -66,15 +68,15 @@ export default function QuestionCard({
   }, [isLoading, handleAnswerSelect]);
 
   return (
-    <div className={`w-full h-screen bg-gray-100 relative overflow-hidden ${className}`} style={{ fontFamily: 'Pretendard, sans-serif' }}>
+    <div className={`w-full min-h-screen bg-gray-100 flex flex-col ${browserOptimization.layoutClass} ${className}`} style={{ fontFamily: 'Pretendard, sans-serif' }}>
       {isLoading ? (
         <div className="flex items-center justify-center h-full">
           <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
         </div>
       ) : (
         <>
-          {/* 뒤로가기 바 - 위치: (0, 40), 크기: 390x63 */}
-          <div className="absolute left-0 w-full h-16 flex items-center justify-between px-4" style={{ top: '40px' }}>
+          {/* 뒤로가기 바 */}
+          <div className="flex-shrink-0 h-16 flex items-center justify-between px-4 pt-4">
             <button 
               className="p-2"
               onClick={() => window.history.back()}
@@ -94,8 +96,8 @@ export default function QuestionCard({
             <div className="w-8"></div> {/* 중앙 정렬을 위한 빈 공간 */}
           </div>
 
-          {/* 질문 박스 - 화면 중앙에 배치 */}
-          <div className="absolute left-0 w-full flex items-center justify-center px-4" style={{ top: '120px', bottom: '120px' }}>
+          {/* 질문 박스 - 유연한 중앙 배치 */}
+          <div className="flex-1 flex items-center justify-center px-4 py-8">
             <h2 className="text-xl font-semibold leading-8 text-black text-center" style={{ letterSpacing: '-0.03em', lineHeight: '30px' }}>
               {question.split(' ').length > 8 ? 
                 question.replace(/(.{20,}?)\s/g, '$1\n').split('\n').map((line, index) => (
@@ -109,8 +111,8 @@ export default function QuestionCard({
             </h2>
           </div>
 
-          {/* 답변 버튼들 - 화면 하단에 고정, 175x186 비율 */}
-          <div className="absolute left-0 w-full flex gap-2 px-4 justify-center" style={{ bottom: '40px' }}>
+          {/* 답변 버튼들 - 하단 고정하되 잘리지 않도록 */}
+          <div className="flex-shrink-0 flex gap-2 px-4 pb-8 justify-center">
             <button
               onClick={() => handleAnswerSelect(false)}
               className={`w-[175px] h-[186px] rounded-lg flex items-center justify-center font-bold text-xl ${

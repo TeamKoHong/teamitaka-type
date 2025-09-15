@@ -167,3 +167,92 @@
 .quiz-container {
   touch-action: pan-y pinch-zoom;
 }
+
+/* 브라우저별 이미지 렌더링 최적화 */
+@layer components {
+  .image-ratio-fix {
+    /* 브라우저별 이미지 비율 통일 */
+    object-fit: contain;
+    object-position: center;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+  
+  /* Safari 특화 이미지 최적화 */
+  .safari-image-fix {
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    image-rendering: -webkit-optimize-contrast;
+  }
+  
+  /* Chrome 특화 이미지 최적화 */
+  .chrome-image-fix {
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+  }
+  
+  /* Firefox 특화 이미지 최적화 */
+  .firefox-image-fix {
+    image-rendering: auto;
+  }
+}
+
+/* 긴 화면 비율 디바이스 대응 */
+@media (min-height: 900px) and (max-width: 430px) {
+  .long-screen-quiz {
+    min-height: 100vh;
+    min-height: 100dvh; /* 최신 브라우저 */
+  }
+  
+  .long-screen-quiz .question-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+  
+  .long-screen-quiz .button-area {
+    flex-shrink: 0;
+    padding: 1rem 0 2rem 0;
+  }
+}
+
+/* Galaxy Fold 접힌 상태 대응 */
+@media (max-width: 320px) and (max-height: 700px) {
+  .fold-screen-quiz {
+    min-height: 100vh;
+  }
+  
+  .fold-screen-quiz .question-area {
+    padding: 1rem 0;
+  }
+  
+  .fold-screen-quiz .button-area {
+    padding: 0.5rem 0 1rem 0;
+  }
+  
+  .fold-screen-quiz .answer-button {
+    width: 140px;
+    height: 150px;
+    font-size: 1rem;
+  }
+}
+
+/* iPhone 14 Pro Max, iPhone 15 Plus 대응 */
+@media (min-width: 414px) and (max-width: 430px) and (min-height: 900px) {
+  .iphone-large-quiz {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  
+  .iphone-large-quiz .question-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+  }
+}

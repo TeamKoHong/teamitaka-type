@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { safePublicSrc } from '@/lib/imagePath';
+import { useBrowserOptimization } from '@/lib/hooks/useBrowserOptimization';
 
 type TimiCardProps = { 
   name: string; 
@@ -19,6 +20,7 @@ export default function TimiCard({
 }: TimiCardProps) {
   const [face, setFace] = useState<'front' | 'back'>(initialFace);
   const isFront = face === 'front';
+  const browserOptimization = useBrowserOptimization();
 
   const handleFlip = () => {
     setFace(isFront ? 'back' : 'front');
@@ -42,7 +44,12 @@ export default function TimiCard({
             <img
               src={safePublicSrc(front)}
               alt={`${name} 앞면`}
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-contain ${browserOptimization.imageClass}`}
+              style={{ 
+                maxWidth: '100%', 
+                maxHeight: '100%',
+                aspectRatio: 'auto'
+              }}
             />
           </div>
           
@@ -51,7 +58,12 @@ export default function TimiCard({
             <img
               src={safePublicSrc(back)}
               alt={`${name} 뒷면`}
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-contain ${browserOptimization.imageClass}`}
+              style={{ 
+                maxWidth: '100%', 
+                maxHeight: '100%',
+                aspectRatio: 'auto'
+              }}
             />
           </div>
         </div>
