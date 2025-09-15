@@ -53,6 +53,10 @@ export const metadata: Metadata = {
   
   other: {
     'theme-color': '#F76241',
+    'msapplication-TileColor': '#F76241',
+    'msapplication-navbutton-color': '#F76241',
+    'apple-mobile-web-app-status-bar-style': 'black-translucent',
+    'apple-mobile-web-app-capable': 'yes',
   },
 };
 
@@ -66,8 +70,12 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         
         {/* Plausible Analytics (예시) */}
         {/* <script defer data-domain="type.teamitaka.com" src="https://plausible.io/js/script.js"></script> */}

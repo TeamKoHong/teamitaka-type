@@ -25,6 +25,26 @@
     color: var(--text);
   }
 
+  /* Pull to refresh 색상 설정 */
+  html {
+    background-color: var(--bg);
+  }
+
+  /* iOS Safari Pull to refresh 색상 */
+  @supports (-webkit-touch-callout: none) {
+    body {
+      background-color: var(--bg);
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* Android Chrome Pull to refresh 색상 */
+  @media screen and (max-width: 768px) {
+    html, body {
+      background-color: var(--bg);
+    }
+  }
+
   @supports (padding: env(safe-area-inset-top)) {
     .safe-top {
       padding-top: env(safe-area-inset-top);
