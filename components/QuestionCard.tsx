@@ -9,6 +9,7 @@ interface QuestionCardProps {
   questionNumber: number;
   totalQuestions: number;
   onAnswer: (answer: boolean) => void;
+  onBack?: () => void;
   isLoading?: boolean;
   className?: string;
 }
@@ -18,6 +19,7 @@ export default function QuestionCard({
   questionNumber, 
   totalQuestions, 
   onAnswer,
+  onBack,
   isLoading = false,
   className = ''
 }: QuestionCardProps) {
@@ -79,7 +81,7 @@ export default function QuestionCard({
           <div className="flex-shrink-0 h-16 flex items-center justify-between px-4 pt-4">
             <button 
               className="p-2"
-              onClick={() => window.history.back()}
+              onClick={onBack || (() => window.history.back())}
               aria-label="뒤로가기"
             >
               <Image 

@@ -116,21 +116,6 @@ export default function QuizPage() {
 
   return (
     <div className="min-h-screen relative" style={{ backgroundColor: '#f2f2f2', fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif', height: '844px' }}>
-      {/* 뒤로가기 버튼 */}
-      <div className="absolute top-4 left-4 z-10">
-        <button
-          onClick={handleBack}
-          className="p-2 hover:bg-gray-200 rounded-full transition-colors"
-          aria-label="이전으로"
-          disabled={isProcessing}
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-                  d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-      </div>
-
       {/* 질문 카드 */}
       <div className="px-4 h-full">
         {isProcessing ? (
@@ -144,6 +129,7 @@ export default function QuizPage() {
             questionNumber={currentQuestion + 1}
             totalQuestions={questions.length}
             onAnswer={handleAnswer}
+            onBack={handleBack}
             key="quiz-card"
           />
         )}
