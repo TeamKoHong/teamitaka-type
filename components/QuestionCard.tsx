@@ -90,10 +90,10 @@ export default function QuestionCard({
         </div>
       ) : (
         <>
-          {/* 뒤로가기 바 - 좌측 정렬 */}
-          <div className="flex-shrink-0 h-16 flex items-center px-4 pt-6">
+          {/* 뒤로가기 바 - 세로 배치 */}
+          <div className="flex-shrink-0 px-4 pt-6">
             <button 
-              className="p-2 mr-4"
+              className="p-2 mb-2"
               onClick={onBack || (() => window.history.back())}
               aria-label="뒤로가기"
             >
