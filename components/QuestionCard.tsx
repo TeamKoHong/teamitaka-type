@@ -73,7 +73,7 @@ export default function QuestionCard({
 
   return (
     <div 
-      className={`w-full bg-gray-100 flex flex-col ${browserOptimization.layoutClass} ${
+      className={`w-full bg-gray-100 flex flex-col ${
         isSafari ? 'safari-dynamic-height' : 'min-h-screen'
       } ${className}`} 
       style={{ 
@@ -90,10 +90,10 @@ export default function QuestionCard({
         </div>
       ) : (
         <>
-          {/* 뒤로가기 버튼과 질문 영역을 묶어서 배치 */}
-          <div className="flex-shrink-0 px-4 pt-6">
+          {/* 상단 영역 - 뒤로가기 버튼과 질문 */}
+          <div className="flex-1 flex flex-col px-4 pt-6">
             <button 
-              className="p-2 mb-4 -ml-2"
+              className="p-2 mb-4 -ml-2 self-start"
               onClick={onBack || (() => window.history.back())}
               aria-label="뒤로가기"
             >
@@ -106,15 +106,13 @@ export default function QuestionCard({
               />
             </button>
             
-            {/* 테스트 단계와 질문을 묶어서 배치 - 같은 x값으로 정렬 */}
-            <div className="space-y-6">
+            <div className="space-y-6 flex-1 flex flex-col justify-center">
               <span className="font-semibold text-gray-600 text-responsive-header" style={{ 
                 letterSpacing: '-0.03em'
               }}>
                 {questionNumber} / {totalQuestions}
               </span>
               
-              {/* 질문 텍스트 */}
               <h2 className="font-semibold text-black text-responsive-question" style={{ 
                 letterSpacing: '-0.03em', 
                 lineHeight: '1.5'
@@ -132,8 +130,8 @@ export default function QuestionCard({
             </div>
           </div>
 
-          {/* 답변 버튼들 - 하단에 배치 */}
-          <div className={`flex-shrink-0 flex gap-3 px-6 justify-center mt-auto ${
+          {/* 하단 영역 - 답변 버튼들 */}
+          <div className={`flex-shrink-0 flex gap-3 px-6 justify-center ${
             isSafari ? 'safari-bottom-safe' : 'pb-8'
           }`}>
             <button

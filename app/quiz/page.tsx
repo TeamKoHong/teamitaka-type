@@ -115,26 +115,24 @@ export default function QuizPage() {
   const isLastQuestion = currentQuestion + 1 === questions.length;
 
   return (
-    <div className="min-h-screen relative bg-gray-100" style={{ fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif' }}>
-      {/* 질문 카드 */}
-      <div className="h-full">
-        {isProcessing ? (
-          <div className="text-center py-12">
+    <div className="min-h-screen bg-gray-100" style={{ fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif' }}>
+      {isProcessing ? (
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
             <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-gray-600">결과 분석 중...</p>
           </div>
-        ) : (
-          <QuestionCard
-            question={questions[currentQuestion].text}
-            questionNumber={currentQuestion + 1}
-            totalQuestions={questions.length}
-            onAnswer={handleAnswer}
-            onBack={handleBack}
-            key="quiz-card"
-          />
-        )}
-      </div>
-
+        </div>
+      ) : (
+        <QuestionCard
+          question={questions[currentQuestion].text}
+          questionNumber={currentQuestion + 1}
+          totalQuestions={questions.length}
+          onAnswer={handleAnswer}
+          onBack={handleBack}
+          key="quiz-card"
+        />
+      )}
     </div>
   );
 }
