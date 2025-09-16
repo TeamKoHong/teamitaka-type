@@ -36,50 +36,9 @@
     color: var(--text);
   }
 
-  /* 모든 텍스트 요소에 기본 색상 강제 적용 */
-  h1, h2, h3, h4, h5, h6, p, span, div, button {
-    color: #FFFFFF !important;
-  }
-
-  /* 특정 클래스에 대한 강제 색상 설정 */
-  .text-responsive-question,
-  .text-responsive-header,
-  .text-responsive-button,
-  .text-responsive-small {
-    color: #FFFFFF !important;
-  }
-
-  /* 버튼 색상 강제 설정 */
-  button {
-    color: #FFFFFF !important;
-  }
-
-  /* 특정 텍스트 색상 오버라이드 */
-  .text-center p,
-  .text-center h1,
-  .text-center h2,
-  .text-center h3 {
-    color: #FFFFFF !important;
-  }
-
   /* 메인 페이지 특화 스타일 */
   .min-h-screen {
     background-color: #403E3E !important;
-    color: #FFFFFF !important;
-  }
-
-  /* 모든 div 요소에 기본 색상 적용 */
-  div {
-    color: inherit;
-  }
-
-  /* 강제 색상 오버라이드 */
-  [style*="color"] {
-    color: #FFFFFF !important;
-  }
-
-  /* 모든 요소에 대한 최종 색상 강제 적용 */
-  * {
     color: #FFFFFF !important;
   }
 
@@ -87,16 +46,16 @@
   .text-muted,
   .text-gray-500,
   .text-gray-600 {
-    color: #B5B5B8 !important;
+    color: #B5B5B8;
   }
 
   .text-brand,
   .text-orange-500 {
-    color: #F76241 !important;
+    color: #F76241;
   }
 
   .text-black {
-    color: #222222 !important;
+    color: #222222;
   }
 
 

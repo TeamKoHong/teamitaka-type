@@ -115,7 +115,7 @@ export default function QuizPage() {
   const isLastQuestion = currentQuestion + 1 === questions.length;
 
   return (
-    <div className="min-h-screen relative" style={{ backgroundColor: '#f2f2f2', fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif' }}>
+    <div className="min-h-screen relative bg-gray-100" style={{ fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif' }}>
       {/* 질문 카드 */}
       <div className="h-full">
         {isProcessing ? (
