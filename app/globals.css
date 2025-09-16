@@ -415,11 +415,13 @@
     pointer-events: none;
   }
   
-  /* Safari에서 모든 주황색 요소 숨기기 - 최강 버전 */
-  .safari-dynamic-height *[style*="247, 98, 65"],
-  .safari-dynamic-height *[style*="rgba(247, 98, 65"],
-  .safari-dynamic-height .orange-shadow,
-  .safari-dynamic-height [class*="orange"] {
+  /* Safari에서 주황색 그림자만 숨기기 - 정확한 선택자 */
+  .safari-dynamic-height .orange-shadow {
+    display: none !important;
+  }
+  
+  /* Safari에서 주황색 배경만 숨기기 */
+  .safari-dynamic-height *[style*="rgba(247, 98, 65, 0.3)"] {
     display: none !important;
   }
   
