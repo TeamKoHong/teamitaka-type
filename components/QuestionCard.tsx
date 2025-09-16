@@ -131,6 +131,9 @@ export default function QuestionCard({
             </div>
           </div>
 
+          {/* 중간 빈 공간 - 버튼을 하단으로 밀어내기 */}
+          <div className="flex-1"></div>
+
           {/* 하단 영역 - 답변 버튼들 */}
           <div className={`flex-shrink-0 flex gap-3 px-6 justify-center ${
             isSafari ? 'safari-bottom-safe' : 'pb-8'
