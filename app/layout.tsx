@@ -66,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="ko" className="scroll-smooth">
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

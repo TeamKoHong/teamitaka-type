@@ -1,17 +1,23 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import HeroMascot from './(components)/HeroMascot';
-import { useSafariViewport } from '@/lib/hooks/useSafariViewport';
 
 export default function HomePage() {
   const router = useRouter();
   const [showToast, setShowToast] = useState(false);
-  const { isSafari } = useSafariViewport();
+  const [isSafari, setIsSafari] = useState(false);
 
   // 디버깅용 로그
   console.log('HomePage rendered', { isSafari });
+
+  // 클라이언트 사이드에서만 Safari 감지
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+    const isSafariBrowser = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
+    setIsSafari(isSafariBrowser);
+  }, []);
 
   const handleStartTest = () => {
     router.push('/quiz');
