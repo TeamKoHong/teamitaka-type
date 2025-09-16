@@ -414,6 +414,27 @@
     z-index: -1.5;
     pointer-events: none;
   }
+  
+  /* Safari에서 모든 주황색 요소 숨기기 - 최강 버전 */
+  .safari-dynamic-height *[style*="247, 98, 65"],
+  .safari-dynamic-height *[style*="rgba(247, 98, 65"],
+  .safari-dynamic-height .orange-shadow,
+  .safari-dynamic-height [class*="orange"] {
+    display: none !important;
+  }
+  
+  /* Safari에서 pull-to-refresh 시 주황색 완전 차단 */
+  @supports (-webkit-touch-callout: none) {
+    html, body, #__next, main {
+      background-color: #403E3E !important;
+      background: #403E3E !important;
+    }
+    
+    .safari-dynamic-height {
+      background-color: #403E3E !important;
+      background: #403E3E !important;
+    }
+  }
 }
 
 @layer components {
