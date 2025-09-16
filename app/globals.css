@@ -36,8 +36,8 @@
     color: var(--text);
   }
 
-  /* 메인 페이지 특화 스타일 */
-  .min-h-screen {
+  /* 메인 페이지 특화 스타일 - 메인 페이지만 적용 */
+  .main-page {
     background-color: #403E3E !important;
     color: #FFFFFF !important;
   }

@@ -115,7 +115,10 @@ export default function QuizPage() {
   const isLastQuestion = currentQuestion + 1 === questions.length;
 
   return (
-    <div className="min-h-screen bg-gray-100" style={{ fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif' }}>
+    <div className="min-h-screen bg-gray-100" style={{ 
+      fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif',
+      backgroundColor: '#f3f4f6' // bg-gray-100 강제 적용
+    }}>
       {isProcessing ? (
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">

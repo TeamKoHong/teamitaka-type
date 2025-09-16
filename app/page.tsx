@@ -38,7 +38,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className={`min-h-screen safe-top safe-bottom ${
+    <div className={`min-h-screen safe-top safe-bottom main-page ${
       isSafari ? 'safari-dynamic-height' : ''
     }`} style={{
       backgroundColor: '#403E3E',

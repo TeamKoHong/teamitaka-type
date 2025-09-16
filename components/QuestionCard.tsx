@@ -78,6 +78,7 @@ export default function QuestionCard({
       } ${className}`} 
       style={{ 
         fontFamily: 'Pretendard, sans-serif',
+        backgroundColor: '#f3f4f6', // bg-gray-100 강제 적용
         ...(isSafari && {
           height: `calc(var(--vh, 1vh) * 100)`,
           minHeight: `calc(var(--vh, 1vh) * 100)`
