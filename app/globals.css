@@ -380,62 +380,14 @@
     position: relative;
   }
   
-  /* Safari에서 위로 스크롤 시 주황색 배경 방지 */
-  .safari-dynamic-height::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg);
-    z-index: -1;
-    pointer-events: none;
-  }
-  
-  /* Safari에서 주황색 그림자 완전히 숨기기 - 강화된 선택자 */
-  .safari-dynamic-height .bg-\[var\(--brand\)\]\/30,
-  .safari-dynamic-height [class*="bg-[var(--brand)]/30"],
-  .safari-dynamic-height *[style*="zIndex: -2"],
-  .safari-dynamic-height .orange-shadow {
-    z-index: -2 !important;
-    position: relative !important;
-  }
-  
-  /* Safari에서 주황색 그림자 완전히 숨기기 - 더 강력한 방법 */
-  .safari-dynamic-height::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg);
-    z-index: -1.5;
-    pointer-events: none;
-  }
-  
-  /* Safari에서 주황색 그림자만 숨기기 - 정확한 선택자 */
-  .safari-dynamic-height .orange-shadow {
+  /* Safari에서 주황색 그림자만 숨기기 - 간단한 방법 */
+  .orange-shadow {
     display: none !important;
   }
   
   /* Safari에서 주황색 배경만 숨기기 */
-  .safari-dynamic-height *[style*="rgba(247, 98, 65, 0.3)"] {
+  *[style*="rgba(247, 98, 65, 0.3)"] {
     display: none !important;
-  }
-  
-  /* Safari에서 pull-to-refresh 시 주황색 완전 차단 */
-  @supports (-webkit-touch-callout: none) {
-    html, body, #__next, main {
-      background-color: #403E3E !important;
-      background: #403E3E !important;
-    }
-    
-    .safari-dynamic-height {
-      background-color: #403E3E !important;
-      background: #403E3E !important;
-    }
   }
 }
 
