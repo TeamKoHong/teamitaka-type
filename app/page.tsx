@@ -1,23 +1,15 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import HeroMascot from './(components)/HeroMascot';
 
 export default function HomePage() {
   const router = useRouter();
   const [showToast, setShowToast] = useState(false);
-  const [isSafari, setIsSafari] = useState(false);
 
   // 디버깅용 로그
-  console.log('HomePage rendered', { isSafari });
-
-  // 클라이언트 사이드에서만 Safari 감지
-  useEffect(() => {
-    const userAgent = navigator.userAgent;
-    const isSafariBrowser = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
-    setIsSafari(isSafariBrowser);
-  }, []);
+  console.log('HomePage rendered');
 
   const handleStartTest = () => {
     router.push('/quiz');
@@ -47,15 +39,9 @@ export default function HomePage() {
   };
 
   return (
-    <div className={`min-h-screen safe-top safe-bottom main-page ${
-      isSafari ? 'safari-dynamic-height' : ''
-    }`} style={{
+    <div className="min-h-screen safe-top safe-bottom main-page" style={{
       backgroundColor: '#403E3E',
-      color: '#FFFFFF',
-      ...(isSafari && {
-        height: 'calc(var(--vh, 1vh) * 100)',
-        minHeight: 'calc(var(--vh, 1vh) * 100)'
-      })
+      color: '#FFFFFF'
     }}>
       <div 
         className="mx-auto max-w-[420px] px-5 py-8 flex flex-col justify-center min-h-screen"
