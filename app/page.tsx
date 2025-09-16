@@ -10,6 +10,9 @@ export default function HomePage() {
   const [showToast, setShowToast] = useState(false);
   const { isSafari } = useSafariViewport();
 
+  // 디버깅용 로그
+  console.log('HomePage rendered', { isSafari });
+
   const handleStartTest = () => {
     router.push('/quiz');
   };

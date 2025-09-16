@@ -13,6 +13,9 @@ export default function QuizPage() {
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  // 디버깅용 로그
+  console.log('QuizPage rendered', { currentQuestion, answers, isProcessing });
+
   const handleAnswer = async (answer: boolean) => {
     if (isProcessing) return;
 
