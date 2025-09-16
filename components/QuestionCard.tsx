@@ -92,7 +92,7 @@ export default function QuestionCard({
       ) : (
         <>
           {/* 상단 영역 - 뒤로가기 버튼과 질문 */}
-          <div className="flex-1 flex flex-col px-4 pt-6">
+          <div className="flex-shrink-0 px-4 pt-6">
             <button 
               className="p-2 mb-4 -ml-2 self-start"
               onClick={onBack || (() => window.history.back())}
@@ -107,7 +107,7 @@ export default function QuestionCard({
               />
             </button>
             
-            <div className="space-y-6 flex-1 flex flex-col justify-center">
+            <div className="space-y-6">
               <span className="font-semibold text-gray-600 text-responsive-header" style={{ 
                 letterSpacing: '-0.03em'
               }}>
