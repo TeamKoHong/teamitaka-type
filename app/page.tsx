@@ -12,10 +12,12 @@ export default function HomePage() {
   console.log('HomePage rendered');
 
   const handleStartTest = () => {
+    console.log('테스트 시작하기 버튼 클릭됨');
     router.push('/quiz');
   };
 
   const handleShare = async () => {
+    console.log('테스트 공유하기 버튼 클릭됨');
     if (navigator.share) {
       try {
         await navigator.share({
@@ -23,10 +25,13 @@ export default function HomePage() {
           text: '프로젝트 가치관으로 알아보는 캐릭터 테스트',
           url: window.location.href,
         });
+        console.log('공유 성공');
       } catch (error) {
+        console.log('공유 취소됨:', error);
         // User cancelled share
       }
     } else {
+      console.log('클립보드에 복사');
       // Fallback: copy URL
       await navigator.clipboard.writeText(window.location.href);
       setShowToast(true);
