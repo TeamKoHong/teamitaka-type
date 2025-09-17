@@ -78,7 +78,7 @@ export default function UnifiedAdaptiveResultCard({
     setImageErrors(prev => ({ ...prev, [imageKey]: true }));
   };
 
-  // 적응티미일 때는 3개 이미지를 세로로 배치하는 간단한 레이아웃
+  // 적응티미일 때는 단일 이미지 사용
   if (isAdaptive) {
     return (
       <div 
@@ -101,29 +101,11 @@ export default function UnifiedAdaptiveResultCard({
             lineHeight: 1.6
           }}
         >
-          {/* 적응티미 이미지 1 - 메인 캐릭터 및 제목 */}
+          {/* 적응티미 단일 이미지 */}
           <div className="mb-4">
             <img
-              src="/assets/result/적응-1.png"
-              alt="적응티미 메인"
-              className="w-full h-auto object-contain"
-            />
-          </div>
-
-          {/* 적응티미 이미지 2 - 속성 차트 */}
-          <div className="mb-4">
-            <img
-              src="/assets/result/적응-2.png"
-              alt="적응티미 속성"
-              className="w-full h-auto object-contain"
-            />
-          </div>
-
-          {/* 적응티미 이미지 3 - TIP 및 상세 정보 */}
-          <div className="mb-4">
-            <img
-              src="/assets/result/적응-3.png"
-              alt="적응티미 TIP"
+              src="/assets/result/적응티미.png"
+              alt="적응티미"
               className="w-full h-auto object-contain"
             />
           </div>
