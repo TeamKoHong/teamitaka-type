@@ -3,7 +3,7 @@ const nextConfig = {
   // 개발 서버 안정성 향상
   experimental: {
     // App Router
-    optimizeCss: true,
+    optimizeCss: false, // critters 이슈로 인해 비활성화
     // 메모리 사용량 최적화
     memoryBasedWorkersCount: true,
   },
