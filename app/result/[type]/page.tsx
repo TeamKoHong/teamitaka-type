@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
 import ResultCard from '@/components/ResultCard';
+import UnifiedAdaptiveResultCard from '@/components/UnifiedAdaptiveResultCard';
 import ShareBar from '@/components/ShareBar';
 import TimiCard from '@/components/TimiCard';
 import { TYPE_METADATA } from '@/lib/types';
@@ -76,35 +77,26 @@ export default function ResultPage() {
   if (viewMode === 'dark-fullscreen') {
     return (
       <div className="min-h-screen bg-gray-900 text-white p-4">
-        {/* 헤더 */}
-        <header className="flex items-center justify-between mb-8 max-w-md mx-auto">
-          <button
-            onClick={toggleViewMode}
-            className="p-2 hover:bg-gray-800 rounded-full transition-colors"
-            aria-label="라이트 모드로 변경"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          </button>
-          
-          <h1 className="font-semibold text-responsive-header">성향 분석 완료!</h1>
-          
+        {/* 보이지 않는 히트박스 - 이미지 중앙을 기준으로 X 위치 계산 */}
+        <div className="max-w-md mx-auto relative">
           <button
             onClick={() => router.push('/')}
-            className="p-2 hover:bg-gray-800 rounded-full transition-colors"
-            aria-label="홈으로"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-                    d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </header>
+            className="absolute z-10"
+            style={{ 
+              width: '63.12px', 
+              height: '63.12px',
+              backgroundColor: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              top: '20px',
+              right: '20px'
+            }}
+            aria-label="메인으로 이동"
+          />
+        </div>
 
         {/* 다크 테마 결과 카드 */}
-        <ResultCard 
+        <UnifiedAdaptiveResultCard 
           typeMeta={typeMeta} 
           isDark={true}
           className="mb-8"
@@ -126,23 +118,29 @@ export default function ResultPage() {
   // 모바일 카드형 모드 (기본)
   return (
     <div className="min-h-screen bg-gray-900">
-      {/* 상단 닫기 버튼 */}
-      <div className="absolute top-4 right-4 z-10">
+      {/* 보이지 않는 히트박스 - 이미지 중앙을 기준으로 X 위치 계산 */}
+      <div className="max-w-sm mx-auto relative">
         <button
           onClick={() => router.push('/')}
-          className="w-8 h-8 text-white rounded-full flex items-center justify-center text-lg font-bold"
-          style={{ backgroundColor: '#505050' }}
-          aria-label="닫기"
-        >
-          ×
-        </button>
+          className="absolute z-10"
+          style={{ 
+            width: '63.12px', 
+            height: '63.12px',
+            backgroundColor: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            top: '20px',
+            right: '20px'
+          }}
+          aria-label="메인으로 이동"
+        />
       </div>
 
       {/* 메인 콘텐츠 */}
       <main className="pt-4 pb-8">
         <div className="max-w-sm mx-auto">
           {/* 모바일 결과 카드 */}
-          <ResultCard 
+          <UnifiedAdaptiveResultCard 
             typeMeta={typeMeta} 
             isDark={true}
             captureMode={false}
