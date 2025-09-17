@@ -499,16 +499,28 @@ function AnalysisCompleteContent() {
 
         {/* 02.png 이미지 - 디자인 시안 비율 적용 */}
         <div className="text-center mb-4" style={{ height: '7vh', minHeight: '40px' }}>
-          <img
-            src="/assets/analysis-complete/02.png"
-            alt="추가 정보"
-            className="h-full object-contain mx-auto"
+          <button
+            onClick={handleViewDetails}
+            disabled={!typeCode || !typeMeta}
+            className="h-full object-contain mx-auto block w-full bg-transparent border-none p-0 cursor-pointer disabled:cursor-not-allowed"
             style={{ 
               width: '92%',
               height: '100%',
               objectFit: 'contain'
             }}
-          />
+            title={!typeCode || !typeMeta ? '결과 정보가 없어 상세보기를 할 수 없습니다' : '나의 성향 자세히 보기'}
+          >
+            <img
+              src="/assets/analysis-complete/02.png"
+              alt="나의 성향 자세히 보기"
+              className="h-full object-contain mx-auto w-full"
+              style={{ 
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain'
+              }}
+            />
+          </button>
         </div>
 
         {/* 하단 버튼들 - Safari 대응 */}
@@ -524,26 +536,6 @@ function AnalysisCompleteContent() {
             })
           }}
         >
-          <button
-            onClick={handleViewDetails}
-            disabled={!typeCode || !typeMeta}
-            className={`w-full px-6 py-3 rounded-lg font-medium transition-colors text-center text-responsive-button ${
-              typeCode && typeMeta
-                ? `bg-gray-800 text-white ${!browserInfo.isMobile ? 'hover:bg-gray-700' : ''}`
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
-            style={{
-              // Android에서 터치 최적화
-              ...(browserInfo.isAndroid && {
-                WebkitTapHighlightColor: 'transparent',
-                touchAction: 'manipulation'
-              })
-            }}
-            title={!typeCode || !typeMeta ? '결과 정보가 없어 상세보기를 할 수 없습니다' : ''}
-          >
-            {typeCode && typeMeta ? '나의 성향 자세히 보기 →' : '결과 정보 없음'}
-          </button>
-          
           <button
             onClick={handleRetest}
             className={`text-gray-600 underline transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 rounded px-2 py-1 text-responsive-small ${
