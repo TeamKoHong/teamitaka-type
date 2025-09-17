@@ -94,19 +94,19 @@ export default function ResultCard({
       }}
     >
       {/* 저장용 콘텐츠 영역 */}
-      <div 
-        id="result-card-content"
-        style={{ 
-          backgroundColor: '#323030',
-          fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
-          WebkitFontSmoothing: 'antialiased',
-          MozOsxFontSmoothing: 'grayscale',
-          color: '#ffffff',
-          lineHeight: 1.6
-        }}
-      >
+        <div 
+          id="result-card-content"
+          style={{ 
+            backgroundColor: 'transparent',
+            fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
+            color: '#ffffff',
+            lineHeight: 1.6
+          }}
+        >
         {/* 헤더 영역 */}
-      <div className="px-6 py-8 text-center" style={{ backgroundColor: '#323030' }}>
+      <div className="px-6 py-8 text-center" style={{ backgroundColor: 'transparent' }}>
         <p className="text-responsive-small text-white mb-4">어떤 환경에서도 제 역할을 해내는</p>
         <h1 
           className="font-bold mb-6 text-responsive-question"
