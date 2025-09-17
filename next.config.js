@@ -134,6 +134,43 @@ const nextConfig = {
           },
         ],
       },
+      // 이미지 파일 MIME 타입 설정
+      {
+        source: '/assets/(.*).png',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'image/png',
+          },
+        ],
+      },
+      {
+        source: '/assets/(.*).jpg',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'image/jpeg',
+          },
+        ],
+      },
+      {
+        source: '/assets/(.*).jpeg',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'image/jpeg',
+          },
+        ],
+      },
+      {
+        source: '/assets/(.*).svg',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'image/svg+xml',
+          },
+        ],
+      },
       // 개발 모드 특수 파일들 MIME 타입 설정
       {
         source: '/_next/static/development/_ssgManifest.js',
