@@ -101,6 +101,15 @@ export default function UnifiedAdaptiveResultCard({
             lineHeight: 1.6
           }}
         >
+          {/* 상단 top.png 이미지 */}
+          <div className="mb-4">
+            <img
+              src="/assets/result/top.png"
+              alt="Top"
+              className="w-full h-auto object-contain"
+            />
+          </div>
+
           {/* 적응티미 단일 이미지 */}
           <div className="mb-4">
             <img
