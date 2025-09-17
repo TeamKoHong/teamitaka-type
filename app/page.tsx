@@ -70,7 +70,7 @@ export default function HomePage() {
               fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
               fontWeight: 700, // Bold
               fontSize: 'clamp(24px, calc(32px * (100vw / 390px)), 40px)',
-              color: '#FFFFFF',
+              color: '#FFFDFC',
               lineHeight: 1.2
             }}
           >
