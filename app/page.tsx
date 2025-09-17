@@ -73,11 +73,11 @@ export default function HomePage() {
         <HeroMascot />
 
         {/* Social proof image */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-4">
           <img 
             src="/assets/main/2358.png" 
             alt="2,358명이 나의 티미를 찾았어요!"
-            className="w-full h-auto rounded-2xl shadow-lg"
+            className="w-full h-auto"
             style={{ 
               maxWidth: '100%',
               width: '100%',
