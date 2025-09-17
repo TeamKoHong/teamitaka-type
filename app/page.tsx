@@ -72,18 +72,14 @@ export default function HomePage() {
         {/* Hero mascot with stars and float animation */}
         <HeroMascot />
 
-        {/* Social proof pill */}
+        {/* Social proof image */}
         <div className="text-center mb-8">
-          <div 
-            className="inline-flex items-center px-4 py-2 rounded-full backdrop-blur-sm text-responsive-small border"
-            style={{ 
-              backgroundColor: 'rgba(0,0,0,0.25)',
-              color: 'rgba(255,255,255,0.9)',
-              borderColor: 'rgba(255,255,255,0.1)'
-            }}
-          >
-            현재 2,358명이 나의 티미를 찾았어요!
-          </div>
+          <img 
+            src="/assets/main/2358.png" 
+            alt="2,358명이 나의 티미를 찾았어요!"
+            className="mx-auto max-w-full h-auto"
+            style={{ maxWidth: '300px' }}
+          />
         </div>
 
         {/* CTAs */}
