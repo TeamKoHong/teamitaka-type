@@ -51,18 +51,27 @@ export default function HomePage() {
         {/* Headline block */}
         <div className="text-center mb-8" style={{ color: '#FFFFFF' }}>
           <p 
-            className="text-responsive-small mb-2"
-            style={{ color: '#B5B5B8 !important' }}
+            className="mb-2"
+            style={{ 
+              fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
+              fontWeight: 600, // Semibold
+              fontSize: 'clamp(16px, calc(20px * (100vw / 390px)), 24px)',
+              color: '#B5B5B8',
+              lineHeight: 1.4
+            }}
             aria-describedby="headline"
           >
             프로젝트 가치관으로 알아보는
           </p>
           <h1 
             id="headline"
-            className="font-bold tracking-tight leading-tight text-responsive-question"
+            className="tracking-tight leading-tight"
             style={{ 
-              fontSize: 'clamp(24px, calc(30px * (100vw / 390px)), 36px)',
-              color: '#FFFFFF !important'
+              fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
+              fontWeight: 700, // Bold
+              fontSize: 'clamp(24px, calc(32px * (100vw / 390px)), 40px)',
+              color: '#FFFFFF',
+              lineHeight: 1.2
             }}
           >
             티미타카 <span style={{ color: '#F76241' }}>캐릭터</span> 찾기
