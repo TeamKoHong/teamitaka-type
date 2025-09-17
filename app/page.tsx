@@ -65,7 +65,7 @@ export default function HomePage() {
               color: '#FFFFFF !important'
             }}
           >
-            티미타카 <span style={{ color: '#F76241 !important' }}>캐릭터</span> 찾기
+            티미타카 <span style={{ color: '#F76241' }}>캐릭터</span> 찾기
           </h1>
         </div>
 
