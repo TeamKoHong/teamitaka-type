@@ -28,25 +28,31 @@ const nextConfig = {
     ignoreDuringBuilds: false,
   },
   
-  // 웹팩 최적화
-  webpack: (config, { dev, isServer }) => {
-    // 개발 환경에서 메모리 사용량 최적화
-    if (dev) {
-      config.watchOptions = {
-        poll: 1000,
-        aggregateTimeout: 300,
-        ignored: /node_modules/,
-      };
-      
-      // 캐시 최적화
-      config.cache = {
-        type: 'memory',
-        maxGenerations: 1,
-      };
-    }
-    
-    return config;
-  },
+        // 웹팩 최적화
+        webpack: (config, { dev, isServer }) => {
+          // 개발 환경에서 메모리 사용량 최적화
+          if (dev) {
+            config.watchOptions = {
+              poll: 1000,
+              aggregateTimeout: 300,
+              ignored: /node_modules/,
+            };
+            
+            // 캐시 최적화
+            config.cache = {
+              type: 'memory',
+              maxGenerations: 1,
+            };
+          }
+          
+          // MIME 타입 설정
+          config.module.rules.push({
+            test: /\.(js|mjs|jsx)$/,
+            type: 'javascript/auto',
+          });
+          
+          return config;
+        },
   
   // 개발 서버 설정
   devIndicators: {
@@ -72,11 +78,11 @@ const nextConfig = {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
           },
-          // MIME 타입 명시적 설정
-          {
-            key: 'Content-Type',
-            value: 'text/html; charset=utf-8',
-          },
+        // MIME 타입 명시적 설정 (HTML만)
+        {
+          key: 'Content-Type',
+          value: 'text/html; charset=utf-8',
+        },
         ],
       },
       {
@@ -85,6 +91,26 @@ const nextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // JavaScript 파일 MIME 타입 설정
+      {
+        source: '/_next/static/chunks/(.*).js',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/javascript; charset=utf-8',
+          },
+        ],
+      },
+      // CSS 파일 MIME 타입 설정
+      {
+        source: '/_next/static/css/(.*).css',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'text/css; charset=utf-8',
           },
         ],
       },
