@@ -99,11 +99,11 @@ export default function QuestionCard({
               aria-label="뒤로가기"
             >
               <Image 
-                src="/back-arrow.svg" 
+                src="/assets/quiz/back.png" 
                 alt="뒤로가기" 
-                width={7} 
-                height={15}
-                className="w-auto h-4"
+                width={24} 
+                height={24}
+                className="w-6 h-6"
               />
             </button>
             
