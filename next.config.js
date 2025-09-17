@@ -114,6 +114,34 @@ const nextConfig = {
           },
         ],
       },
+      // 개발 모드 특수 파일들 MIME 타입 설정
+      {
+        source: '/_next/static/development/_ssgManifest.js',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/javascript; charset=utf-8',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/development/_buildManifest.js',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/javascript; charset=utf-8',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/development/(.*).js',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/javascript; charset=utf-8',
+          },
+        ],
+      },
     ];
   },
   
