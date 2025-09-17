@@ -404,10 +404,14 @@ function AnalysisCompleteContent() {
         </button>
       </div>
 
-      {/* 제목 영역 */}
+      {/* 01.png 이미지 */}
       <div className="text-center mb-6 sm:mb-8">
-        <h1 className="font-bold text-white mb-2 text-responsive-question" style={{ fontSize: 'clamp(20px, calc(24px * (100vw / 390px)), 28px)' }}>성향 분석 완료!</h1>
-        <p className="text-responsive-header text-gray-300 px-4">나의 성향이 담긴 티미 확인하기</p>
+        <img
+          src="/assets/analysis-complete/01.png"
+          alt="성향 분석 완료!"
+          className="w-full h-auto object-contain mx-auto"
+          style={{ maxWidth: '300px' }}
+        />
       </div>
 
       {/* 카드 영역 */}
