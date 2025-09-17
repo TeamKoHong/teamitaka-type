@@ -77,12 +77,12 @@ export default function HomePage() {
           <img 
             src="/assets/main/2358.png" 
             alt="2,358명이 나의 티미를 찾았어요!"
-            className="w-full h-auto"
+            className="h-auto"
             style={{ 
-              maxWidth: '100%',
-              width: '100%',
-              height: '48px', // 버튼 높이(56px)의 0.85배
-              objectFit: 'contain'
+              width: '63.1%', // 226/358 = 0.631
+              height: '50px', // 48.14/54 * 56px = 49.9px ≈ 50px
+              objectFit: 'contain',
+              margin: '0 auto' // 가운데 정렬
             }}
           />
         </div>
