@@ -404,14 +404,10 @@ function AnalysisCompleteContent() {
         </button>
       </div>
 
-      {/* 01.png 이미지 */}
-      <div className="mb-6">
-        <img
-          src="/assets/analysis-complete/01.png"
-          alt="Analysis Complete 01"
-          className="w-full h-auto object-contain"
-          style={{ maxWidth: '300px' }}
-        />
+      {/* 제목 영역 */}
+      <div className="text-center mb-6 sm:mb-8">
+        <h1 className="font-bold text-white mb-2 text-responsive-question" style={{ fontSize: 'clamp(20px, calc(24px * (100vw / 390px)), 28px)' }}>성향 분석 완료!</h1>
+        <p className="text-responsive-header text-gray-300 px-4">나의 성향이 담긴 티미 확인하기</p>
       </div>
 
       {/* 카드 영역 */}
@@ -529,17 +525,7 @@ function AnalysisCompleteContent() {
           </div>
         )}
 
-        {/* 02.png 이미지 */}
-        <div className="mb-6">
-          <img
-            src="/assets/analysis-complete/02.png"
-            alt="Analysis Complete 02"
-            className="w-full h-auto object-contain"
-            style={{ maxWidth: '300px' }}
-          />
-        </div>
-
-        {/* 테스트 다시하기 버튼 - Safari 대응 */}
+        {/* 하단 버튼들 - Safari 대응 */}
         <div 
           className={`flex flex-col items-center space-y-4 w-full max-w-sm ${
             isSafari ? 'safari-bottom-safe' : ''
@@ -553,9 +539,12 @@ function AnalysisCompleteContent() {
           }}
         >
           <button
-            onClick={handleRetest}
-            className={`w-full px-6 py-3 rounded-lg font-medium transition-colors text-center text-responsive-button bg-gray-800 text-white ${
-              !browserInfo.isMobile ? 'hover:bg-gray-700' : ''
+            onClick={handleViewDetails}
+            disabled={!typeCode || !typeMeta}
+            className={`w-full px-6 py-3 rounded-lg font-medium transition-colors text-center text-responsive-button ${
+              typeCode && typeMeta
+                ? `bg-gray-800 text-white ${!browserInfo.isMobile ? 'hover:bg-gray-700' : ''}`
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
             style={{
               // Android에서 터치 최적화
@@ -564,6 +553,16 @@ function AnalysisCompleteContent() {
                 touchAction: 'manipulation'
               })
             }}
+            title={!typeCode || !typeMeta ? '결과 정보가 없어 상세보기를 할 수 없습니다' : ''}
+          >
+            {typeCode && typeMeta ? '나의 성향 자세히 보기 →' : '결과 정보 없음'}
+          </button>
+          
+          <button
+            onClick={handleRetest}
+            className={`text-gray-300 underline transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 rounded px-2 py-1 text-responsive-small ${
+              !browserInfo.isMobile ? 'hover:text-gray-200' : ''
+            }`}
           >
             테스트 다시하기
           </button>
