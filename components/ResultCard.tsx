@@ -212,6 +212,21 @@ export default function ResultCard({
         </div>
       </div>
 
+        {/* 분석 완료 이미지 */}
+        <div className="px-6 mb-6">
+          <div className="flex justify-center">
+            <img
+              src="/assets/analysis-complete/02.png"
+              alt="분석 완료"
+              className="w-full max-w-xs h-auto object-contain"
+              style={{
+                width: 'clamp(200px, calc(250px * (100vw / 390px)), 300px)',
+                height: 'auto'
+              }}
+            />
+          </div>
+        </div>
+
         {/* 하단 문구 */}
         <div className="px-6 mb-6">
           <div className="rounded-lg p-4" style={{ backgroundColor: '#505050', borderRadius: '0.5rem' }}>
