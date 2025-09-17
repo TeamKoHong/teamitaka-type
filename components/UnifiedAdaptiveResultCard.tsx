@@ -9,7 +9,6 @@ interface UnifiedAdaptiveResultCardProps {
   typeMeta: TypeMeta;
   isDark?: boolean;
   className?: string;
-  captureMode?: boolean;
   onRetest?: () => void;
 }
 
@@ -17,7 +16,6 @@ export default function UnifiedAdaptiveResultCard({
   typeMeta, 
   isDark = false, 
   className = '',
-  captureMode = false,
   onRetest
 }: UnifiedAdaptiveResultCardProps) {
   const router = useRouter();
@@ -40,51 +38,25 @@ export default function UnifiedAdaptiveResultCard({
     try {
       setIsSaving(true);
       
-      if (isAdaptive) {
-        // 적응티미의 경우 3개 이미지를 하나로 합쳐서 저장
-        const html2canvas = (await import('html2canvas')).default;
-        const element = document.getElementById('result-card-content');
-        
-        if (!element) {
-          throw new Error('저장할 콘텐츠를 찾을 수 없습니다.');
-        }
-
-        const canvas = await html2canvas(element, {
-          background: '#323030',
-          useCORS: true,
-          allowTaint: true
-        });
-
-        const dataURL = canvas.toDataURL('image/png');
-        const fileName = `${typeMeta.nickname}_result.png`;
-        
-        const a = document.createElement('a');
-        a.href = dataURL;
-        a.download = fileName;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      } else {
-        // 다른 티미의 경우 기존 방식 사용
-        const imagePath = `/assets/result/${typeMeta.nickname}.png`;
-        const fileName = `${typeMeta.nickname}_result.png`;
-        
-        const response = await fetch(imagePath);
-        if (!response.ok) {
-          throw new Error('이미지를 찾을 수 없습니다.');
-        }
-
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+      // 모든 티미 타입에 대해 saved-image 폴더의 이미지 사용
+      const imagePath = `/assets/saved-image/${typeMeta.nickname}.png`;
+      const fileName = `${typeMeta.nickname}_result.png`;
+      
+      const response = await fetch(imagePath);
+      if (!response.ok) {
+        throw new Error('이미지를 찾을 수 없습니다.');
       }
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
       
     } catch (error) {
       console.error('이미지 저장 실패:', error);
@@ -114,12 +86,7 @@ export default function UnifiedAdaptiveResultCard({
         className={`w-full max-w-md mx-auto text-white font-sans ${className}`}
         style={{
           fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif',
-          backgroundColor: '#323030',
-          ...(captureMode && {
-            width: '375px',
-            minHeight: '600px',
-            position: 'relative'
-          })
+          backgroundColor: '#323030'
         }}
       >
         {/* 저장용 콘텐츠 영역 */}
@@ -161,20 +128,6 @@ export default function UnifiedAdaptiveResultCard({
             />
           </div>
 
-          {/* 캡처용 추가 여백 */}
-          <div className="h-8"></div>
-
-          {/* 하단 안내 */}
-          {captureMode && (
-            <div className="mt-8 pt-6 border-t border-gray-700 text-center">
-              <p className="text-xs text-gray-500">
-                TEAMITAKA 타입 테스트 • type.teamitaka.com
-              </p>
-              <p className="text-xs text-gray-600 mt-1">
-                유형은 절대적 기준이 아니라 참고 지표예요
-              </p>
-            </div>
-          )}
         </div>
 
         {/* 버튼 영역 */}
@@ -222,12 +175,7 @@ export default function UnifiedAdaptiveResultCard({
       className={`w-full max-w-md mx-auto text-white font-sans ${className}`}
       style={{
         fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif',
-        backgroundColor: '#323030',
-        ...(captureMode && {
-          width: '375px',
-          minHeight: '600px',
-          position: 'relative'
-        })
+        backgroundColor: '#323030'
       }}
     >
       {/* 저장용 콘텐츠 영역 */}
@@ -346,19 +294,6 @@ export default function UnifiedAdaptiveResultCard({
         </div>
 
         {/* 캡처용 추가 여백 */}
-        <div className="h-8"></div>
-
-        {/* 하단 안내 */}
-        {captureMode && (
-          <div className="mt-8 pt-6 border-t border-gray-700 text-center">
-            <p className="text-xs text-gray-500">
-              TEAMITAKA 타입 테스트 • type.teamitaka.com
-            </p>
-            <p className="text-xs text-gray-600 mt-1">
-              유형은 절대적 기준이 아니라 참고 지표예요
-            </p>
-          </div>
-        )}
       </div>
 
       {/* 버튼 영역 */}

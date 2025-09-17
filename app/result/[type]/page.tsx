@@ -143,7 +143,6 @@ export default function ResultPage() {
           <UnifiedAdaptiveResultCard 
             typeMeta={typeMeta} 
             isDark={true}
-            captureMode={false}
             onRetest={handleRetest}
           />
           
