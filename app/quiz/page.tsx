@@ -118,15 +118,15 @@ export default function QuizPage() {
   const isLastQuestion = currentQuestion + 1 === questions.length;
 
   return (
-    <div className="min-h-screen bg-gray-100" style={{ 
+    <div className="min-h-screen" style={{ 
       fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif',
-      backgroundColor: '#f3f4f6' // bg-gray-100 강제 적용
+      backgroundColor: '#323030'
     }}>
       {isProcessing ? (
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600">결과 분석 중...</p>
+            <p className="text-white">결과 분석 중...</p>
           </div>
         </div>
       ) : (

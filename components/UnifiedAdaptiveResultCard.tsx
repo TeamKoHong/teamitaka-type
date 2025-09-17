@@ -50,7 +50,7 @@ export default function UnifiedAdaptiveResultCard({
         }
 
         const canvas = await html2canvas(element, {
-          background: '#333131',
+          background: '#323030',
           useCORS: true,
           allowTaint: true
         });
@@ -114,7 +114,7 @@ export default function UnifiedAdaptiveResultCard({
         className={`w-full max-w-md mx-auto text-white font-sans ${className}`}
         style={{
           fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif',
-          backgroundColor: '#333131',
+          backgroundColor: '#323030',
           ...(captureMode && {
             width: '375px',
             minHeight: '600px',
@@ -126,7 +126,7 @@ export default function UnifiedAdaptiveResultCard({
         <div 
           id="result-card-content"
           style={{ 
-            backgroundColor: '#333131',
+            backgroundColor: '#323030',
             fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
             WebkitFontSmoothing: 'antialiased',
             MozOsxFontSmoothing: 'grayscale',
@@ -222,7 +222,7 @@ export default function UnifiedAdaptiveResultCard({
       className={`w-full max-w-md mx-auto text-white font-sans ${className}`}
       style={{
         fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif',
-        backgroundColor: '#333131',
+        backgroundColor: '#323030',
         ...(captureMode && {
           width: '375px',
           minHeight: '600px',
@@ -234,7 +234,7 @@ export default function UnifiedAdaptiveResultCard({
       <div 
         id="result-card-content"
         style={{ 
-          backgroundColor: '#333131',
+          backgroundColor: '#323030',
           fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
           WebkitFontSmoothing: 'antialiased',
           MozOsxFontSmoothing: 'grayscale',

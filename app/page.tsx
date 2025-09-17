@@ -40,7 +40,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen safe-top safe-bottom main-page" style={{
-      backgroundColor: '#403E3E',
+      backgroundColor: '#323030',
       color: '#FFFFFF'
     }}>
       <div 
