@@ -98,7 +98,7 @@ export default function QuestionCard({
               onClick={onBack || (() => window.history.back())}
               aria-label="뒤로가기"
             >
-              <Image 
+              <img 
                 src="/assets/quiz/vector.svg" 
                 alt="뒤로가기" 
                 width={24} 

@@ -11,7 +11,7 @@ const nextConfig = {
   // 이미지 최적화 설정
   images: {
     domains: ['type.teamitaka.com'],
-    unoptimized: false,
+    unoptimized: true, // SVG 파일 처리를 위해 비활성화
     // 이미지 로딩 최적화
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
