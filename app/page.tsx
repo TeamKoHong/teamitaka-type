@@ -81,7 +81,7 @@ export default function HomePage() {
             style={{ 
               maxWidth: '100%',
               width: '100%',
-              height: 'auto',
+              height: '42px', // 버튼 높이(56px)의 0.75배
               objectFit: 'contain'
             }}
           />
