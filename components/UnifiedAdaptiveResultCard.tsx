@@ -126,7 +126,7 @@ export default function UnifiedAdaptiveResultCard({
         <div 
           id="result-card-content"
           style={{ 
-            backgroundColor: '#323030',
+            backgroundColor: 'transparent',
             fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
             WebkitFontSmoothing: 'antialiased',
             MozOsxFontSmoothing: 'grayscale',
