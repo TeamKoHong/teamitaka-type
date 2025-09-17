@@ -4,7 +4,7 @@
 
 :root {
   --brand: #F76241;
-  --bg: #323030;
+  --bg: #403E3E;
   --text: #FFFFFF;
   --muted: #B5B5B8;
   --elev: rgba(0,0,0,0.25);
@@ -31,20 +31,25 @@
   html {
     font-display: swap;
     scroll-behavior: smooth;
-    background-color: #323030;
+    background-color: #403E3E;
   }
 
   body {
     font-family: 'Pretendard', 'Noto Sans KR', system-ui, sans-serif;
-    background-color: #323030;
+    background-color: #403E3E;
     color: #FFFFFF;
     color: var(--text);
   }
 
   /* 메인 페이지 특화 스타일 - 메인 페이지만 적용 */
   .main-page {
-    background-color: #323030 !important;
+    background-color: #403E3E !important;
     color: #FFFFFF !important;
+  }
+
+  /* 결과 페이지 특화 스타일 - 결과 페이지만 적용 */
+  .result-page {
+    background-color: #323030 !important;
   }
 
   /* 특정 색상만 예외 처리 */

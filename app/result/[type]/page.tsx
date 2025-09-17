@@ -76,7 +76,7 @@ export default function ResultPage() {
   // 다크 풀스크린 모드
   if (viewMode === 'dark-fullscreen') {
     return (
-      <div className="min-h-screen text-white p-4" style={{ backgroundColor: '#323030' }}>
+      <div className="min-h-screen text-white p-4 result-page" style={{ backgroundColor: '#323030' }}>
         {/* 보이지 않는 히트박스 - 이미지 중앙을 기준으로 X 위치 계산 */}
         <div className="max-w-md mx-auto relative">
           <button
@@ -117,7 +117,7 @@ export default function ResultPage() {
 
   // 모바일 카드형 모드 (기본)
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#323030' }}>
+    <div className="min-h-screen result-page" style={{ backgroundColor: '#323030' }}>
       {/* 보이지 않는 히트박스 - 이미지 중앙을 기준으로 X 위치 계산 */}
       <div className="max-w-sm mx-auto relative">
         <button
