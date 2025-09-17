@@ -78,7 +78,7 @@ export default function HomePage() {
             src="/assets/main/2358.png" 
             alt="2,358명이 나의 티미를 찾았어요!"
             className="mx-auto max-w-full h-auto"
-            style={{ maxWidth: '300px' }}
+            style={{ maxWidth: '500px' }}
           />
         </div>
 
