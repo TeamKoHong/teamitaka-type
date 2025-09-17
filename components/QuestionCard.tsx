@@ -99,7 +99,7 @@ export default function QuestionCard({
               aria-label="뒤로가기"
             >
               <Image 
-                src="/assets/quiz/back-arrow.png" 
+                src="/assets/quiz/vector.svg" 
                 alt="뒤로가기" 
                 width={24} 
                 height={24}
