@@ -345,22 +345,6 @@ function AnalysisCompleteContent() {
       }}
     >
 
-      {/* 닫기 버튼 - Safe Area 대응 */}
-      <div 
-        className="absolute right-4 z-40"
-        style={{
-          top: browserInfo.isIOS 
-            ? `max(1rem, calc(env(safe-area-inset-top) + 0.5rem))` 
-            : '1rem'
-        }}
-      >
-        <button 
-          onClick={() => router.push('/')}
-          className="w-8 h-8 bg-white text-gray-500 rounded-full flex items-center justify-center text-xl hover:bg-gray-100 transition-colors shadow-md"
-        >
-          ✕
-        </button>
-      </div>
 
       {/* 01.png 이미지 */}
       <div className="text-center mb-6 sm:mb-8">
