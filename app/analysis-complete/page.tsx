@@ -344,48 +344,6 @@ function AnalysisCompleteContent() {
         })
       }}
     >
-      {/* 개발 환경 진단 정보 */}
-      {process.env.NODE_ENV === 'development' && diagnostics && (
-        <div className="fixed top-4 left-4 bg-white p-3 rounded-lg shadow-lg text-xs max-w-xs z-50">
-          <div className="font-bold mb-2 flex items-center gap-2">
-            🔍 진단 정보
-            <span className={`px-2 py-1 rounded text-white text-xs ${
-              diagnostics.status === 'error' ? 'bg-red-500' : 'bg-green-500'
-            }`}>
-              {diagnostics.status}
-            </span>
-          </div>
-          <div className="space-y-1">
-            <div>화면: {diagnostics.viewport}</div>
-            <div>타입: {typeCode || 'None'}</div>
-            <div>브라우저: {
-              browserInfo.isSafari ? 'Safari' :
-              browserInfo.isChrome ? 'Chrome' :
-              browserInfo.isFirefox ? 'Firefox' : 'Other'
-            }</div>
-            <div>플랫폼: {
-              browserInfo.isIOS ? 'iOS' :
-              browserInfo.isAndroid ? 'Android' :
-              browserInfo.isMobile ? 'Mobile' : 'Desktop'
-            }</div>
-            <div>카드크기: {cardSize.width}×{cardSize.height}</div>
-            <div>문제: {diagnostics.issues.filter((i: DiagnosticIssue) => i.type === 'error').length}개</div>
-          </div>
-          <details className="mt-2">
-            <summary className="cursor-pointer text-blue-600">상세보기</summary>
-            <div className="mt-1 space-y-1">
-              {diagnostics.issues.map((issue: DiagnosticIssue, index: number) => (
-                <div key={index} className={`text-xs ${
-                  issue.type === 'error' ? 'text-red-600' : 
-                  issue.type === 'warning' ? 'text-yellow-600' : 'text-green-600'
-                }`}>
-                  {issue.type === 'error' ? '❌' : issue.type === 'warning' ? '⚠️' : '✅'} {issue.message}
-                </div>
-              ))}
-            </div>
-          </details>
-        </div>
-      )}
 
       {/* 닫기 버튼 - Safe Area 대응 */}
       <div 
