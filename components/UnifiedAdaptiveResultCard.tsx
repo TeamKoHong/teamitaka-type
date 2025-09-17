@@ -50,12 +50,9 @@ export default function UnifiedAdaptiveResultCard({
         }
 
         const canvas = await html2canvas(element, {
-          backgroundColor: '#333131',
-          scale: 2,
+          background: '#333131',
           useCORS: true,
-          allowTaint: true,
-          scrollX: 0,
-          scrollY: 0
+          allowTaint: true
         });
 
         const dataURL = canvas.toDataURL('image/png');
