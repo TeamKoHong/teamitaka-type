@@ -137,7 +137,7 @@ export default function ResultPage() {
       </div>
 
       {/* 메인 콘텐츠 */}
-      <main className="pt-4 pb-8">
+      <main className="pt-4 pb-8" style={{ backgroundColor: '#323030' }}>
         <div className="max-w-sm mx-auto">
           {/* 모바일 결과 카드 */}
           <UnifiedAdaptiveResultCard 
