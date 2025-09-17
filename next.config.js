@@ -104,6 +104,26 @@ const nextConfig = {
           },
         ],
       },
+      // 앱 페이지 JavaScript 파일 MIME 타입 설정
+      {
+        source: '/_next/static/chunks/app/page.js',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/javascript; charset=utf-8',
+          },
+        ],
+      },
+      // 모든 JavaScript 청크 파일 MIME 타입 설정 (포괄적)
+      {
+        source: '/_next/static/chunks/(.*)',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/javascript; charset=utf-8',
+          },
+        ],
+      },
       // CSS 파일 MIME 타입 설정
       {
         source: '/_next/static/css/(.*).css',
