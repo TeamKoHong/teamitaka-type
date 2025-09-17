@@ -114,6 +114,26 @@ const nextConfig = {
           },
         ],
       },
+      // CSS 청크 파일 MIME 타입 설정
+      {
+        source: '/_next/static/chunks/app_globals_(.*).css',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'text/css; charset=utf-8',
+          },
+        ],
+      },
+      // 모든 CSS 청크 파일 MIME 타입 설정
+      {
+        source: '/_next/static/chunks/(.*).css',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'text/css; charset=utf-8',
+          },
+        ],
+      },
       // 개발 모드 특수 파일들 MIME 타입 설정
       {
         source: '/_next/static/development/_ssgManifest.js',
