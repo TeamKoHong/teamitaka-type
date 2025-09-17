@@ -33,40 +33,32 @@ Cannot find module './533.js'
 
 ### 🔧 즉시 해결 (권장)
 
-#### 1단계: 개발 서버 중지
+#### 방법 1: 자동 복구 스크립트 사용
 ```bash
-# 모든 Next.js 프로세스 종료
-pkill -f "next dev"
+# 완전 초기화 및 안정적 서버 시작
+npm run reset
 ```
 
-#### 2단계: 캐시 완전 삭제
+#### 방법 2: 단계별 수동 해결
 ```bash
-# Next.js 빌드 캐시 삭제
+# 1단계: 개발 서버 중지
+pkill -f "next dev"
+
+# 2단계: 캐시 완전 삭제
 rm -rf .next
 
-# Node.js 모듈 삭제
-rm -rf node_modules
-
-# 패키지 락 파일 삭제
-rm package-lock.json
-```
-
-#### 3단계: 의존성 재설치
-```bash
-# 패키지 재설치
+# 3단계: 의존성 재설치
+rm -rf node_modules package-lock.json
 npm install
+
+# 4단계: 안정적 개발 서버 시작
+npm run dev:stable
 ```
 
-#### 4단계: 빌드 테스트
+#### 방법 3: 빠른 캐시 정리
 ```bash
-# 프로덕션 빌드 테스트
-npm run build
-```
-
-#### 5단계: 개발 서버 재시작
-```bash
-# 개발 서버 시작
-npm run dev
+# 캐시만 삭제하고 안정적 서버 시작
+npm run dev:clean
 ```
 
 ### 🛠️ 추가 해결 방법

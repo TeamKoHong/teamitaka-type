@@ -3,14 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
+    "dev:stable": "NODE_OPTIONS='--max-old-space-size=4096' next dev --port 3000",
+    "dev:clean": "rm -rf .next && npm run dev:stable",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:e2e": "playwright test",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf .next node_modules package-lock.json && npm install",
+    "reset": "npm run clean && npm run dev:stable"
   },
   "dependencies": {
     "html2canvas": "^1.4.1",

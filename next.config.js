@@ -1,23 +1,60 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // 개발 서버 안정성 향상
   experimental: {
     // App Router
+    optimizeCss: true,
+    // 메모리 사용량 최적화
+    memoryBasedWorkersCount: true,
   },
+  
+  // 이미지 최적화 설정
   images: {
     domains: ['type.teamitaka.com'],
     unoptimized: false,
+    // 이미지 로딩 최적화
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  // TypeScript 빌드 에러를 경고로 처리 (테스트 파일 때문)
+  
+  // TypeScript 설정
   typescript: {
     ignoreBuildErrors: false,
   },
-  // ESLint 에러를 경고로 처리
+  
+  // ESLint 설정
   eslint: {
     ignoreDuringBuilds: false,
   },
-  async redirects() {
-    return [];
+  
+  // 웹팩 최적화
+  webpack: (config, { dev, isServer }) => {
+    // 개발 환경에서 메모리 사용량 최적화
+    if (dev) {
+      config.watchOptions = {
+        poll: 1000,
+        aggregateTimeout: 300,
+        ignored: /node_modules/,
+      };
+      
+      // 캐시 최적화
+      config.cache = {
+        type: 'memory',
+        maxGenerations: 1,
+      };
+    }
+    
+    return config;
   },
+  
+  // 개발 서버 설정
+  devIndicators: {
+    buildActivity: true,
+    buildActivityPosition: 'bottom-right',
+  },
+  
+  // 정적 파일 서빙 최적화
   async headers() {
     return [
       {
@@ -35,10 +72,38 @@ const nextConfig = {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
           },
+          // MIME 타입 명시적 설정
+          {
+            key: 'Content-Type',
+            value: 'text/html; charset=utf-8',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
         ],
       },
     ];
   },
+  
+  // 리다이렉트 설정
+  async redirects() {
+    return [];
+  },
+  
+  // 압축 설정
+  compress: true,
+  
+  // 파워드 바이 헤더 제거
+  poweredByHeader: false,
+  
+  // 엄격 모드 비활성화 (개발 안정성)
+  reactStrictMode: false,
 };
 
 module.exports = nextConfig;
