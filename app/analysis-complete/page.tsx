@@ -79,22 +79,22 @@ const useResponsiveCard = () => {
       
       if (width <= 320) {
         // 초소형 디바이스 (Galaxy Fold 접힌 상태)
-        newSize = { width: 200, height: 240 };
+        newSize = { width: Math.min(width * 0.85, 280), height: Math.min(width * 0.85 * 1.2, 340) };
       } else if (width <= 375) {
         // iPhone SE, iPhone 12 mini
-        newSize = { width: 240, height: 280 };
+        newSize = { width: Math.min(width * 0.85, 320), height: Math.min(width * 0.85 * 1.2, 380) };
       } else if (width <= 414) {
         // 대부분의 모바일
-        newSize = { width: 280, height: 320 };
+        newSize = { width: Math.min(width * 0.85, 350), height: Math.min(width * 0.85 * 1.2, 420) };
       } else if (width <= 430) {
         // iPhone 14 Pro Max, iPhone 15 Plus
-        newSize = { width: 300, height: 340 };
+        newSize = { width: Math.min(width * 0.85, 365), height: Math.min(width * 0.85 * 1.2, 440) };
       } else if (width <= 768) {
         // 큰 모바일, 작은 태블릿
-        newSize = { width: 320, height: 360 };
+        newSize = { width: Math.min(width * 0.7, 400), height: Math.min(width * 0.7 * 1.2, 480) };
       } else {
         // 태블릿, 데스크톱
-        newSize = { width: 360, height: 400 };
+        newSize = { width: Math.min(width * 0.5, 450), height: Math.min(width * 0.5 * 1.2, 540) };
       }
       
       setCardSize(newSize);
@@ -333,7 +333,7 @@ function AnalysisCompleteContent() {
 
   return (
     <div 
-      className={`flex flex-col items-center justify-center p-4 sm:p-6 ${
+      className={`flex flex-col items-center justify-start p-4 sm:p-6 ${
         isSafari ? 'safari-dynamic-height' : 'min-h-screen'
       }`}
       style={{
@@ -346,15 +346,16 @@ function AnalysisCompleteContent() {
     >
 
 
-      {/* 01.png 이미지 */}
-      <div className="text-center mb-6 sm:mb-8 relative">
+      {/* 01.png 이미지 - 디자인 시안 비율 적용 */}
+      <div className="text-center mb-4 relative" style={{ height: '12vh', minHeight: '60px' }}>
         <img
           src="/assets/analysis-complete/01.png"
           alt="성향 분석 완료!"
-          className="w-full h-auto object-contain mx-auto"
+          className="w-full h-full object-contain mx-auto"
           style={{ 
-            maxWidth: 'clamp(280px, 80vw, 400px)',
-            width: '100%'
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain'
           }}
         />
         
@@ -381,8 +382,8 @@ function AnalysisCompleteContent() {
         </button>
       </div>
 
-      {/* 카드 영역 */}
-      <div className="flex flex-col items-center space-y-6">
+      {/* 카드 영역 - 디자인 시안 비율 적용 */}
+      <div className="flex flex-col items-center justify-center flex-1" style={{ minHeight: '50vh' }}>
         {currentTimiCard ? (
           <button
             type="button"
@@ -496,15 +497,16 @@ function AnalysisCompleteContent() {
           </div>
         )}
 
-        {/* 02.png 이미지 */}
-        <div className="text-center mb-4">
+        {/* 02.png 이미지 - 디자인 시안 비율 적용 */}
+        <div className="text-center mb-4" style={{ height: '7vh', minHeight: '40px' }}>
           <img
             src="/assets/analysis-complete/02.png"
             alt="추가 정보"
-            className="w-full h-auto object-contain mx-auto"
+            className="h-full object-contain mx-auto"
             style={{ 
-              maxWidth: 'clamp(280px, 80vw, 400px)',
-              width: '100%'
+              width: '92%',
+              height: '100%',
+              objectFit: 'contain'
             }}
           />
         </div>
