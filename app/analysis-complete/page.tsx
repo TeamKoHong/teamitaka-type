@@ -333,10 +333,11 @@ function AnalysisCompleteContent() {
 
   return (
     <div 
-      className={`bg-gray-100 flex flex-col items-center justify-center p-4 sm:p-6 ${
+      className={`flex flex-col items-center justify-center p-4 sm:p-6 ${
         isSafari ? 'safari-dynamic-height' : 'min-h-screen'
       }`}
       style={{
+        backgroundColor: '#323030',
         ...(isSafari && {
           height: `calc(var(--vh, 1vh) * 100)`,
           minHeight: `calc(var(--vh, 1vh) * 100)`
@@ -405,8 +406,8 @@ function AnalysisCompleteContent() {
 
       {/* 제목 영역 */}
       <div className="text-center mb-6 sm:mb-8">
-        <h1 className="font-bold text-gray-800 mb-2 text-responsive-question" style={{ fontSize: 'clamp(20px, calc(24px * (100vw / 390px)), 28px)' }}>성향 분석 완료!</h1>
-        <p className="text-responsive-header text-gray-600 px-4">나의 성향이 담긴 티미 확인하기</p>
+        <h1 className="font-bold text-white mb-2 text-responsive-question" style={{ fontSize: 'clamp(20px, calc(24px * (100vw / 390px)), 28px)' }}>성향 분석 완료!</h1>
+        <p className="text-responsive-header text-gray-300 px-4">나의 성향이 담긴 티미 확인하기</p>
       </div>
 
       {/* 카드 영역 */}
@@ -464,7 +465,7 @@ function AnalysisCompleteContent() {
               <div className="fallback-front hidden w-full h-full bg-gray-200 flex items-center justify-center rounded-xl">
                 <div className="text-center">
                   <div className="text-4xl mb-2">🎴</div>
-                  <div className="text-gray-600">이미지를 불러올 수 없습니다</div>
+                  <div className="text-gray-300">이미지를 불러올 수 없습니다</div>
                 </div>
               </div>
             </div>
@@ -490,7 +491,7 @@ function AnalysisCompleteContent() {
               <div className="fallback-back hidden w-full h-full bg-gray-200 flex items-center justify-center rounded-xl">
                 <div className="text-center">
                   <div className="text-4xl mb-2">🎴</div>
-                  <div className="text-gray-600">이미지를 불러올 수 없습니다</div>
+                  <div className="text-gray-300">이미지를 불러올 수 없습니다</div>
                 </div>
               </div>
             </div>
@@ -503,8 +504,8 @@ function AnalysisCompleteContent() {
               height: cardSize.height
             }}
           >
-            <div className="text-gray-500 mb-4" style={{ fontSize: Math.min(cardSize.width * 0.15, 60) }}>❓</div>
-            <div className="text-gray-600 text-center px-4">
+            <div className="text-gray-400 mb-4" style={{ fontSize: Math.min(cardSize.width * 0.15, 60) }}>❓</div>
+            <div className="text-gray-300 text-center px-4">
               <div 
                 className="font-medium mb-2 text-responsive-header"
               >
@@ -562,8 +563,8 @@ function AnalysisCompleteContent() {
           
           <button
             onClick={handleRetest}
-            className={`text-gray-600 underline transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 rounded px-2 py-1 text-responsive-small ${
-              !browserInfo.isMobile ? 'hover:text-gray-700' : ''
+            className={`text-gray-300 underline transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 rounded px-2 py-1 text-responsive-small ${
+              !browserInfo.isMobile ? 'hover:text-gray-200' : ''
             }`}
           >
             테스트 다시하기
@@ -580,7 +581,7 @@ export default function AnalysisCompletePage() {
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-500">결과를 불러오는 중...</p>
+          <p className="text-gray-300">결과를 불러오는 중...</p>
         </div>
       </div>
     }>

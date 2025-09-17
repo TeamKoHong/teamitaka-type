@@ -85,7 +85,7 @@ export default function ResultCard({
       className={`w-full max-w-md mx-auto text-white font-sans ${className}`}
       style={{
         fontFamily: 'Pretendard, Noto Sans KR, system-ui, sans-serif',
-        backgroundColor: '#333131',
+        backgroundColor: '#323030',
         ...(captureMode && {
           width: '375px',
           minHeight: '600px',
@@ -97,7 +97,7 @@ export default function ResultCard({
       <div 
         id="result-card-content"
         style={{ 
-          backgroundColor: '#333131',
+          backgroundColor: '#323030',
           fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
           WebkitFontSmoothing: 'antialiased',
           MozOsxFontSmoothing: 'grayscale',
@@ -106,7 +106,7 @@ export default function ResultCard({
         }}
       >
         {/* 헤더 영역 */}
-      <div className="px-6 py-8 text-center" style={{ backgroundColor: '#333131' }}>
+      <div className="px-6 py-8 text-center" style={{ backgroundColor: '#323030' }}>
         <p className="text-responsive-small text-white mb-4">어떤 환경에서도 제 역할을 해내는</p>
         <h1 
           className="font-bold mb-6 text-responsive-question"
