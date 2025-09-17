@@ -56,7 +56,7 @@ export default function HomePage() {
               fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
               fontWeight: 600, // Semibold
               fontSize: 'clamp(16px, calc(20px * (100vw / 390px)), 24px)',
-              color: '#B5B5B8',
+              color: '#FFFDFC',
               lineHeight: 1.4
             }}
             aria-describedby="headline"
