@@ -347,13 +347,38 @@ function AnalysisCompleteContent() {
 
 
       {/* 01.png 이미지 */}
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="text-center mb-6 sm:mb-8 relative">
         <img
           src="/assets/analysis-complete/01.png"
           alt="성향 분석 완료!"
           className="w-full h-auto object-contain mx-auto"
-          style={{ maxWidth: '300px' }}
+          style={{ 
+            maxWidth: 'clamp(280px, 80vw, 400px)',
+            width: '100%'
+          }}
         />
+        
+        {/* 투명한 X 버튼 히트박스 */}
+        <button
+          onClick={() => router.push('/')}
+          className="absolute top-0 right-0 w-8 h-8 sm:w-10 sm:h-10 bg-transparent hover:bg-black hover:bg-opacity-10 rounded-full transition-all duration-200 flex items-center justify-center"
+          style={{
+            // 01.png 이미지의 X 위치에 맞춰 조정
+            top: '8%',
+            right: '8%',
+            // 반응형 크기 조정
+            width: 'clamp(24px, 6vw, 40px)',
+            height: 'clamp(24px, 6vw, 40px)',
+            // 터치 최적화
+            ...(browserInfo.isMobile && {
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation'
+            })
+          }}
+          title="메인 페이지로 이동"
+        >
+          <span className="text-transparent text-lg sm:text-xl font-bold">×</span>
+        </button>
       </div>
 
       {/* 카드 영역 */}
@@ -470,6 +495,19 @@ function AnalysisCompleteContent() {
             </div>
           </div>
         )}
+
+        {/* 02.png 이미지 */}
+        <div className="text-center mb-4">
+          <img
+            src="/assets/analysis-complete/02.png"
+            alt="추가 정보"
+            className="w-full h-auto object-contain mx-auto"
+            style={{ 
+              maxWidth: 'clamp(280px, 80vw, 400px)',
+              width: '100%'
+            }}
+          />
+        </div>
 
         {/* 하단 버튼들 - Safari 대응 */}
         <div 
