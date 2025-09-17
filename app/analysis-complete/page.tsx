@@ -79,22 +79,22 @@ const useResponsiveCard = () => {
       
       if (width <= 320) {
         // 초소형 디바이스 (Galaxy Fold 접힌 상태)
-        newSize = { width: 240, height: 280 };
+        newSize = { width: 200, height: 240 };
       } else if (width <= 375) {
         // iPhone SE, iPhone 12 mini
-        newSize = { width: 280, height: 320 };
+        newSize = { width: 240, height: 280 };
       } else if (width <= 414) {
         // 대부분의 모바일
-        newSize = { width: 320, height: 380 };
+        newSize = { width: 280, height: 320 };
       } else if (width <= 430) {
         // iPhone 14 Pro Max, iPhone 15 Plus
-        newSize = { width: 340, height: 400 };
+        newSize = { width: 300, height: 340 };
       } else if (width <= 768) {
         // 큰 모바일, 작은 태블릿
-        newSize = { width: 360, height: 420 };
+        newSize = { width: 320, height: 360 };
       } else {
         // 태블릿, 데스크톱
-        newSize = { width: 400, height: 480 };
+        newSize = { width: 360, height: 400 };
       }
       
       setCardSize(newSize);
