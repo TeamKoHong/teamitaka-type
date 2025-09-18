@@ -92,7 +92,7 @@ export default function UnifiedAdaptiveResultCard({
         }}
       >
         {/* 상단 top.png 이미지 */}
-        <div className="mb-4">
+        <div className="mb-4 px-4">
           <img
             src="/assets/result/top.png"
             alt="Top"
@@ -101,7 +101,7 @@ export default function UnifiedAdaptiveResultCard({
         </div>
 
         {/* 캐릭터 이미지 */}
-        <div className="mb-4">
+        <div className="mb-4 px-4">
           <img
             src={`/assets/result/${typeMeta.nickname}.png`}
             alt={typeMeta.nickname}
