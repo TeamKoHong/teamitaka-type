@@ -1,311 +1,27 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState, Suspense, useCallback } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { TYPE_METADATA } from '@/lib/types';
 import { timiCards } from '@/lib/data/timiCards';
-import { useBrowserOptimization } from '@/lib/hooks/useBrowserOptimization';
-import { useViewportHeight } from '@/lib/hooks/useViewportHeight';
-import { useSafariViewport } from '@/lib/hooks/useSafariViewport';
-
-interface DiagnosticIssue {
-  type: 'error' | 'warning' | 'success';
-  message: string;
-}
-
-interface DiagnosticResults {
-  timestamp: string;
-  url: string;
-  userAgent: string;
-  viewport: string;
-  issues: DiagnosticIssue[];
-  status: 'checking' | 'error' | 'success';
-}
-
-interface CardSize {
-  width: number;
-  height: number;
-}
-
-interface BrowserInfo {
-  isSafari: boolean;
-  isChrome: boolean;
-  isFirefox: boolean;
-  isMobile: boolean;
-  isIOS: boolean;
-  isAndroid: boolean;
-}
-
-// 반응형 카드 훅
-const useResponsiveCard = () => {
-  const [cardSize, setCardSize] = useState<CardSize>({ width: 320, height: 400 });
-  const [browserInfo, setBrowserInfo] = useState<BrowserInfo>({
-    isSafari: false,
-    isChrome: false,
-    isFirefox: false,
-    isMobile: false,
-    isIOS: false,
-    isAndroid: false
-  });
-
-  useEffect(() => {
-    const userAgent = navigator.userAgent;
-    const platform = navigator.platform;
-    
-    // 브라우저 및 플랫폼 감지
-    const newBrowserInfo: BrowserInfo = {
-      isSafari: /Safari/.test(userAgent) && !/Chrome/.test(userAgent),
-      isChrome: /Chrome/.test(userAgent) && !/Edg/.test(userAgent),
-      isFirefox: /Firefox/.test(userAgent),
-      isMobile: /Mobi|Android/i.test(userAgent),
-      isIOS: /iPad|iPhone|iPod/.test(userAgent),
-      isAndroid: /Android/.test(userAgent)
-    };
-    
-    setBrowserInfo(newBrowserInfo);
-
-    // 실제 뷰포트 높이 설정 (Safari 주소창 대응)
-    const setViewportHeight = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
-
-    // 화면 크기에 따른 카드 사이즈 조정
-    const updateCardSize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      
-      let newSize: CardSize;
-      
-      if (width <= 320) {
-        // 초소형 디바이스 (Galaxy Fold 접힌 상태)
-        newSize = { width: Math.min(width * 0.85, 280), height: Math.min(width * 0.85 * 1.2, 340) };
-      } else if (width <= 375) {
-        // iPhone SE, iPhone 12 mini
-        newSize = { width: Math.min(width * 0.85, 320), height: Math.min(width * 0.85 * 1.2, 380) };
-      } else if (width <= 414) {
-        // 대부분의 모바일
-        newSize = { width: Math.min(width * 0.85, 350), height: Math.min(width * 0.85 * 1.2, 420) };
-      } else if (width <= 430) {
-        // iPhone 14 Pro Max, iPhone 15 Plus
-        newSize = { width: Math.min(width * 0.85, 365), height: Math.min(width * 0.85 * 1.2, 440) };
-      } else if (width <= 768) {
-        // 큰 모바일, 작은 태블릿
-        newSize = { width: Math.min(width * 0.7, 400), height: Math.min(width * 0.7 * 1.2, 480) };
-      } else {
-        // 태블릿, 데스크톱
-        newSize = { width: Math.min(width * 0.5, 450), height: Math.min(width * 0.5 * 1.2, 540) };
-      }
-      
-      setCardSize(newSize);
-    };
-
-    const handleResize = () => {
-      updateCardSize();
-      setViewportHeight();
-    };
-
-    const handleOrientationChange = () => {
-      // 방향 전환 시 약간의 지연을 두고 사이즈 재계산
-      setTimeout(() => {
-        updateCardSize();
-        setViewportHeight();
-      }, 100);
-    };
-
-    // 초기 실행
-    updateCardSize();
-    setViewportHeight();
-
-    // 이벤트 리스너 등록
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', handleOrientationChange);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('orientationchange', handleOrientationChange);
-    };
-  }, []);
-
-  return { cardSize, browserInfo };
-};
 
 function AnalysisCompleteContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [typeCode, setTypeCode] = useState<string>('');
   const [showBack, setShowBack] = useState<boolean>(false);
-  const [diagnostics, setDiagnostics] = useState<DiagnosticResults | null>(null);
-  
-  // 반응형 카드 훅 사용
-  const { cardSize, browserInfo } = useResponsiveCard();
-  const browserOptimization = useBrowserOptimization();
-  const viewportHeight = useViewportHeight();
-  const { viewportHeight: safariVh, isSafari } = useSafariViewport();
-
-  // 브라우저별 클래스 생성
-  const getCardClasses = useCallback(() => {
-    let classes = `relative cursor-pointer transition-transform duration-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${browserOptimization.layoutClass}`;
-    
-    // 호버 효과는 데스크톱에서만
-    if (!browserInfo.isMobile) {
-      classes += " hover:scale-105";
-    }
-    
-    return classes;
-  }, [browserInfo, browserOptimization]);
-
-  // 터치 이벤트 최적화
-  const handleCardTouch = useCallback((e: React.TouchEvent) => {
-    if (browserInfo.isSafari || browserInfo.isIOS) {
-      e.preventDefault(); // Safari에서 더블탭 줌 방지
-    }
-    
-    const target = e.currentTarget as HTMLElement;
-    
-    if (e.type === 'touchstart') {
-      target.style.transform = 'scale(0.98)';
-    } else if (e.type === 'touchend') {
-      target.style.transform = '';
-      setShowBack(!showBack);
-    }
-  }, [browserInfo, showBack]);
-
-  // 이미지 preloading 최적화
-  const preloadImageForBrowser = useCallback((src: string): Promise<void> => {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      
-      // Safari에서 CORS 이슈 방지
-      if (browserInfo.isSafari) {
-        img.crossOrigin = 'anonymous';
-      }
-      
-      img.onload = () => {
-        // Safari에서 이미지 캐싱 강제
-        if (browserInfo.isSafari) {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          if (ctx) {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-          }
-        }
-        resolve();
-      };
-      
-      img.onerror = reject;
-      img.src = src;
-    });
-  }, [browserInfo]);
-
-  // 진단 함수
-  const runDiagnostics = useCallback((): DiagnosticResults => {
-    const results: DiagnosticResults = {
-      timestamp: new Date().toISOString(),
-      url: window.location.href,
-      userAgent: navigator.userAgent,
-      viewport: `${window.innerWidth}x${window.innerHeight}`,
-      issues: [],
-      status: 'checking'
-    };
-
-    // 1. URL 파라미터 체크
-    const urlParams = new URLSearchParams(window.location.search);
-    const typeParam = urlParams.get('type');
-    
-    if (!typeParam) {
-      results.issues.push({ type: 'error', message: 'URL에 type 파라미터가 없습니다' });
-    } else if (!TYPE_METADATA[typeParam]) {
-      results.issues.push({ type: 'error', message: `유효하지 않은 타입 코드: ${typeParam}` });
-    } else {
-      results.issues.push({ type: 'success', message: `타입 파라미터 정상: ${typeParam}` });
-    }
-
-    // 2. 데이터 매칭 체크
-    const typeMeta = typeParam ? TYPE_METADATA[typeParam] : null;
-    const card = timiCards.find(c => c.name === typeMeta?.nickname);
-    
-    if (!card && typeMeta) {
-      results.issues.push({ type: 'error', message: `카드 데이터 매칭 실패: ${typeMeta.nickname}` });
-    } else if (card) {
-      results.issues.push({ type: 'success', message: `카드 데이터 매칭 성공: ${card.name}` });
-    }
-
-    // 3. 반응형 체크
-    const isMobile = window.innerWidth < 768;
-    if (isMobile && window.innerWidth < 320) {
-      results.issues.push({ type: 'warning', message: '화면이 너무 작아 일부 요소가 잘릴 수 있습니다' });
-    }
-
-    // 4. 브라우저 호환성 체크
-    if (browserInfo.isSafari) {
-      results.issues.push({ type: 'success', message: 'Safari 최적화 적용됨' });
-    }
-    
-    if (browserInfo.isChrome) {
-      results.issues.push({ type: 'success', message: 'Chrome 성능 최적화 적용됨' });
-    }
-    
-    if (browserInfo.isFirefox) {
-      results.issues.push({ type: 'success', message: 'Firefox 호환성 적용됨' });
-    }
-    
-    // 5. 모바일 최적화 체크
-    if (browserInfo.isMobile) {
-      results.issues.push({ type: 'success', message: '모바일 터치 최적화 활성' });
-    }
-
-    results.status = results.issues.some(issue => issue.type === 'error') ? 'error' : 'success';
-    return results;
-  }, [browserInfo]);
 
   useEffect(() => {
-    // URL에서 타입 코드 가져오기
     const type = searchParams.get('type');
     if (type) {
       setTypeCode(type);
     }
+  }, [searchParams]);
 
-    // 진단 실행
-    if (typeof window !== 'undefined') {
-      const diagnosticResults = runDiagnostics();
-      setDiagnostics(diagnosticResults);
-      
-      // 개발 환경에서만 콘솔 출력
-      if (process.env.NODE_ENV === 'development') {
-        console.group('🔍 Analysis Complete 페이지 진단 결과');
-        console.log('기본 정보:', diagnosticResults);
-        diagnosticResults.issues.forEach((issue: DiagnosticIssue) => {
-          const icon = issue.type === 'error' ? '❌' : issue.type === 'warning' ? '⚠️' : '✅';
-          console.log(`${icon} ${issue.message}`);
-        });
-        console.groupEnd();
-      }
-    }
-  }, [searchParams, runDiagnostics]);
-
-  // 타입 메타데이터와 티미 카드 찾기
   const typeMeta = typeCode ? TYPE_METADATA[typeCode] : null;
   const currentTimiCard = typeMeta ? timiCards.find(card => 
     card.name === typeMeta.nickname
   ) : null;
-
-  // 이미지 preloading (브라우저 최적화)
-  useEffect(() => {
-    if (currentTimiCard) {
-      const preloadImages = [currentTimiCard.front, currentTimiCard.back];
-      preloadImages.forEach(async (src) => {
-        try {
-          await preloadImageForBrowser(src);
-          process.env.NODE_ENV === 'development' && console.log(`Preloaded: ${src}`);
-        } catch (error) {
-          console.error(`Failed to preload: ${src}`, error);
-        }
-      });
-    }
-  }, [currentTimiCard, preloadImageForBrowser]);
 
   const handleViewDetails = () => {
     if (!typeCode) {
@@ -333,219 +49,144 @@ function AnalysisCompleteContent() {
 
   return (
     <div 
-      className={`flex flex-col items-center justify-start p-4 sm:p-6 ${
-        isSafari ? 'safari-dynamic-height' : 'min-h-screen'
-      }`}
-      style={{
-        backgroundColor: '#ffffff',
-        ...(isSafari && {
-          height: `calc(var(--vh, 1vh) * 100)`,
-          minHeight: `calc(var(--vh, 1vh) * 100)`
-        })
+      className="min-h-screen relative overflow-hidden"
+      style={{ 
+        fontFamily: 'Pretendard, sans-serif',
+        height: '100vh',
+        maxHeight: '100vh',
+        backgroundColor: '#f2f2f2 !important'
       }}
     >
+      {/* 상단 상태바 영역 */}
+      <div className="absolute top-0 left-0 w-full h-12 z-20">
+        <div className="flex justify-between items-center px-4 pt-3">
+          <div className="text-black font-semibold text-sm">9:41</div>
+          <div className="flex items-center gap-1">
+            <div className="w-4 h-2 bg-black rounded-sm"></div>
+            <div className="w-4 h-3 bg-black rounded-sm"></div>
+            <div className="w-4 h-3 bg-black rounded-sm"></div>
+          </div>
+        </div>
+      </div>
 
-
-      {/* 01.png 이미지 - 디자인 시안 비율 적용 */}
-      <div className="text-center mb-4 relative" style={{ height: '12vh', minHeight: '60px' }}>
-        <img
-          src="/assets/analysis-complete/01.png"
-          alt="성향 분석 완료!"
-          className="w-full h-full object-contain mx-auto"
-          style={{ 
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain'
-          }}
-        />
-        
-        {/* 투명한 X 버튼 히트박스 */}
+      {/* 상단 X 버튼 */}
+      <div className="absolute top-16 left-4 z-10">
         <button
           onClick={() => router.push('/')}
-          className="absolute top-0 right-0 w-8 h-8 sm:w-10 sm:h-10 bg-transparent hover:bg-black hover:bg-opacity-10 rounded-full transition-all duration-200 flex items-center justify-center"
-          style={{
-            // 01.png 이미지의 X 위치에 맞춰 조정
-            top: '8%',
-            right: '8%',
-            // 반응형 크기 조정
-            width: 'clamp(24px, 6vw, 40px)',
-            height: 'clamp(24px, 6vw, 40px)',
-            // 터치 최적화
-            ...(browserInfo.isMobile && {
-              WebkitTapHighlightColor: 'transparent',
-              touchAction: 'manipulation'
-            })
-          }}
+          className="w-4 h-4 bg-transparent hover:bg-gray-300 rounded-full transition-all duration-200 flex items-center justify-center"
           title="메인 페이지로 이동"
         >
-          <span className="text-transparent text-lg sm:text-xl font-bold">×</span>
+          <span className="text-black text-lg font-bold">×</span>
+        </button>
+      </div>
+      
+      {/* 제목 영역 */}
+      <div className="text-center pt-20 pb-4 px-4">
+        <h1 className="text-2xl font-bold text-black mb-2">
+          성향 분석 완료!
+        </h1>
+        <p className="text-base text-black">
+          나의 성향이 담긴 <span className="text-black">티미 확인하기</span>
+        </p>
+      </div>
+
+      {/* 메인 카드 영역 - 가운데 정렬 */}
+      <div className="flex-1 flex items-center justify-center px-4 py-8">
+        <div 
+          className="relative"
+          style={{
+            width: '358px',
+            height: '517px'
+          }}
+        >
+          {currentTimiCard ? (
+            <img
+              src={`/assets/timi-cards/${currentTimiCard.name}카드_앞.png`}
+              alt={`${currentTimiCard.name} 캐릭터`}
+              className="w-full h-full object-contain"
+              onError={(e) => {
+                console.error('Character image loading failed:', e.currentTarget.src);
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-300 rounded-2xl flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-4xl mb-2">🎴</div>
+                <div className="text-gray-600">카드를 불러올 수 없습니다</div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* 카드 뒷면 보기 버튼 */}
+      <div className="flex justify-center mb-8">
+        <button
+          onClick={() => setShowBack(true)}
+          className="text-black text-sm font-medium hover:text-gray-600 transition-colors flex items-center gap-2"
+        >
+          티미 카드 뒷면 보기
+          <div className="w-1.5 h-2.5 bg-black"></div>
         </button>
       </div>
 
-      {/* 카드 영역 - 디자인 시안 비율 적용 */}
-      <div className="flex flex-col items-center justify-center flex-1" style={{ minHeight: '50vh' }}>
-        {currentTimiCard ? (
-          <button
-            type="button"
-            className={getCardClasses()}
-            style={{
-              width: cardSize.width,
-              height: cardSize.height,
-              // Safari 최적화
-              ...(browserInfo.isSafari && {
-                WebkitTransform: 'translateZ(0)',
-                WebkitBackfaceVisibility: 'hidden',
-                WebkitPerspective: '1000px'
-              }),
-              // Chrome 최적화
-              ...(browserInfo.isChrome && {
-                willChange: 'transform',
-                contain: 'layout style paint'
-              })
-            }}
-            onClick={browserInfo.isMobile ? undefined : () => setShowBack(!showBack)}
-            onTouchStart={browserInfo.isMobile ? handleCardTouch : undefined}
-            onTouchEnd={browserInfo.isMobile ? handleCardTouch : undefined}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                setShowBack(!showBack);
-              }
-            }}
-            aria-label={`티미 카드 ${showBack ? '앞면' : '뒷면'} 보기`}
-            aria-pressed={showBack}
-            title="카드를 클릭하여 뒤집기"
-          >
-            {/* 앞면 */}
-            <div 
-              className={`absolute inset-0 transition-all duration-500 ease-in-out ${
-                showBack ? 'opacity-0 [transform:rotateY(180deg)]' : 'opacity-100 [transform:rotateY(0deg)]'
-              }`}
-            >
-              <img
-                src={currentTimiCard.front}
-                alt={`${currentTimiCard.name} 앞면`}
-                className={`w-full h-full object-contain ${browserOptimization.imageClass}`}
-                onError={(e) => {
-                  console.error('Front image loading failed:', e.currentTarget.src);
-                  e.currentTarget.style.display = 'none';
-                  const fallback = e.currentTarget.parentElement?.querySelector('.fallback-front') as HTMLElement;
-                  if (fallback) fallback.style.display = 'flex';
-                }}
-                onLoad={() => process.env.NODE_ENV === 'development' && console.log('Front image loaded successfully')}
-              />
-              <div className="fallback-front hidden w-full h-full bg-gray-200 flex items-center justify-center rounded-xl">
-                <div className="text-center">
-                  <div className="text-4xl mb-2">🎴</div>
-                  <div className="text-gray-600">이미지를 불러올 수 없습니다</div>
-                </div>
-              </div>
-            </div>
-            
-            {/* 뒷면 */}
-            <div 
-              className={`absolute inset-0 transition-all duration-500 ease-in-out ${
-                showBack ? 'opacity-100 [transform:rotateY(0deg)]' : 'opacity-0 [transform:rotateY(-180deg)]'
-              }`}
-            >
-              <img
-                src={currentTimiCard.back}
-                alt={`${currentTimiCard.name} 뒷면`}
-                className={`w-full h-full object-contain ${browserOptimization.imageClass}`}
-                onError={(e) => {
-                  console.error('Back image loading failed:', e.currentTarget.src);
-                  e.currentTarget.style.display = 'none';
-                  const fallback = e.currentTarget.parentElement?.querySelector('.fallback-back') as HTMLElement;
-                  if (fallback) fallback.style.display = 'flex';
-                }}
-                onLoad={() => process.env.NODE_ENV === 'development' && console.log('Back image loaded successfully')}
-              />
-              <div className="fallback-back hidden w-full h-full bg-gray-200 flex items-center justify-center rounded-xl">
-                <div className="text-center">
-                  <div className="text-4xl mb-2">🎴</div>
-                  <div className="text-gray-600">이미지를 불러올 수 없습니다</div>
-                </div>
-              </div>
-            </div>
-          </button>
-        ) : (
-          <div 
-            className="bg-gray-300 flex flex-col items-center justify-center rounded-xl"
-            style={{
-              width: cardSize.width,
-              height: cardSize.height
-            }}
-          >
-            <div className="text-gray-400 mb-4" style={{ fontSize: Math.min(cardSize.width * 0.15, 60) }}>❓</div>
-            <div className="text-gray-600 text-center px-4">
-              <div 
-                className="font-medium mb-2 text-responsive-header"
-              >
-                결과를 불러올 수 없습니다
-              </div>
-              <div 
-                className="text-responsive-small"
-              >
-                {!typeCode 
-                  ? 'URL 파라미터가 없습니다' 
-                  : !typeMeta 
-                  ? '유효하지 않은 타입 코드입니다'
-                  : '카드 정보를 찾을 수 없습니다'
-                }
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* 02.png 이미지 - 디자인 시안 비율 적용 */}
-        <div className="text-center mb-4" style={{ height: '7vh', minHeight: '40px' }}>
+      {/* 하단 버튼 영역 */}
+      <div className="w-full px-4 pb-8">
+        {/* 나의 성향 자세히 보기 버튼 */}
+        <div className="w-full mb-4">
           <button
             onClick={handleViewDetails}
             disabled={!typeCode || !typeMeta}
-            className="h-full object-contain mx-auto block w-full bg-transparent border-none p-0 cursor-pointer disabled:cursor-not-allowed"
-            style={{ 
-              width: '92%',
-              height: '100%',
-              objectFit: 'contain'
-            }}
-            title={!typeCode || !typeMeta ? '결과 정보가 없어 상세보기를 할 수 없습니다' : '나의 성향 자세히 보기'}
+            className="w-full bg-gray-800 text-white py-4 px-6 rounded-lg font-semibold text-base disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors"
           >
-            <img
-              src="/assets/analysis-complete/02.png"
-              alt="나의 성향 자세히 보기"
-              className="h-full object-contain mx-auto w-full"
-              style={{ 
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain'
-              }}
-            />
+            나의 성향 자세히 보기 →
           </button>
         </div>
-
-        {/* 하단 버튼들 - Safari 대응 */}
-        <div 
-          className={`flex flex-col items-center space-y-4 w-full max-w-sm ${
-            isSafari ? 'safari-bottom-safe' : ''
-          }`}
-          style={{
-            ...(isSafari ? {} : {
-              paddingBottom: browserInfo.isMobile 
-                ? `max(1rem, env(safe-area-inset-bottom))` 
-                : '1rem'
-            })
-          }}
-        >
+        
+        {/* 테스트 다시하기 링크 */}
+        <div className="text-center">
           <button
             onClick={handleRetest}
-            className={`text-gray-600 underline transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 rounded px-2 py-1 text-responsive-small ${
-              !browserInfo.isMobile ? 'hover:text-gray-200' : ''
-            }`}
+            className="text-gray-600 underline hover:text-gray-800 transition-colors text-sm font-medium"
           >
             테스트 다시하기
           </button>
         </div>
       </div>
+
+      {/* 하단 홈 인디케이터 */}
+      <div className="flex justify-center pb-2">
+        <div className="w-32 h-1 bg-black rounded-full"></div>
+      </div>
+
+      {/* 카드 뒷면 모달 */}
+      {showBack && currentTimiCard && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full relative">
+            {/* 모달 닫기 버튼 */}
+            <button
+              onClick={() => setShowBack(false)}
+              className="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors"
+            >
+              <span className="text-gray-600 text-xl">×</span>
+            </button>
+            
+            {/* 카드 뒷면 이미지 */}
+            <div className="text-center">
+              <img
+                src={`/assets/timi-cards/${currentTimiCard.name}카드_뒤.png`}
+                alt={`${currentTimiCard.name} 뒷면`}
+                className="w-full h-auto object-contain rounded-xl"
+                onError={(e) => {
+                  console.error('Back image loading failed:', e.currentTarget.src);
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

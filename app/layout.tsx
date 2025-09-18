@@ -85,12 +85,6 @@ export default function RootLayout({
           <main className="flex-1">
             {children}
           </main>
-          
-          {/* 글로벌 푸터 */}
-          <footer className="py-6 text-center text-xs text-gray-500 dark:text-gray-400">
-            <p>© 2025 TEAMITAKA. 개인정보 없이 진행되는 재미있는 테스트입니다.</p>
-            <p className="mt-1">유형은 절대적 기준이 아니라 참고 지표예요.</p>
-          </footer>
         </div>
       </body>
     </html>
