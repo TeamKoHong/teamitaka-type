@@ -54,7 +54,7 @@ function AnalysisCompleteContent() {
         fontFamily: 'Pretendard, sans-serif',
         height: '100vh',
         maxHeight: '100vh',
-        backgroundColor: '#f2f2f2 !important'
+        backgroundColor: '#f2f2f2'
       }}
     >
 
