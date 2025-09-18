@@ -1,7 +1,24 @@
+'use client';
+
 import Image from 'next/image';
 import Star from './Star';
+import { useEffect, useState } from 'react';
 
 export default function HeroMascot() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="relative flex flex-col items-center py-12">
+        <div className="w-48 h-48 sm:w-56 sm:h-56 bg-gray-300 rounded-lg animate-pulse" />
+      </div>
+    );
+  }
+
   return (
     <div className="relative flex flex-col items-center py-12">
       {/* Stars positioned around mascot */}
@@ -19,6 +36,7 @@ export default function HeroMascot() {
           height={200}
           className="w-48 h-48 sm:w-56 sm:h-56"
           priority
+          unoptimized
         />
       </div>
       

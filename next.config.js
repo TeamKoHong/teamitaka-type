@@ -134,7 +134,7 @@ const nextConfig = {
           },
         ],
       },
-      // CSS 청크 파일 MIME 타입 설정
+      // CSS 청크 파일 MIME 타입 설정 (정확한 경로 패턴)
       {
         source: '/_next/static/chunks/app_globals_(.*).css',
         headers: [
