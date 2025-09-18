@@ -54,7 +54,7 @@ export default function HomePage() {
       >
         
         {/* Headline block */}
-        <div className="text-center mb-8" style={{ color: '#FFFFFF' }}>
+        <div className="text-center" style={{ color: '#FFFFFF', marginBottom: '8px' }}>
           <p 
             className="mb-2"
             style={{ 
@@ -96,7 +96,12 @@ export default function HomePage() {
               width: '63.1%', // 226/358 = 0.631
               height: '50px', // 48.14/54 * 56px = 49.9px ≈ 50px
               objectFit: 'contain',
-              margin: '0 auto' // 가운데 정렬
+              margin: '0 auto', // 가운데 정렬
+              display: 'block'
+            }}
+            onError={(e) => {
+              console.error('Image failed to load:', e);
+              e.currentTarget.style.display = 'none';
             }}
           />
         </div>
@@ -126,7 +131,7 @@ export default function HomePage() {
                        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
             style={{ 
               backgroundColor: '#FFFFFF',
-              color: '#222222',
+              color: '#F76241',
               borderColor: 'rgba(255,255,255,0.2)'
             }}
             aria-label="테스트 공유하기"
