@@ -9,7 +9,7 @@ function AnalysisCompleteContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [typeCode, setTypeCode] = useState<string>('');
-  const [showBack, setShowBack] = useState<boolean>(false);
+  const [isFlipped, setIsFlipped] = useState<boolean>(false);
 
   useEffect(() => {
     const type = searchParams.get('type');
@@ -57,41 +57,35 @@ function AnalysisCompleteContent() {
         backgroundColor: '#f2f2f2 !important'
       }}
     >
-      {/* 상단 상태바 영역 */}
-      <div className="absolute top-0 left-0 w-full h-12 z-20">
-        <div className="flex justify-between items-center px-4 pt-3">
-          <div className="text-black font-semibold text-sm">9:41</div>
-          <div className="flex items-center gap-1">
-            <div className="w-4 h-2 bg-black rounded-sm"></div>
-            <div className="w-4 h-3 bg-black rounded-sm"></div>
-            <div className="w-4 h-3 bg-black rounded-sm"></div>
-          </div>
-        </div>
-      </div>
 
-      {/* 상단 X 버튼 */}
-      <div className="absolute top-16 left-4 z-10">
+      
+      {/* 상단 이미지 */}
+      <div className="flex justify-center relative">
+        <img
+          src="/assets/analysis-complete/01.png"
+          alt="성향 분석 완료"
+          className="w-auto h-auto object-contain"
+          onError={(e) => {
+            console.error('Top image loading failed:', e.currentTarget.src);
+            e.currentTarget.style.display = 'none';
+          }}
+        />
+        {/* X 버튼 영역 - 이미지 우측 상단 */}
         <button
           onClick={() => router.push('/')}
-          className="w-4 h-4 bg-transparent hover:bg-gray-300 rounded-full transition-all duration-200 flex items-center justify-center"
+          className="absolute top-4 right-4 w-8 h-8 bg-transparent hover:bg-gray-200 hover:bg-opacity-20 rounded-full transition-all duration-200 flex items-center justify-center"
           title="메인 페이지로 이동"
+          style={{
+            top: '16px',
+            right: '16px'
+          }}
         >
-          <span className="text-black text-lg font-bold">×</span>
+          <span className="text-transparent text-lg font-bold">×</span>
         </button>
-      </div>
-      
-      {/* 제목 영역 */}
-      <div className="text-center pt-20 pb-4 px-4">
-        <h1 className="text-2xl font-bold text-black mb-2">
-          성향 분석 완료!
-        </h1>
-        <p className="text-base text-black">
-          나의 성향이 담긴 <span className="text-black">티미 확인하기</span>
-        </p>
       </div>
 
       {/* 메인 카드 영역 - 가운데 정렬 */}
-      <div className="flex-1 flex items-center justify-center px-4 py-8">
+      <div className="flex-1 flex items-center justify-center px-4 py-2">
         <div 
           className="relative"
           style={{
@@ -99,40 +93,88 @@ function AnalysisCompleteContent() {
             height: '517px'
           }}
         >
-          {currentTimiCard ? (
-            <img
-              src={`/assets/timi-cards/${currentTimiCard.name}카드_앞.png`}
-              alt={`${currentTimiCard.name} 캐릭터`}
-              className="w-full h-full object-contain"
-              onError={(e) => {
-                console.error('Character image loading failed:', e.currentTarget.src);
-                e.currentTarget.style.display = 'none';
+          <div 
+            className="relative cursor-pointer"
+            style={{
+              width: '100%',
+              height: '100%',
+              perspective: '1000px'
+            }}
+            onClick={() => {
+              console.log('Card clicked, current isFlipped:', isFlipped);
+              setIsFlipped(!isFlipped);
+            }}
+          >
+            <div
+              className="relative w-full h-full transition-transform duration-700 ease-in-out"
+              style={{
+                transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                transformStyle: 'preserve-3d'
               }}
-            />
-          ) : (
-            <div className="w-full h-full bg-gray-300 rounded-2xl flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-4xl mb-2">🎴</div>
-                <div className="text-gray-600">카드를 불러올 수 없습니다</div>
+            >
+              {/* 카드 앞면 */}
+              <div 
+                className="absolute inset-0 w-full h-full"
+                style={{
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden'
+                }}
+              >
+                {currentTimiCard ? (
+                  <img
+                    src={`/assets/timi-cards/${currentTimiCard.name}카드_앞.png`}
+                    alt={`${currentTimiCard.name} 캐릭터`}
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      console.error('Character image loading failed:', e.currentTarget.src);
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-300 rounded-2xl flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-4xl mb-2">🎴</div>
+                      <div className="text-gray-600">카드를 불러올 수 없습니다</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              {/* 카드 뒷면 */}
+              <div 
+                className="absolute inset-0 w-full h-full"
+                style={{
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  transform: 'rotateY(180deg)'
+                }}
+              >
+                {currentTimiCard ? (
+                  <img
+                    src={`/assets/timi-cards/${currentTimiCard.name}카드_뒤.png`}
+                    alt={`${currentTimiCard.name} 뒷면`}
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      console.error('Back image loading failed:', e.currentTarget.src);
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-300 rounded-2xl flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-4xl mb-2">🎴</div>
+                      <div className="text-gray-600">카드 뒷면을 불러올 수 없습니다</div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
-
-      {/* 카드 뒷면 보기 버튼 */}
-      <div className="flex justify-center mb-8">
-        <button
-          onClick={() => setShowBack(true)}
-          className="text-black text-sm font-medium hover:text-gray-600 transition-colors flex items-center gap-2"
-        >
-          티미 카드 뒷면 보기
-          <div className="w-1.5 h-2.5 bg-black"></div>
-        </button>
-      </div>
-
+      
       {/* 하단 버튼 영역 */}
-      <div className="w-full px-4 pb-8">
+      <div className="w-full px-4 pt-8 pb-8">
         {/* 나의 성향 자세히 보기 버튼 */}
         <div className="w-full mb-4">
           <button
@@ -160,33 +202,6 @@ function AnalysisCompleteContent() {
         <div className="w-32 h-1 bg-black rounded-full"></div>
       </div>
 
-      {/* 카드 뒷면 모달 */}
-      {showBack && currentTimiCard && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-6 max-w-sm w-full relative">
-            {/* 모달 닫기 버튼 */}
-            <button
-              onClick={() => setShowBack(false)}
-              className="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors"
-            >
-              <span className="text-gray-600 text-xl">×</span>
-            </button>
-            
-            {/* 카드 뒷면 이미지 */}
-            <div className="text-center">
-              <img
-                src={`/assets/timi-cards/${currentTimiCard.name}카드_뒤.png`}
-                alt={`${currentTimiCard.name} 뒷면`}
-                className="w-full h-auto object-contain rounded-xl"
-                onError={(e) => {
-                  console.error('Back image loading failed:', e.currentTarget.src);
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
